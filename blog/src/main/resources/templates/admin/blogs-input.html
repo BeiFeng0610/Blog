@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="_fragments :: head(~{::title})">
+	<head th:replace="admin/_fragments :: head(~{::title})">
 		<meta charset="utf-8">
 		<meta name="viewport" content="white=devic-width,initial-scale=1.0" />
 		<title>博客发布</title>
-		
+
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 		<link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../../static/css/me.css"/>
 
-		
+
 	</head>
 	<body>
-		
+
 		<!-- 导航 -->
-		<nav th:replace="_fragments :: adminMenu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+		<nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
 			<div class="ui container">
 				<div class="ui inverted secondary stackable menu">
 					<h2 class="ui teal header item">管理后台</h2>
@@ -38,7 +38,7 @@
 			<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
 				<i class="sidebar icon"></i>
 			</a>
-			
+
 		</nav>
 		<div class="ui attached pointing menu">
 			<div class="ui container">
@@ -48,13 +48,13 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- 中间内容 -->
 		<div class="m-padded-tb-big m-container-small">
 			<div class="ui container">
-				
+
 				<form action="#" method="post" class="ui form">
-					
+
 					<div class="required field">
 						<div class="ui left labeled input">
 							<div class="ui selection compact teal basic dropdown label">
@@ -66,12 +66,12 @@
 									<div class="item" data-value="转载">转载</div>
 									<div class="item" data-value="翻译">翻译</div>
 								</div>
-								
+
 							</div>
 							<input type="text" name="title" placeholder="标题" />
 						</div>
 					</div>
-					
+
 					<div class="field">
 						<div id="md-content" style="z-index: 1 !important;">
 							<textarea placeholder="博客内容" name="content" style="display: none;">[TOC]
@@ -109,7 +109,7 @@
 							</textarea>
 						</div>
 					</div>
-					
+
 					<div class="two fields">
 						<div class="field">
 							<div class="ui left labeled action input">
@@ -140,14 +140,14 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="field">
 						<div class="ui left labeled input">
 							<label for="" class="ui teal basic label">首图</label>
 							<input type="text" name="indexPicture" placeholder="首图引用地址">
 						</div>
 					</div>
-					
+
 					<div class="inline fields">
 						<div class="field">
 							<div class="ui checkbox">
@@ -168,24 +168,24 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="ui error message"></div>
-					
+
 					<dov class="ui right aligned container">
 						<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
 						<button class="ui secondary button">保存</button>
 						<button class="ui teal button">发布</button>
 					</dov>
-					
+
 				</form>
-				
+
 			</div>
 		</div>
 		<br>
 		<br>
-		
+
 		<!-- 底部footer -->
-		<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+		<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
 			<div class="ui center aligned container">
 				<div class="ui inverted divided stackable grid">
 					<div class="three wide column">
@@ -220,25 +220,28 @@
 			</div>
 		</footer>
 
-		<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+		<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
 		<script src="../../static/js/jquery-3.2.1.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 		<script src="../../static/lib/editormd/editormd.min.js"></script>
 		<!--/*/</th:block>/*/-->
-		
+
 		<script type="text/javascript" th:inline="javascript">
-			
+
 			var contentEditor;
-					
+
 			$(function() {
 			    contentEditor = editormd("md-content", {
 			        width   : "100%",
 			        height  : 640,
 			        syncScrolling : "single",
+					// thymeleaf 需要的path路径
 			        path    : "/lib/editormd/lib/"
-			    }); 
-			    
-			    
+					// 静态网页路径
+					/*path    : "../../static/lib/editormd/lib/"*/
+			    });
+
+
 			    // or
 			    /* contentEditor = editormd({
 			        id      : "md-content",
@@ -246,17 +249,17 @@
 			        height  : 640,
 			        path    : "../../static/lib/editormd/lib/"
 			    }); */
-			   
+
 			});
-			
+
 			$('.menu.toggle').click(function(){
 				$('.m-item').toggleClass('m-mobile-hide');
 			});
-			
+
 			$('.ui.dropdown').dropdown({
 				on : 'hover'
 			});
-			
+
 			$('.ui.form').form({
 				fields : {
 					title : {

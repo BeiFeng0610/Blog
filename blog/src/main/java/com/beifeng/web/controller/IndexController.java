@@ -56,15 +56,6 @@ public class IndexController {
         return "types";
     }
 
-    @GetMapping("/admin/blogs")
-    // @ResponseBody
-    public String adminBlogs(){
-        return "/admin/blogs";
-    }
 
-    @GetMapping("/admin/blogsInput")
-    // @ResponseBody
-    public String adminBlogsInput(){
-        return "/admin/blogs-input";
-    }
+
 }

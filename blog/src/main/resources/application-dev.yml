@@ -1,9 +1,10 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     username: root
-    password: 0610
+    password: "0610"
+
   #设置thymeleaf模板引擎缓存，默认开启
   thymeleaf:
     cache: false
