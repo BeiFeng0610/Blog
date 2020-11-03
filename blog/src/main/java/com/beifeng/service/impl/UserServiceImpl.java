@@ -3,7 +3,6 @@ package com.beifeng.service.impl;
 import com.beifeng.dao.UserMapper;
 import com.beifeng.domain.User;
 import com.beifeng.service.UserService;
-import com.beifeng.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;

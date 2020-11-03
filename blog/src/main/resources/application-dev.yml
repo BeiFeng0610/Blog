@@ -20,3 +20,9 @@ logging:
   level:
     root: info
     com.beifeng: debug
+
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true

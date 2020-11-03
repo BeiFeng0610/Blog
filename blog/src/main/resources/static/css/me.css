@@ -150,11 +150,15 @@ body {
 	display: none !important;
 }
 
+
 /* --------------shadow--------------- */
 .m-shadow-small {
 	-webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
 	box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
 }
+
+
+
 
 @media screen and (max-width: 768px) {
 	.m-mobile-hide {
@@ -176,3 +180,5 @@ body {
 	}
 	
 }
+
+

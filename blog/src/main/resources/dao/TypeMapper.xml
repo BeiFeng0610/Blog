@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beifeng.dao.TypeMapper">
+  <resultMap id="BaseResultMap" type="com.beifeng.domain.Type">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+
+  <insert id="saveType" parameterType="com.beifeng.domain.Type">
+    insert into t_type values (#{id},#{name});
+  </insert>
+
+  <select id="getTypeById" resultType="com.beifeng.domain.Type">
+    select id,name from t_type where id=#{id};
+  </select>
+
+  <select id="getAllType" resultType="com.beifeng.domain.Type">
+    select * from t_type;
+  </select>
+
+  <update id="updateType">
+    update t_type set name=#{name} where id=#{id};
+  </update>
+
+  <delete id="deleteType">
+    delete from t_type where id=#{id};
+  </delete>
+
+  <select id="getTypeByName" parameterType="com.beifeng.domain.Type" resultType="com.beifeng.domain.Type">
+    select * from t_type where name=#{name};
+  </select>
+</mapper>

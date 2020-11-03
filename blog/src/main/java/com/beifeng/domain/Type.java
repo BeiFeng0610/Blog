@@ -1,5 +1,8 @@
 package com.beifeng.domain;
 
+import com.beifeng.domain.Blog;
+
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
 public class Type {
 
     private Long id;
+    @NotBlank(message = "分类名称不能为空")
     private String name;
 
     private List<Blog> blogs = new ArrayList<>(); // 对应的博客

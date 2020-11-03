@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beifeng.dao.TagMapper">
+  <resultMap id="BaseResultMap" type="com.beifeng.domain.Tag">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+
+  <select id="getAllTag" resultType="com.beifeng.domain.Tag">
+    select * from t_tag;
+  </select>
+
+  <select id="getTagByName" resultType="com.beifeng.domain.Tag">
+    select * from t_tag where name=#{name};
+  </select>
+
+  <insert id="saveTag" parameterType="com.beifeng.domain.Tag">
+    insert into t_tag values (#{id},#{name});
+  </insert>
+
+  <select id="getTagById" parameterType="com.beifeng.domain.Tag" resultType="com.beifeng.domain.Tag">
+    select id,name from t_tag where id=#{id};
+  </select>
+
+  <update id="updateTag">
+    update t_tag set name=#{name} where id=#{id};
+  </update>
+
+  <delete id="deleteTag">
+    delete from t_tag where id=#{id};
+  </delete>
+</mapper>
