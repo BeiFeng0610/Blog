@@ -4,10 +4,13 @@ import com.beifeng.dao.TagMapper;
 import com.beifeng.domain.Tag;
 import com.beifeng.domain.Type;
 import com.beifeng.service.TagService;
+import com.beifeng.util.DateTimeUtil;
+import com.beifeng.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,20 +41,29 @@ public class TagServiceImpl implements TagService {
     @Transactional
     @Override
     public void saveTag(Tag tag) {
+        tag.setId(UUIDUtil.getUUID());
+        tag.setCreateTime(DateTimeUtil.getSysTime());
+        tag.setUpdateTime(DateTimeUtil.getSysTime());
+
         tagMapper.saveTag(tag);
     }
 
     @Transactional
     @Override
-    public Tag getTagById(Long id) {
+    public Tag getTagById(String id) {
         return tagMapper.getTagById(id);
     }
 
     @Transactional
     @Override
-    public String updateTag(String name,Long id) {
+    public String updateTag(String name,String id) {
         String msg;
-        Integer count = tagMapper.updateTag(name,id);
+
+        Tag tag = new Tag();
+        tag.setId(id);
+        tag.setName(name);
+        tag.setUpdateTime(DateTimeUtil.getSysTime());
+        Integer count = tagMapper.updateTag(tag);
 
         if (count == 0 ) {
             msg = "修改失败";
@@ -64,14 +76,20 @@ public class TagServiceImpl implements TagService {
 
     @Transactional
     @Override
-    public String deleteTag(Long id) {
+    public String deleteTag(String id) {
+        String msg= "删除失败";
+        /*
+            删除标签，博客关联的标签也会被删除
+        */
+        tagMapper.deleteTagAndblogs(id);
+
         Integer count = tagMapper.deleteTag(id);
-        String msg;
-        if (count == 0 ) {
-            msg = "删除失败";
-        } else {
+
+        if (count == 1 ) {
             msg = "删除成功";
         }
+
         return msg;
     }
+
 }

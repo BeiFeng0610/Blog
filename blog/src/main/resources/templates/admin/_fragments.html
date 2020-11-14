@@ -6,10 +6,6 @@
     <title th:replace="${title}">博客详情</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/typo.css" th:href="@{/css/typo.css}"/>
-    <link rel="stylesheet" type="text/css" href="../static/css/animate.min.css" th:href="@{/css/animate.min.css}"/>
-    <link rel="stylesheet" type="text/css" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}"/>
-    <link rel="stylesheet" type="text/css" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}"/>
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/css/me.css" th:href="@{/css/me.css}"/>
 
@@ -22,19 +18,20 @@
 <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">管理后台</h2>
+            <a href="#" th:href="@{/admin/index}"><h2 class="ui teal header item">管理后台</h2></a>
             <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>博客</a>
             <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
             <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
             <div class="right m-item m-mobile-hide menu">
                 <div class="ui dropdown  item">
                     <div class="text">
-                        <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100">
-                        北风
+                        <img class="ui avatar image" th:src="${session.user.avatar}" src="https://picsum.photos/id/1005/100/100">
+                        <span th:text="${session.user.nickname}"></span>
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                        <a href="#" th:href="@{/admin/user/update}" class="item">编辑资料</a>
+                        <a href="#" th:href="@{/admin/logout}" class="item">注销账号</a>
                     </div>
                 </div>
             </div>
@@ -68,7 +65,7 @@
             <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Email: 1611606790@qq.com</a>
+                    <a href="#" class="item">Email: <span th:text="${session.user.email}"></span></a>
                     <a href="#" class="item">QQ: 1611606790</a>
                 </div>
             </div>
@@ -78,17 +75,12 @@
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | Lirenmi Designed By Lirenmi | 北风徘徊</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | BeiFeng Designed By BeiFeng | 北风徘徊</p>
     </div>
 </footer>
 
 <th:block th:fragment="script">
     <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
-    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
-    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
-    <script src="../static/lib/scrollTo/jquery.scrollTo.min.js" th:src="@{/lib/scrollTo/jquery.scrollTo.min.js}"></script>
-    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
 </th:block>

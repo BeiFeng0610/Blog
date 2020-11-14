@@ -1,6 +1,10 @@
 
 body {
 	background: url(../images/bg.png);
+	no-repeat: center top;
+	font: 14px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
+	height: 100%;
+	width: 100%
 }
 
 .m-padded-mini{
@@ -52,6 +56,20 @@ body {
 	padding-right: 4em !important;
 }
 
+.m-padded-t-small {
+	padding-top: 0.5em !important;
+}
+.m-padded-t {
+	padding-top: 1em !important;
+}
+
+.m-padded-b-small {
+	padding-bottom: 0.5em !important;
+}
+
+.m-padded-b {
+	padding-bottom: 1em !important;
+}
 /* --------text------- */
 
 .m-text {

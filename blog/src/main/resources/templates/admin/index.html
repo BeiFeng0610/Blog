@@ -40,14 +40,21 @@
 		</nav>
 		
 		<!-- 中间内容 -->
-		<div class="m-padded-tb-big m-container-small">
+		<div class="m-padded-tb-huge m-container-small">
 			<div class="ui container">
-				<div class="ui success large message">
-					<h3>Hi,</h3>
-					<p>北风，欢迎登录！</p>
+
+				<div class="ui success message" th:unless="${#strings.isEmpty(msg)}">
+					<i class="close icon"></i>
+					<div class="header">提示</div>
+					<p th:text="${msg}">恭喜，操作成功！</p>
 				</div>
 
-				<img src="https://picsum.photos/id/610/1000/400" alt="" class="ui rounded bordered fluid image">
+				<div class="ui success large message" th:unless="${!#strings.isEmpty(msg)}">
+					<h3>Hi,</h3>
+					<p th:text="${session.user.nickname} + '，欢迎登录！'"></p>
+				</div>
+
+				<img th:src="${session.user.background}" src="https://picsum.photos/id/610/1000/400" alt="" class="ui rounded bordered fluid image">
 			</div>
 		</div>
 		<br>
@@ -103,6 +110,14 @@
 			$('.ui.dropdown').dropdown({
 				on : 'hover'
 			});
+
+			$('.message .close')
+					.on('click', function () {
+						$(this)
+								.closest('.message')
+								.transition('fade');
+					});
+
 		</script>
 	</body>
 </html>

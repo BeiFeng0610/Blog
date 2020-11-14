@@ -6,4 +6,20 @@
         select * from t_user where username=#{username} and password=#{password};
     </select>
 
+    <update id="updateUser" parameterType="com.beifeng.domain.User">
+        update
+            t_user
+        set
+            nickname=#{nickname},
+            username=#{username},
+        <if test="password!=null and password!=''">
+            password=#{password},
+        </if>
+            email=#{email},
+            avatar=#{avatar},
+            background=#{background},
+            update_time=#{updateTime}
+        where
+            id=#{id};
+    </update>
 </mapper>

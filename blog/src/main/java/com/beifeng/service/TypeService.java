@@ -14,13 +14,13 @@ public interface TypeService {
 
     Integer saveType(Type type);
 
-    Type getType(Long id);
+    Type getType(String id);
 
     List<Type> getAllType();
 
-    String updateType(String name,Long id);
+    String updateType(String name,String id);
 
-    String deleteType(Long id);
+    String deleteType(String id);
 
     Type getTypeByName(String name);
 

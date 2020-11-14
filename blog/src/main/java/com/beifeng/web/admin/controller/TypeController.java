@@ -28,11 +28,12 @@ public class TypeController {
 
     /*分页展示类型*/
     @GetMapping("/types")
-    public String types(@RequestParam(required = false,defaultValue = "1",value = "pageNum")int pageNum, Model model){
+    public String types(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum, Model model){
 
+        System.out.println("进入分类展示操作");
         // 按照排序字段 倒序 排序
-        String orderBy = "id desc";
-        PageHelper.startPage(pageNum, 5,orderBy);
+        String orderBy = "update_time desc";
+        PageHelper.startPage(pageNum, 10,orderBy);
         List<Type> list = typeService.getAllType();
         PageInfo<Type> pageInfo = new PageInfo<Type>(list);
 
@@ -42,16 +43,36 @@ public class TypeController {
 
     }
 
+    @PostMapping("/types/search")
+    public String search(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum, Model model){
+
+        System.out.println("执行动态分页查询操作");
+        // 按照排序字段 倒序 排序
+        String orderBy = "update_time desc";
+        PageHelper.startPage(pageNum, 10,orderBy);
+        List<Type> list = typeService.getAllType();
+        PageInfo<Type> pageInfo = new PageInfo<Type>(list);
+
+        model.addAttribute("pageInfo", pageInfo);
+
+        return "admin/types :: typeList";
+
+    }
+
     /*添加类型*/
     @GetMapping("/types/input")
-    public String typeInput(Model model){
+    public String saveInput(Model model){
+        System.out.println("进入添加分类操作");
+
         model.addAttribute("type", new Type());
         return "admin/types-input";
     }
 
     /*添加类型校验*/
     @PostMapping("/types")
-    public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes){
+    public String saveType(@Valid Type type, BindingResult result, RedirectAttributes attributes){
+        System.out.println("执行添加分类信息校验");
+
         if (result.hasErrors()){
             return "admin/types-input";
         }
@@ -70,15 +91,19 @@ public class TypeController {
     }
 
     /*修改类型*/
-    @GetMapping("/types/{id}/input")
-    public String editInput(@PathVariable Long id, Model model){
+    @GetMapping("/types/input/{id}")
+    public String updateInput(@PathVariable String id, Model model){
+        System.out.println("进入修改分类操作");
+
         model.addAttribute("type", typeService.getType(id));
         return "admin/types-input";
     }
 
     /*编辑修改分类*/
     @PostMapping("/types/{id}")
-    public String editPost(@Valid Type type, BindingResult result,Long id, RedirectAttributes attributes){
+    public String updateType(@Valid Type type, BindingResult result,String id, RedirectAttributes attributes){
+        System.out.println("执行修改分类信息校验操作");
+
         if (result.hasErrors()){
             return "admin/types-input";
         }
@@ -96,8 +121,9 @@ public class TypeController {
     }
 
     /*删除分类*/
-    @GetMapping("/types/{id}/delete")
-    public String deleteType(@PathVariable Long id,RedirectAttributes attributes){
+    @GetMapping("/types/delete/{id}")
+    public String deleteType(@PathVariable String id,RedirectAttributes attributes){
+        System.out.println("执行删除分类操作");
 
         String msg = typeService.deleteType(id);
         attributes.addFlashAttribute("msg", msg);

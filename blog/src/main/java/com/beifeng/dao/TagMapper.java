@@ -12,9 +12,13 @@ public interface TagMapper {
 
     void saveTag(Tag tag);
 
-    Tag getTagById(Long id);
+    Tag getTagById(String id);
 
-    Integer updateTag(String name, Long id);
+    Integer updateTag(Tag tag);
 
-    Integer deleteTag(Long id);
+    Integer deleteTag(String id);
+
+    List<Tag> getTagsByIds(List<String> tagIds);
+
+    void deleteTagAndblogs(String id);
 }

@@ -3,10 +3,9 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
 	<meta charset="utf-8">
 	<meta name="viewport" content="white=devic-width,initial-scale=1.0" />
-	<title>分类新增</title>
+	<title>编辑资料</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-	<link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../../static/css/me.css"/>
 
 
@@ -14,12 +13,12 @@
 <body>
 
 <!-- 导航 -->
-<nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
 	<div class="ui container">
 		<div class="ui inverted secondary stackable menu">
 			<h2 class="ui teal header item">管理后台</h2>
 			<a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
-			<a href="#" class="active m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+			<a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
 			<a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
 			<div class="right m-item m-mobile-hide menu">
 				<div class="ui dropdown  item">
@@ -40,72 +39,75 @@
 	</a>
 
 </nav>
-<div class="ui attached pointing menu">
-	<div class="ui container">
-		<div class="right menu">
-			<a href="#" th:href="@{/admin/types/input}"class="teal active item">新增</a>
-			<a href="#" th:href="@{/admin/types}" class="item">列表</a>
-		</div>
-	</div>
-</div>
+
 
 <!-- 中间内容 -->
+
 <div class="m-padded-tb-big m-container-small">
 	<div class="ui container">
 
-		<form action="#" th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}" method="post" class="ui form">
-			<input type="hidden" name="id" th:value="*{id}">
-			<div class="field">
-				<div class="ui left labeled input">
-					<label class="ui teal basic label">名称</label>
-					<input type="text" name="name" placeholder="分类名称" th:value="*{name}">
+		<br>
+		<br>
+		<br>
+		<!--用户资料更新表单-->
+		<form id="blog-form" th:action="@{/admin/user/update}" method="post" class="ui form m-padded-tb-huge">
+
+			<input type="hidden" name="id" th:value="${session.user.id}">
+
+			<div class="ui equal width form">
+				<div class="fields">
+					<div class="field">
+						<label>用户名</label>
+						<input type="text" name="username" placeholder="Username..." th:value="${session.user.username}">
+					</div>
+					<div class="field">
+						<label>密码</label>
+						<input type="password" name="password" th:value="${session.user.password}">
+					</div>
 				</div>
+				<div class="fields">
+					<div class="field">
+						<label>昵称</label>
+						<input type="text" name="nickname" placeholder="NickName..." th:value="${session.user.nickname}">
+					</div>
+					<div class="field">
+						<label>邮箱</label>
+						<input type="text" name="email" placeholder="Email..." th:value="${session.user.email}">
+					</div>
+				</div>
+				<div class="fields">
+					<div class="field">
+						<label>头像</label>
+						<input type="text" name="avatar" placeholder="Avatar..." th:value="${session.user.avatar}">
+					</div>
+					<div class="field">
+						<label>主页背景</label>
+						<input type="text" name="background" placeholder="Background..." th:value="${session.user.background}">
+					</div>
+				</div>
+
+
 			</div>
+
 
 			<div class="ui error message"></div>
 
-			<!--/*/
-            <div class="ui negetive red message" th:if="${#fields.hasErrors('name')}">
-                <i class="close icon"></i>
-                <div class="header">验证失败：</div>
-                <p th:errors="*{name}">对不起，操作失败！</p>
-            </div>
-            /*/-->
+			<br>
 
-			<div class="ui negetive red message" th:unless="${#strings.isEmpty(msg)}">
-				<i class="close icon"></i>
-				<div class="header">验证失败：</div>
-				<p th:text="${msg}">对不起，操作失败！</p>
-			</div>
-
-
-
-			<div class="ui right aligned container">
+			<dov class="ui right aligned container">
+				<!--不加button，默认是submit-->
 				<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-				<button type="button" class="ui teal submit button">提交</button>
-			</div>
+				<button type="submit" id="save-btn" class="ui teal button">保存</button>
+			</dov>
 
 		</form>
+		<br>
+		<br>
+		<br>
 
 	</div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 <!-- 底部footer -->
 <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
@@ -146,10 +148,10 @@
 <!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
 <script src="../../static/js/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js"></script>
 <!--/*/</th:block>/*/-->
 
-<script type="text/javascript" th:inline="javascript">
-
+<script>
 	$('.menu.toggle').click(function(){
 		$('.m-item').toggleClass('m-mobile-hide');
 	});
@@ -158,17 +160,48 @@
 		on : 'hover'
 	});
 
+	/*表单验证*/
 	$('.ui.form').form({
 		fields : {
-			title : {
-				identifier: 'name',
+			username : {
+				identifier: 'username',
 				rules: [{
 					type : 'empty',
-					prompt : '请输入分类名称'
+					prompt : '提示：请设置用户名'
+				}]
+			},
+			/*password : {
+				identifier: 'password',
+				rules: [{
+					type : 'empty',
+					prompt : '提示：请设置用户密码'
+				}]
+			},*/
+			nickname : {
+				identifier: 'nickname',
+				rules: [{
+					type : 'empty',
+					prompt : '提示：请设置用户昵称'
+				}]
+			},
+			avatar : {
+				identifier: 'avatar',
+				rules: [{
+					type : 'empty',
+					prompt : '提示：请设置用户头像'
+				}]
+			},
+			background : {
+				identifier: 'background',
+				rules: [{
+					type : 'empty',
+					prompt : '提示：请设置主页背景'
 				}]
 			}
+
 		}
 	});
+
 	//消息提示关闭初始化
 	$('.message .close')
 			.on('click', function () {
@@ -176,6 +209,7 @@
 						.closest('.message')
 						.transition('fade');
 			});
+
 </script>
 </body>
 </html>

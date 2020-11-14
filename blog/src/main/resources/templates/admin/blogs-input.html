@@ -43,8 +43,8 @@
 		<div class="ui attached pointing menu">
 			<div class="ui container">
 				<div class="right menu">
-					<a href="#" class="teal active item">发布</a>
-					<a href="#" class="item">列表</a>
+					<a href="#" th:href="@{/admin/blogs/input}" class="teal active item">发布</a>
+					<a href="#" th:href="@{/admin/blogs}" class="item">列表</a>
 				</div>
 			</div>
 		</div>
@@ -53,14 +53,18 @@
 		<div class="m-padded-tb-big m-container-small">
 			<div class="ui container">
 
-				<form action="#" method="post" class="ui form">
+				<!--博客添加表单-->
+				<form id="blog-form"  th:object="${blog}" th:action="@{/admin/blogs}" method="post" class="ui form">
+
+					<input type="hidden" name="published">
+					<input type="hidden" name="id">
 
 					<div class="required field">
 						<div class="ui left labeled input">
 							<div class="ui selection compact teal basic dropdown label">
-								<input type="hidden" name="" id="" value="原创" />
+								<input type="hidden" name="flag" value="原创"/>
 								<i class="dropdown icon"></i>
-								<div class=" text">原创</div>
+								<div class="text">原创</div>
 								<div class="menu">
 									<div class="item" data-value="原创">原创</div>
 									<div class="item" data-value="转载">转载</div>
@@ -68,59 +72,28 @@
 								</div>
 
 							</div>
-							<input type="text" name="title" placeholder="标题" />
+							<input type="text" name="title" placeholder="标题"/>
 						</div>
 					</div>
 
-					<div class="field">
+					<div class="required field">
 						<div id="md-content" style="z-index: 1 !important;">
-							<textarea placeholder="博客内容" name="content" style="display: none;">[TOC]
-
-#### Disabled options
-
-- TeX (Based on KaTeX);
-- Emoji;
-- Task lists;
-- HTML tags decode;
-- Flowchart and Sequence Diagram;
-
-#### Editor.md directory
-
-    editor.md/
-            lib/
-            css/
-            scss/
-            tests/
-            fonts/
-            images/
-            plugins/
-            examples/
-            languages/
-            editormd.js
-            ...
-
-```html
-&lt;!-- English --&gt;
-&lt;script src="../../dist/js/languages/en.js"&gt;&lt;/script&gt;
-
-&lt;!-- 繁體中文 --&gt;
-&lt;script src="../../dist/js/languages/zh-tw.js"&gt;&lt;/script&gt;
-```
-							</textarea>
+							<textarea placeholder="博客内容" name="content" style="display: none;"></textarea>
 						</div>
 					</div>
 
 					<div class="two fields">
-						<div class="field">
+						<div class="required field">
 							<div class="ui left labeled action input">
 								<label class="ui compact teal basic label">分类</label>
 								<div class="ui fluid selection dropdown">
-									<input type="hidden" name="type">
+									<!--新增-->
+									<input type="hidden" name="typeId">
+
 									<i class="dropdown icon"></i>
 									<div class="default text">分类</div>
 									<div class="menu">
-										<div class="item" data-value="1">错误日志</div>
-										<div class="item" data-value="1">开发者手册</div>
+										<div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">我的故事</div>
 									</div>
 								</div>
 							</div>
@@ -129,23 +102,26 @@
 							<div class="ui left labeled action input">
 								<label class="ui compact teal basic label">标签</label>
 								<div class="ui fluid selection multiple search dropdown">
-									<input type="hidden" name="tag">
+									<input type="hidden" name="tagIds" >
 									<i class="dropdown icon"></i>
 									<div class="default text">标签</div>
 									<div class="menu">
-										<div class="item" data-value="1">css</div>
-										<div class="item" data-value="2">javascript</div>
+										<div th:each="tag : ${tags}" class="item" data-value="1" th:data-value="${tag.id}" th:text="${tag.name}">Java</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="field">
+					<div class="required field">
 						<div class="ui left labeled input">
-							<label for="" class="ui teal basic label">首图</label>
-							<input type="text" name="indexPicture" placeholder="首图引用地址">
+							<label class="ui teal basic label">首图</label>
+							<input type="text" name="firstPicture" placeholder="首图引用地址">
 						</div>
+					</div>
+
+					<div class="required field">
+						<textarea name="description"  placeholder="博客描述..." maxlength="200"></textarea>
 					</div>
 
 					<div class="inline fields">
@@ -157,24 +133,47 @@
 						</div>
 						<div class="field">
 							<div class="ui checkbox">
-								<input type="checkbox" id="shareInfo" name="shareInfo" class="hidden">
-								<label for="shareInfo">转载声明</label>
+								<input type="checkbox" id="shareStatement" name="shareStatement" class="hidden">
+								<label for="shareStatement">转载声明</label>
 							</div>
 						</div>
 						<div class="field">
 							<div class="ui checkbox">
-								<input type="checkbox" id="comment" name="comment" class="hidden">
-								<label for="comment">评论</label>
+								<input type="checkbox" id="commentabled" name="commentabled" class="hidden">
+								<label for="commentabled">评论</label>
 							</div>
 						</div>
 					</div>
 
 					<div class="ui error message"></div>
+					<!--/*/
+					<div class="ui attached negetive red message" th:if="${#fields.hasErrors('title')}">
+						<p th:errors="*{title}">对不起，操作失败！</p>
+					</div>
+					<div class="ui attached negetive red message" th:if="${#fields.hasErrors('content')}">
+						<p th:errors="*{content}">对不起，操作失败！</p>
+					</div>
+					<div class="ui attached negetive red message" th:if="${#fields.hasErrors('typeId')}">
+						<p th:errors="*{typeId}">对不起，操作失败！</p>
+					</div>
+					<div class="ui attached negetive red message" th:if="${#fields.hasErrors('firstPicture')}">
+						<p th:errors="*{firstPicture}">对不起，操作失败！</p>
+					</div>
+					/*/-->
+
+
+					<div class="ui negetive red message" th:unless="${#strings.isEmpty(msg)}">
+						<i class="close icon"></i>
+						<div class="header">验证失败：</div>
+						<p th:text="${msg}">对不起，操作失败！</p>
+					</div>
+					<br>
 
 					<dov class="ui right aligned container">
+						<!--不加button，默认是submit-->
 						<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-						<button class="ui secondary button">保存</button>
-						<button class="ui teal button">发布</button>
+						<button type="button" id="save-btn" class="ui secondary button">保存</button>
+						<button type="button" id="publish-btn" class="ui teal button">发布</button>
 					</dov>
 
 				</form>
@@ -228,49 +227,94 @@
 
 		<script type="text/javascript" th:inline="javascript">
 
-			var contentEditor;
+			$(function () {
+				var contentEditor;
 
-			$(function() {
-			    contentEditor = editormd("md-content", {
-			        width   : "100%",
-			        height  : 640,
-			        syncScrolling : "single",
-					// thymeleaf 需要的path路径
-			        path    : "/lib/editormd/lib/"
-					// 静态网页路径
-					/*path    : "../../static/lib/editormd/lib/"*/
-			    });
+				$(function() {
+					contentEditor = editormd("md-content", {
+						width   : "100%",
+						height  : 640,
+						syncScrolling : "single",
+						// thymeleaf 需要的path路径
+						path    : "/lib/editormd/lib/"
+						// 静态网页路径
+						/*path    : "../../static/lib/editormd/lib/"*/
+					});
 
 
-			    // or
-			    /* contentEditor = editormd({
-			        id      : "md-content",
-			        width   : "90%",
-			        height  : 640,
-			        path    : "../../static/lib/editormd/lib/"
-			    }); */
+					// or
+					/* contentEditor = editormd({
+                        id      : "md-content",
+                        width   : "90%",
+                        height  : 640,
+                        path    : "../../static/lib/editormd/lib/"
+                    }); */
 
-			});
+				});
 
-			$('.menu.toggle').click(function(){
-				$('.m-item').toggleClass('m-mobile-hide');
-			});
+				$('.menu.toggle').click(function(){
+					$('.m-item').toggleClass('m-mobile-hide');
+				});
 
-			$('.ui.dropdown').dropdown({
-				on : 'hover'
-			});
+				$('.ui.dropdown').dropdown({
+					on : 'hover'
+				});
 
-			$('.ui.form').form({
-				fields : {
-					title : {
-						identifier: 'title',
-						rules: [{
-							type : 'empty',
-							prompt : '标题：请输入博客标题'
-						}]
+				/*表单验证*/
+				$('.ui.form').form({
+					fields : {
+						title : {
+							identifier: 'title',
+							rules: [{
+								type : 'empty',
+								prompt : '提示：请输入博客标题'
+							}]
+						},
+						content : {
+							identifier: 'content',
+							rules: [{
+								type : 'empty',
+								prompt : '提示：请输入博客内容'
+							}]
+						},
+						typeId : {
+							identifier: 'typeId',
+							rules: [{
+								type : 'empty',
+								prompt : '提示：请选择分类'
+							}]
+						},
+						firstPicture : {
+							identifier: 'firstPicture',
+							rules: [{
+								type : 'empty',
+								prompt : '提示：请输入博客首图'
+							}]
+						}
+
 					}
-				}
-			});
+				});
+
+				//消息提示关闭初始化
+				$('.message .close')
+						.on('click', function () {
+							$(this)
+									.closest('.message')
+									.transition('fade');
+						});
+
+				/*提交表单，保存或发布*/
+				$("#save-btn").click(function () {
+					$("[name='published']").val(false);
+					$("#blog-form").submit();
+				})
+				$("#publish-btn").click(function () {
+					$("[name='published']").val(true);
+					$("#blog-form").submit();
+				})
+			})
+
+
 		</script>
 	</body>
 </html>

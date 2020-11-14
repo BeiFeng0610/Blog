@@ -11,15 +11,16 @@ import java.util.List;
  */
 public interface TagService {
 
-    List<Tag> getAllTag();
+    void saveTag(Tag tag);
+
+    String deleteTag(String id);
+
+    String updateTag(String name, String id);
+
+    Tag getTagById(String id);
 
     Tag getTagByName(String name);
 
-    void saveTag(Tag tag);
+    List<Tag> getAllTag();
 
-    Tag getTagById(Long id);
-
-    String updateTag(String name, Long id);
-
-    String deleteTag(Long id);
 }

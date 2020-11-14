@@ -1,7 +1,5 @@
 package com.beifeng.domain;
 
-import com.beifeng.domain.Blog;
-
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +11,22 @@ import java.util.List;
  */
 public class Tag {
 
-    private Long id;
+    private String id;
     @NotBlank(message = "标签名称不能为空")
     private String name;
+    private String createTime;
+    private String updateTime;
 
     private List<Blog> blogs = new ArrayList<>();// 对应的博客
 
     public Tag() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,6 +36,22 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public List<Blog> getBlogs() {
@@ -49,8 +65,11 @@ public class Tag {
     @Override
     public String toString() {
         return "Tag{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", blogs=" + blogs +
                 '}';
     }
 }

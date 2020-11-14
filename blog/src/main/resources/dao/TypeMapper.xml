@@ -10,7 +10,7 @@
   </sql>
 
   <insert id="saveType" parameterType="com.beifeng.domain.Type">
-    insert into t_type values (#{id},#{name});
+    insert into t_type values (#{id},#{name},#{createTime},#{updateTime});
   </insert>
 
   <select id="getTypeById" resultType="com.beifeng.domain.Type">
@@ -21,8 +21,8 @@
     select * from t_type;
   </select>
 
-  <update id="updateType">
-    update t_type set name=#{name} where id=#{id};
+  <update id="updateType" parameterType="com.beifeng.domain.Type">
+    update t_type set name=#{name},update_time=#{updateTime} where id=#{id};
   </update>
 
   <delete id="deleteType">
@@ -31,5 +31,9 @@
 
   <select id="getTypeByName" parameterType="com.beifeng.domain.Type" resultType="com.beifeng.domain.Type">
     select * from t_type where name=#{name};
+  </select>
+
+  <select id="getBlogCountByTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(type_id) from t_blog where type_id=#{id};
   </select>
 </mapper>

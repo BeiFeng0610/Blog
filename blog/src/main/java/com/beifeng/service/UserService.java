@@ -11,4 +11,5 @@ public interface UserService {
 
     User checkUser(String username, String password);
 
+    String updateUser(User user);
 }

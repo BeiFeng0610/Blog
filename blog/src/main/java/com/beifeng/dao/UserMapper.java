@@ -6,4 +6,5 @@ public interface UserMapper {
 
     User findByUsernameAndPassword(String username, String password);
 
+    Integer updateUser(User user);
 }

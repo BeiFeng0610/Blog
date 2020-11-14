@@ -11,26 +11,27 @@ import java.util.List;
  */
 public class User {
 
-    private Long id;
+    private String id;
     private String nickname; // 昵称
     private String username; // 用户名
     private String password; // 密码
     private String email; // 邮箱
     private String avatar; // 头像
+    private String background;// 首页背景
     private Integer type; // 用户类型
-    private Date createTime; // 创建时间
-    private Date updateTime; // 修改时间
+    private String createTime; // 创建时间
+    private String updateTime; // 修改时间
 
     private List<Blog> blogs = new ArrayList<>();// 对应的博客
 
     public User() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -82,19 +83,19 @@ public class User {
         this.type = type;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -106,18 +107,28 @@ public class User {
         this.blogs = blogs;
     }
 
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", background='" + background + '\'' +
                 ", type=" + type +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", blogs=" + blogs +
                 '}';
     }
 }

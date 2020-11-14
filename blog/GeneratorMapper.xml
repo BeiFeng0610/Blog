@@ -39,7 +39,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 数据库表名及对应的 Java 模型类名 -->
-        <table tableName="t_tag" domainObjectName="Tag"
+        <table tableName="t_blog" domainObjectName="Blog"
                 enableCountByExample="false"
                 enableUpdateByExample="false"
                 enableDeleteByExample="false"

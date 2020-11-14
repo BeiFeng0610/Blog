@@ -8,13 +8,15 @@ public interface TypeMapper {
 
     Integer saveType(Type type);
 
-    Type getTypeById(Long id);
+    Type getTypeById(String id);
 
     List<Type> getAllType();
 
-    Integer updateType(String name,Long id);
+    Integer updateType(Type type);
 
-    Integer deleteType(Long id);
+    Integer deleteType(String id);
 
     Type getTypeByName(String name);
+
+    Integer getBlogCountByTypeId(String id);
 }

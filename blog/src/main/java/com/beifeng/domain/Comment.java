@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Comment {
 
-    private Long id;
+    private String id;
     private String nickname; // 昵称
     private String email; // 邮箱
     private String content; // 评论内容
@@ -35,11 +35,11 @@ public class Comment {
     public Comment() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

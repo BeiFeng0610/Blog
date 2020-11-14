@@ -29,12 +29,12 @@ public class TagController {
     private TagService tagService;
 
     @GetMapping("/tags")
-    public String types(@RequestParam(required = false,defaultValue = "1",value = "pageNum")int pageNum, Model model){
+    public String types(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum, Model model){
 
-        System.out.println("进入标签页面");
+        System.out.println("进入标签页面操作");
         // 按照排序字段 倒序 排序
-        String orderBy = "id desc";
-        PageHelper.startPage(pageNum, 5,orderBy);
+        String orderBy = "update_time desc";
+        PageHelper.startPage(pageNum, 10,orderBy);
         List<Tag> list = tagService.getAllTag();
         PageInfo<Tag> pageInfo = new PageInfo<Tag>(list);
 
@@ -44,8 +44,24 @@ public class TagController {
 
     }
 
+    @PostMapping("/tags/search")
+    public String search(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum, Model model){
+
+        System.out.println("执行标签动态分页操作");
+        // 按照排序字段 倒序 排序
+        String orderBy = "update_time desc";
+        PageHelper.startPage(pageNum, 10,orderBy);
+        List<Tag> list = tagService.getAllTag();
+        PageInfo<Tag> pageInfo = new PageInfo<Tag>(list);
+
+        model.addAttribute("pageInfo", pageInfo);
+
+        return "admin/tags :: tagList";
+
+    }
+
     @GetMapping("/tags/input")
-    public String tagsInput(Model model){
+    public String saveInput(Model model){
 
         System.out.println("进入标签添加页面");
 
@@ -55,9 +71,9 @@ public class TagController {
 
     /*添加校验*/
     @PostMapping("/tags")
-    public String postTags(@Valid Tag tag,BindingResult result, RedirectAttributes attributes){
+    public String saveTag(@Valid Tag tag,BindingResult result, RedirectAttributes attributes){
 
-        System.out.println("进入标签校验添加");
+        System.out.println("执行标签添加数据校验");
 
         if (result.hasErrors()){
             return "admin/tags-input";
@@ -77,9 +93,9 @@ public class TagController {
     }
 
     /*修改类型*/
-    @GetMapping("/tags/{id}/input")
-    public String editInput(@PathVariable Long id, Model model){
-        System.out.println("进入标签修改界面");
+    @GetMapping("/tags/input/{id}")
+    public String updateInput(@PathVariable String id, Model model){
+        System.out.println("进入标签修改操作");
 
         model.addAttribute("tag", tagService.getTagById(id));
         return "admin/tags-input";
@@ -87,7 +103,9 @@ public class TagController {
 
     /*编辑修改分类*/
     @PostMapping("/tags/{id}")
-    public String editPost(@Valid Tag tag, BindingResult result,Long id, RedirectAttributes attributes){
+    public String updateTag(@Valid Tag tag, BindingResult result, String id, RedirectAttributes attributes){
+        System.out.println("执行标签修改数据校验");
+
         if (result.hasErrors()){
             return "admin/tags-input";
         }
@@ -105,8 +123,9 @@ public class TagController {
     }
 
     /*删除分类*/
-    @GetMapping("/tags/{id}/delete")
-    public String deleteType(@PathVariable Long id,RedirectAttributes attributes){
+    @GetMapping("/tags/delete/{id}")
+    public String deleteTag(@PathVariable String id,RedirectAttributes attributes){
+        System.out.println("执行标签删除操作");
 
         String msg = tagService.deleteTag(id);
         attributes.addFlashAttribute("msg", msg);
