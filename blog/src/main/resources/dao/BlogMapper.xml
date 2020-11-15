@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beifeng.dao.BlogMapper">
+
+    <resultMap id="blog" type="com.beifeng.domain.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="description" column="description"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="flag" column="flag"/>
+        <result property="views" column="views"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="published" column="published"/>
+        <result property="recommend" column="recommend"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="typeId" column="type_id"/>
+        <result property="userId" column="user_id"/>
+
+    </resultMap>
+
+    <resultMap id="blogVo" type="com.beifeng.vo.BlogVo">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="recommend" column="recommend"/>
+        <result property="published" column="published"/>
+        <result property="typeId" column="type_id"/>
+        <association property="type" javaType="com.beifeng.domain.Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, title, first_picture, flag, views, appreciation, shareStatement, commentabled,
+    published, recommend, create_time, update_time, type_id, user_id
+    </sql>
+    <sql id="Blob_Column_List">
+    content
+    </sql>
+
+    <select id="getAllBlogVo" resultMap="blogVo">
+        select
+            b.id,b.title,b.update_time,b.recommend,b.published,b.type_id,t.id,t.name
+        from
+            t_blog b
+        left outer join
+            t_type t
+        on
+            b.type_id = t.id
+        order by
+            b.update_time
+        desc
+    </select>
+
+    <select id="searchByTitleOrTypeOrRecommend" parameterType="com.beifeng.vo.SearchBlogVo" resultMap="blogVo">
+        <bind name="pattern" value="'%' + title + '%'" />
+        select
+            b.id,b.title,b.update_time,b.recommend,b.published,b.type_id,t.id,t.name
+        from
+            t_blog b
+        left join
+            t_type t
+        on
+            b.type_id=t.id
+        <where>
+
+            <if test="typeId != null and typeId != ''">
+                and b.type_id=#{typeId}
+            </if>
+            <if test="recommend == true">
+                and b.recommend=#{recommend}
+            </if>
+            <if test="title != null">
+                and b.title like #{pattern}
+            </if>
+
+        </where>
+
+    </select>
+
+    <insert id="saveBlogAndTags" parameterType="com.beifeng.vo.BlogAndTagVo">
+        insert into t_blog_tags (id,blog_id,tag_id) values (#{id},#{blogId},#{tagId});
+    </insert>
+
+    <insert id="saveBlog" parameterType="com.beifeng.domain.Blog">
+        insert into t_blog (
+            id,
+            title,
+            content,
+            description,
+            first_picture,
+            flag,
+            views,
+            share_statement,
+            commentabled,
+            published,
+            recommend,
+            create_time,
+            update_time,
+            type_id,
+            user_id
+
+        ) values (
+
+            #{id},
+            #{title},
+            #{content},
+            #{description},
+            #{firstPicture},
+            #{flag},
+            #{views},
+            #{shareStatement},
+            #{commentabled},
+            #{published},
+            #{recommend},
+            #{createTime},
+            #{updateTime},
+            #{typeId},
+            #{userId}
+
+        );
+    </insert>
+
+    <select id="getBlogById" resultMap="blog">
+        select * from t_blog where id=#{id};
+    </select>
+
+    <select id="getTagsById" resultType="java.lang.String">
+        select tag_id from t_blog_tags where blog_id=#{id};
+    </select>
+
+    <delete id="deleteBlogAndTags">
+        delete from t_blog_tags where blog_id=#{id};
+    </delete>
+
+    <update id="updateBlog" parameterType="com.beifeng.domain.Blog">
+        update
+            t_blog
+        set
+            title=#{title},
+            content=#{content},
+            description=#{description},
+            first_picture=#{firstPicture},
+            flag=#{flag},
+            share_statement=#{shareStatement},
+            commentabled=#{commentabled},
+            published=#{published},
+            recommend=#{recommend},
+            update_time=#{updateTime},
+            type_id=#{typeId}
+        where
+            id=#{id};
+    </update>
+
+    <delete id="deleteBlog">
+        delete from t_blog where id=#{id};
+    </delete>
+</mapper>
