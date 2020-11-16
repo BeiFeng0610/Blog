@@ -17,10 +17,10 @@ public class Comment {
     private String email; // 邮箱
     private String content; // 评论内容
     private String avatar; // 头像
-    private Date createTime; // 评论时间
+    private String createTime; // 评论时间
 
-    private Long blogId;
-    private Long parentCommentId;
+    private String blogId;
+    private String parentCommentId;
     private String parentNickname;
 
     private Blog blog; // 对应的博客
@@ -75,27 +75,27 @@ public class Comment {
         this.avatar = avatar;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Long getBlogId() {
+    public String getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(Long blogId) {
+    public void setBlogId(String blogId) {
         this.blogId = blogId;
     }
 
-    public Long getParentCommentId() {
+    public String getParentCommentId() {
         return parentCommentId;
     }
 
-    public void setParentCommentId(Long parentCommentId) {
+    public void setParentCommentId(String parentCommentId) {
         this.parentCommentId = parentCommentId;
     }
 
@@ -134,14 +134,14 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", email='" + email + '\'' +
                 ", content='" + content + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", createTime=" + createTime +
-                ", blogId=" + blogId +
-                ", parentCommentId=" + parentCommentId +
+                ", createTime='" + createTime + '\'' +
+                ", blogId='" + blogId + '\'' +
+                ", parentCommentId='" + parentCommentId + '\'' +
                 ", parentNickname='" + parentNickname + '\'' +
                 ", blog=" + blog +
                 ", replyComments=" + replyComments +

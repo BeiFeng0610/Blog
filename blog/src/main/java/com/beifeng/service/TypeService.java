@@ -1,6 +1,7 @@
 package com.beifeng.service;
 
 import com.beifeng.domain.Type;
+import com.beifeng.vo.TypeVo;
 
 import java.util.List;
 
@@ -24,4 +25,5 @@ public interface TypeService {
 
     Type getTypeByName(String name);
 
+    List<TypeVo> getTypesVo();
 }

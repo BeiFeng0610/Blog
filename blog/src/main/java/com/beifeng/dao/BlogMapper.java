@@ -2,9 +2,7 @@ package com.beifeng.dao;
 
 
 import com.beifeng.domain.Blog;
-import com.beifeng.vo.BlogAndTagVo;
-import com.beifeng.vo.BlogVo;
-import com.beifeng.vo.SearchBlogVo;
+import com.beifeng.vo.*;
 
 import java.util.List;
 
@@ -27,4 +25,14 @@ public interface BlogMapper {
     Integer updateBlog(Blog blog);
 
     Integer deleteBlog(String id);
+
+    List<IndexBlogsVo> getIndexBlogList();
+
+    List<BlogVo> getLatestRecommendedBlogList();
+
+    List<IndexBlogsVo> getBlogByQueryList(String query);
+
+    DetailedBlogVo getDetailedBlog(String id);
+
+    void updateViewAddOne(Integer views,String id);
 }

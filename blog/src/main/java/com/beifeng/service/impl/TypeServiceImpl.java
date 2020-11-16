@@ -5,6 +5,7 @@ import com.beifeng.domain.Type;
 import com.beifeng.service.TypeService;
 import com.beifeng.util.DateTimeUtil;
 import com.beifeng.util.UUIDUtil;
+import com.beifeng.vo.TypeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,5 +94,11 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public Type getTypeByName(String name) {
         return typeMapper.getTypeByName(name);
+    }
+
+    @Transactional
+    @Override
+    public List<TypeVo> getTypesVo() {
+        return typeMapper.getTypeVoList();
     }
 }

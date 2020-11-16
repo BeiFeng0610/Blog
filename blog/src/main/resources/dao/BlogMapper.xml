@@ -159,4 +159,122 @@
     <delete id="deleteBlog">
         delete from t_blog where id=#{id};
     </delete>
+
+    <resultMap id="indexBlogsVo" type="com.beifeng.vo.IndexBlogsVo">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="createTime" column="create_time"/>
+        <result property="description" column="description"/>
+
+        <result property="typeName" column="name"/>
+        <result property="typeId" column="typeId"/>
+
+        <result property="nickName" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
+
+    <select id="getIndexBlogList" resultMap="indexBlogsVo">
+        select
+            b.id,
+            b.title,
+            b.first_picture,
+            b.views,
+            b.create_time,
+            b.description,
+            t.name,
+            t.id as typeId,
+            u.nickname,
+            u.avatar
+        from
+            t_blog b
+        left join
+            t_type t
+        on
+            b.type_id=t.id
+        left join
+            t_user u
+        on
+            b.user_id=u.id
+        where
+            b.published=1
+        order by
+            b.create_time desc
+    </select>
+
+    <select id="getLatestRecommendedBlogList" resultMap="blogVo">
+        select id,title
+        from t_blog
+        where recommend=1 and published=1
+        order by update_time desc
+        limit 3
+    </select>
+
+    <select id="getBlogByQueryList" resultMap="indexBlogsVo">
+        <bind name="pattern" value="'%' + query + '%'" />
+        select
+            b.id,
+            b.title,
+            b.first_picture,
+            b.views,
+            b.create_time,
+            b.description,
+            t.name,
+            t.id as typeId,
+            u.nickname,
+            u.avatar
+        from
+            t_blog b
+        left join
+            t_type t
+        on
+            b.type_id=t.id
+        left join
+            t_user u
+        on
+            b.user_id=u.id
+        where
+            b.published=1 and b.title like #{pattern}
+        order by
+            b.create_time desc
+    </select>
+
+    <resultMap id="detailedBlog" type="com.beifeng.vo.DetailedBlogVo">
+        <id property="id" column="id"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="flag" column="flag"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="views" column="views"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="nickName" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="typeName" column="typeName"/>
+    </resultMap>
+    <select id="getDetailedBlog" resultMap="detailedBlog">
+        SELECT
+            b.id,b.first_picture,b.flag,b.title,b.content,b.views,b.create_time,b.update_time,b.commentabled,b.share_statement,
+            p.`name` as typeName,
+            u.avatar,u.nickname
+        FROM
+            t_blog b
+        left JOIN
+            t_type p
+        ON
+            b.type_id=p.id
+        LEFT JOIN
+            t_user u
+        ON
+            b.user_id=u.id
+        WHERE
+            b.published=1 and b.id=#{id}
+    </select>
+
+    <update id="updateViewAddOne">
+        update t_blog set views=#{views}  where id=#{id};
+    </update>
 </mapper>

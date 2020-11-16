@@ -6,6 +6,7 @@ import com.beifeng.domain.Type;
 import com.beifeng.service.TagService;
 import com.beifeng.util.DateTimeUtil;
 import com.beifeng.util.UUIDUtil;
+import com.beifeng.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/11/3 23:02
  */
+@Transactional
 @Service
 public class TagServiceImpl implements TagService {
 
@@ -25,20 +27,17 @@ public class TagServiceImpl implements TagService {
     @Autowired
     private TagMapper tagMapper;
 
-    @Transactional
     @Override
     public List<Tag> getAllTag() {
 
         return tagMapper.getAllTag();
     }
 
-    @Transactional
     @Override
     public Tag getTagByName(String name) {
         return tagMapper.getTagByName(name);
     }
 
-    @Transactional
     @Override
     public void saveTag(Tag tag) {
         tag.setId(UUIDUtil.getUUID());
@@ -48,13 +47,11 @@ public class TagServiceImpl implements TagService {
         tagMapper.saveTag(tag);
     }
 
-    @Transactional
     @Override
     public Tag getTagById(String id) {
         return tagMapper.getTagById(id);
     }
 
-    @Transactional
     @Override
     public String updateTag(String name,String id) {
         String msg;
@@ -74,7 +71,6 @@ public class TagServiceImpl implements TagService {
         return msg;
     }
 
-    @Transactional
     @Override
     public String deleteTag(String id) {
         String msg= "删除失败";
@@ -92,4 +88,8 @@ public class TagServiceImpl implements TagService {
         return msg;
     }
 
+    @Override
+    public List<TagVo> getTagsVo() {
+        return tagMapper.getTagList();
+    }
 }

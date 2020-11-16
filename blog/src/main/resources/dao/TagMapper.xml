@@ -45,4 +45,23 @@
   <delete id="deleteTagAndblogs">
     delete from t_blog_tags where tag_id=#{id};
   </delete>
+
+  <resultMap id="tagVo" type="com.beifeng.vo.TagVo">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="blogCount" column="blogCount"/>
+  </resultMap>
+
+  <select id="getTagList" resultMap="tagVo">
+    select t.*
+    from
+      (select t.id,t.name,count(bt.tag_id) as blogCount
+       from t_tag t
+       left join t_blog_tags bt
+       on t.id=bt.tag_id
+       group by t.id
+       order by blogCount desc
+       limit 10) t
+     where t.blogCount>0
+  </select>
 </mapper>

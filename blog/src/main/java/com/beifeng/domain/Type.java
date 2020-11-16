@@ -17,7 +17,6 @@ public class Type {
     private String createTime;
     private String updateTime;
 
-    private List<Blog> blogs = new ArrayList<>(); // 对应的博客
 
     public Type() {
     }
@@ -54,13 +53,6 @@ public class Type {
         this.updateTime = updateTime;
     }
 
-    public List<Blog> getBlogs() {
-        return blogs;
-    }
-
-    public void setBlogs(List<Blog> blogs) {
-        this.blogs = blogs;
-    }
 
     @Override
     public String toString() {
@@ -69,7 +61,6 @@ public class Type {
                 ", name='" + name + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", updateTime='" + updateTime + '\'' +
-                ", blogs=" + blogs +
                 '}';
     }
 }

@@ -13,6 +13,9 @@ body {
 .m-padded-tiny{
 	padding: 0.3em !important;
 }
+.m-padded-small{
+	padding: 0.5em !important;
+}
 
 .m-padded{
 	padding: 1em !important;
@@ -77,16 +80,30 @@ body {
 	letter-spacing: 1px !important;
 	line-height: 1.8;
 }
+
 .m-text-thin{
 	font-weight: 300 !important;
 }
+
 .m-text-spaced{
 	letter-spacing: 1px !important;
 }
+
 .m-text-lined {
 	line-height: 1.8;
 }
 
+.m-text-align {
+	text-align: center !important;
+}
+
+.m-text-weight{
+	font-weight: bold !important;
+}
+
+.m-text-indent {
+	text-indent: 2em !important;
+}
 
 /* ---------------margin--------------- */
 .m-margin-top-samll {
@@ -103,6 +120,19 @@ body {
 
 .m-margin-tb-tiny{
 	margin-top: 0.3em !important;
+	margin-bottom: 0.3em !important;
+}
+
+.m-margin-tb-small{
+	margin-top: 0.5em !important;
+	margin-bottom: 0.5em !important;
+}
+
+.m-margin-bottom-mini {
+	margin-bottom: 0.2em !important;
+}
+
+.m-margin-bottom-tiny {
 	margin-bottom: 0.3em !important;
 }
 
@@ -162,6 +192,12 @@ body {
 /* --------------color--------------- */
 .m-black{
 	color: #333 !important;
+}
+.m-orange{
+	color: #f2711c !important;
+}
+.m-teal{
+	color: teal !important;
 }
 
 .m-mobile-show {

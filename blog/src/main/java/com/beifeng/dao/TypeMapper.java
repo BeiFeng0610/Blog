@@ -1,6 +1,7 @@
 package com.beifeng.dao;
 
 import com.beifeng.domain.Type;
+import com.beifeng.vo.TypeVo;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface TypeMapper {
     Type getTypeByName(String name);
 
     Integer getBlogCountByTypeId(String id);
+
+    List<TypeVo> getTypeVoList();
 }

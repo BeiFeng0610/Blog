@@ -5,57 +5,76 @@ package com.beifeng.web.controller;
  * @version 1.0
  * @date 2020/10/26 16:09
  */
-import com.beifeng.execption.NotFoundException;
+import com.beifeng.service.BlogService;
+import com.beifeng.service.TagService;
+import com.beifeng.service.TypeService;
+import com.beifeng.vo.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class IndexController {
 
+    @Autowired
+    TypeService typeService;
+
+    @Autowired
+    TagService tagService;
+
+    @Autowired
+    BlogService blogService;
+
     @GetMapping("/")
-    // @ResponseBody
-    public String index(){
-        // int i = 9/0;
-        /*String blog = null;
-        if (blog == null){
-            throw new NotFoundException("博客不存在");
-        }*/
+    public String index(Model model,
+                        @RequestParam (defaultValue = "1",value = "pageNum") Integer pageNum){
+        System.out.println("进入到博客首页操作");
+
+        PageHelper.startPage(pageNum, 6);
+        List<IndexBlogsVo> allFirstPageBlog = blogService.getIndexBlogs();
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(allFirstPageBlog);
+
+        List<TypeVo> IndexTypes = typeService.getTypesVo();
+        List<TagVo> IndexTags = tagService.getTagsVo();
+        List<BlogVo> LatestRecommendedBlog = blogService.getLatestRecommendedBlogs();
+
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("types", IndexTypes);
+        model.addAttribute("tags", IndexTags);
+        model.addAttribute("RecommendedBlogs", LatestRecommendedBlog);
 
         return "index";
     }
 
-    @GetMapping("/blog")
-    // @ResponseBody
-    public String blog(){
+    @GetMapping("/search")
+    public String search(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,
+                         @RequestParam String query,
+                         Model model){
+        System.out.println("执行条件查询和分页操作");
+
+
+        PageHelper.startPage(pageNum, 6);
+        List<IndexBlogsVo> searchBlog = blogService.getBlogsByQuery(query.trim());
+
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(searchBlog);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("query", query);
+
+        return "search";
+
+    }
+
+    @GetMapping("/blog/{id}")
+    public String blog(@PathVariable String id,Model model){
+        DetailedBlogVo detailedBlog = blogService.getDetailedBlog(id);
+
+        model.addAttribute("blog", detailedBlog);
         return "blog";
     }
-
-    @GetMapping("/about")
-    // @ResponseBody
-    public String about(){
-        return "about";
-    }
-
-    @GetMapping("/archives")
-    // @ResponseBody
-    public String archives(){
-        return "archives";
-    }
-
-    @GetMapping("/tags")
-    // @ResponseBody
-    public String tags(){
-        return "tags";
-    }
-
-    @GetMapping("/types")
-    // @ResponseBody
-    public String types(){
-        return "types";
-    }
-
-
 
 }

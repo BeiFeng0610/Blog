@@ -36,4 +36,35 @@
   <select id="getBlogCountByTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
     select count(type_id) from t_blog where type_id=#{id};
   </select>
+
+  <resultMap id="typeVo" type="com.beifeng.vo.TypeVo">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="blogCount" column="blogCount"/>
+  </resultMap>
+
+  <select id="getTypeVoList" resultMap="typeVo">
+    select
+        t.*
+    from (
+        select
+            t.id,
+            t.name,
+            count(b.type_id) as blogCount
+        from
+            t_type t
+        left join
+            t_blog b
+        on
+            t.id=b.type_id
+        group by
+            t.id
+        order by
+            blogCount desc
+        limit
+            5
+        ) t
+    where
+        t.blogCount>0
+  </select>
 </mapper>

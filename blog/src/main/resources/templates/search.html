@@ -3,7 +3,7 @@
 	<head th:replace="_fragments :: head(~{::title})">
 		<meta charset="utf-8">
 		<meta name="viewport" content="white=devic-width,initial-scale=1.0" />
-		<title>博客</title>
+		<title>博客查询</title>
 		
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 		<link rel="stylesheet" type="text/css" href="../static/css/me.css"/>
@@ -12,11 +12,11 @@
 	<body>
 		
 		<!-- 导航 -->
-		<nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+		<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
 			<div class="ui container">
 				<div class="ui inverted secondary stackable menu">
 					<h2 class="ui teal header item">Blog</h2>
-					<a href="#" class="active m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+					<a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
 					<a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
 					<a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
 					<a href="#" class="m-item item m-mobile-hide"><i class="calendar icon"></i>归档</a>
@@ -37,10 +37,10 @@
 		
 		<!-- 中间内容 -->
 		<div class="m-padded-tb-big m-container">
-			
+
 			<div class="ui container">
-				<div class="ui stackable grid">
-					
+				<div class="ui stackable">
+
 					<!-- 左边博客列表 -->
 					<div class="eleven wide column">
 						<input type="hidden" name="pageNum">
@@ -127,7 +127,7 @@
 									<div class="three wide column" align="center">
 										<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
 											<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
-											<a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="item" style="color: #0a001f">上一页</a>
+											<a th:href="@{/search(query=${query},pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="item" style="color: #0a001f">上一页</a>
 										</div>
 									</div>
 
@@ -148,7 +148,7 @@
 									<div class="three wide column" align="center">
 										<div class="ui mini pagination menu" th:unless="${pageInfo.isLastPage}">
 											<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
-											<a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class="item" style="color: #0a001f">下一页</a>
+											<a th:href="@{/search(query=${query},pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class="item" style="color: #0a001f">下一页</a>
 										</div>
 									</div>
 								</div>
@@ -162,80 +162,8 @@
 
 					</div>
 
-					<!-- 右边的top -->
-					<div class="five wide column">
-						<!-- 分类 -->
-						<div class="ui segments">
-							
-							<div class="ui secondary segment">
-								<div class="ui two column grid">
-									<div class="column">
-										<i class="teal idea icon"></i><span class="m-text-weight">分类</span>
-									</div>
-									<div class="right aligned column">
-										<a href="" target="_blank" th:href="@{/types}" class="m-teal">more <i class="teal angle double right icon"></i></a>
-									</div>
-								</div>
-							</div>
-							
-							<!-- 展示最多的五个分类 -->
-							<div class="ui teal segment">
-								<div class="ui fluid vertical menu m-margin-tb-small" th:each="type, iterStat : ${types}">
-									<a href="#" target="_blank" th:href="@{/types/{id}(id=${type.id})}" class="item">
-										<span th:text="${type.name}">学习日志</span>
-										<div class="ui teal basic left pointing label" th:text="${type.blogCount}">13</div>
-									</a>
-								</div>
-							</div>
-							
-						</div>
-						
-						<!-- 标签 -->
-						<div class="ui segments m-margin-top-large">
-							
-							<div class="ui secondary segment">
-								<div class="ui two column grid">
-									<div class="column">
-										<i class="teal tags icon"></i><span class="m-text-weight">标签</span>
-									</div>
-									<div class="right aligned column">
-										<a href="" target="_blank" th:href="@{/tags}" class="m-teal">more <i class="teal angle double right icon"></i></a>
-									</div>
-								</div>
-							</div>
-							<div class="ui teal segment">
-								<a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag, iterStat : ${tags}">
-									<span th:text="${tag.name}">方法论</span>
-									<div class="detail" th:text="${tag.blogCount}">23</div>
-								</a>
 
-							</div>
-							
-						</div>
-						
-						<!-- 最新推荐 -->
-						<div class="ui segments m-margin-top-large">
-							
-							<div class="ui secondary segment">
-								<i class="teal bookmark icon"></i><span class="m-text-weight">最新推荐</span>
-							</div>
-							<div class="ui segment" th:each="RecommendedBlog, iterStat:${RecommendedBlogs}">
-								<a href="#" th:href="@{/blog/{id}(id=${RecommendedBlog.id})}" target="_blank" class="m-orange m-text-weight m-text-thin" th:text="${RecommendedBlog.title}">用户故事（User Story）</a>
-							</div>
-
-
-							
-						</div>
-						
-						<!-- 二维码 -->
-						<h4 class="ui horizontal divider m-margin-top-large">扫码关注我</h4>
-						<div class="ui centered card " style="width: 11em;">
-							<img  src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded image" >
-						</div>
-						
-					</div>
-					
-				</div>	
+				</div>
 			</div>
 			
 		</div>
@@ -249,7 +177,7 @@
 					<div class="three wide column">
 						<div class="ui inverted link list">
 							<div class="item">
-								<img th:src="@{/images/wechat.jpg}" src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
+								<img th:src="@{/static/images/wechat.jpg}" src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
 							</div>
 						</div>
 					</div>
@@ -291,10 +219,27 @@
 					$('.m-item').toggleClass('m-mobile-hide');
 				});
 
+				$("#indexSearch-icon").click(function () {
+					loaddata();
+				})
 			})
 
+			function pageNum(obj){
+				$("[name='pageNum']").val($(obj).attr('data-pageNum'));
+				loaddata();
+			}
 
 
+			function loaddata() {
+				$("#table-container").load("/search",{
+
+					Search: $("[name='blogSearch']").val(),
+					/*title : $("[name='title']").val(),
+					typeId : $("[name='typeId']").val(),
+					recommend : $("#recommend").prop("checked"),*/
+					pageNum : $("[name='pageNum']").val()
+				});
+			}
 		</script>
 
 	</body>

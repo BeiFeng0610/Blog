@@ -1,6 +1,7 @@
 package com.beifeng.service;
 
 import com.beifeng.domain.Tag;
+import com.beifeng.vo.TagVo;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface TagService {
 
     List<Tag> getAllTag();
 
+    List<TagVo> getTagsVo();
 }
