@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beifeng.dao.CommentMapper">
+    
+    <select id="getParentCommentListByBlogId" resultType="com.beifeng.domain.Comment">
+        select
+            id,
+            nickname,
+            email,
+            content,
+            avatar,
+            create_time as createTime,
+            blog_id as blogId,
+            reply_comment_id as replyCommentId,
+            admin_comment as adminComment
+        from
+            t_comment
+        where
+            blog_id=#{blogId} and parent_comment_id is null
+        order by
+            createTime desc
+    </select>
+
+    <select id="getSubCommentsByParentId" resultType="com.beifeng.domain.Comment">
+        select
+            id,
+            nickname,
+            email,
+            content,
+            avatar,
+            create_time as createTime,
+            blog_id as blogId,
+            parent_comment_id as parentCommentId,
+            reply_comment_id as replyCommentId,
+            admin_comment as adminComment
+        from
+            t_comment
+        where
+            parent_comment_id=#{parentId}
+        order by
+            createTime asc
+    </select>
+
+    <select id="getReplyCommendByReplyCommendId" resultType="com.beifeng.domain.Comment">
+        select
+            id,
+            nickname,
+            email,
+            content,
+            avatar,
+            create_time as createTime,
+            blog_id as blogId,
+            parent_comment_id as parentCommentId,
+            reply_comment_id as replyCommentId,
+            admin_comment as adminComment
+        from
+            t_comment
+        where
+            id=#{replyCommendId}
+    </select>
+
+    <insert id="saveComment" parameterType="com.beifeng.domain.Comment">
+        insert into t_comment (
+            id,
+            nickname,
+            email,
+            content,
+            avatar,
+            create_time,
+        <if test="parentCommentId!=null and parentCommentId!=''">
+            parent_comment_id,
+        </if>
+        <if test="replyCommentId!=null and replyCommentId!=''">
+            reply_comment_id,
+        </if>
+            blog_id,
+            admin_comment
+        ) values (
+            #{id},
+            #{nickname},
+            #{email},
+            #{content},
+            #{avatar},
+            #{createTime},
+        <if test="parentCommentId!=null and parentCommentId!=''">
+            #{parentCommentId},
+        </if>
+        <if test="replyCommentId!=null and replyCommentId!=''">
+            #{replyCommentId},
+        </if>
+            #{blogId},
+            #{adminComment}
+        );
+    </insert>
+
+</mapper>

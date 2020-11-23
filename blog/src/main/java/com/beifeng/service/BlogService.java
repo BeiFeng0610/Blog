@@ -37,4 +37,10 @@ public interface BlogService {
     List<IndexBlogsVo> getBlogsByQuery(String query);
 
     DetailedBlogVo getDetailedBlog(String id);
+
+    List<IndexBlogsVo> getBlogsByTypeId(String id);
+
+    List<IndexBlogsVo> getBlogsByTagId(String id);
+
+    Integer getBlogCount();
 }

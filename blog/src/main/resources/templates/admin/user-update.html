@@ -50,57 +50,59 @@
 		<br>
 		<br>
 		<!--用户资料更新表单-->
-		<form id="blog-form" th:action="@{/admin/user/update}" method="post" class="ui form m-padded-tb-huge">
+		<div class="ui segment rounded">
+			<form id="blog-form" th:action="@{/admin/user/update}" method="post" class="ui form m-padded-tb-huge">
 
-			<input type="hidden" name="id" th:value="${session.user.id}">
+				<input type="hidden" name="id" th:value="${session.user.id}">
 
-			<div class="ui equal width form">
-				<div class="fields">
-					<div class="field">
-						<label>用户名</label>
-						<input type="text" name="username" placeholder="Username..." th:value="${session.user.username}">
+				<div class="ui equal width form">
+					<div class="fields">
+						<div class="field">
+							<label>用户名</label>
+							<input type="text" name="username" placeholder="Username..." th:value="${session.user.username}">
+						</div>
+						<div class="field">
+							<label>密码</label>
+							<input type="password" name="password" th:value="${session.user.password}">
+						</div>
 					</div>
-					<div class="field">
-						<label>密码</label>
-						<input type="password" name="password" th:value="${session.user.password}">
+					<div class="fields">
+						<div class="field">
+							<label>昵称</label>
+							<input type="text" name="nickname" placeholder="NickName..." th:value="${session.user.nickname}">
+						</div>
+						<div class="field">
+							<label>邮箱</label>
+							<input type="text" name="email" placeholder="Email..." th:value="${session.user.email}">
+						</div>
 					</div>
+					<div class="fields">
+						<div class="field">
+							<label>头像</label>
+							<input type="text" name="avatar" placeholder="Avatar..." th:value="${session.user.avatar}">
+						</div>
+						<div class="field">
+							<label>主页背景</label>
+							<input type="text" name="background" placeholder="Background..." th:value="${session.user.background}">
+						</div>
+					</div>
+
+
 				</div>
-				<div class="fields">
-					<div class="field">
-						<label>昵称</label>
-						<input type="text" name="nickname" placeholder="NickName..." th:value="${session.user.nickname}">
-					</div>
-					<div class="field">
-						<label>邮箱</label>
-						<input type="text" name="email" placeholder="Email..." th:value="${session.user.email}">
-					</div>
-				</div>
-				<div class="fields">
-					<div class="field">
-						<label>头像</label>
-						<input type="text" name="avatar" placeholder="Avatar..." th:value="${session.user.avatar}">
-					</div>
-					<div class="field">
-						<label>主页背景</label>
-						<input type="text" name="background" placeholder="Background..." th:value="${session.user.background}">
-					</div>
-				</div>
 
 
-			</div>
+				<div class="ui error message"></div>
 
+				<br>
 
-			<div class="ui error message"></div>
+				<dov class="ui right aligned container">
+					<!--不加button，默认是submit-->
+					<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+					<button type="submit" id="save-btn" class="ui teal button">保存</button>
+				</dov>
 
-			<br>
-
-			<dov class="ui right aligned container">
-				<!--不加button，默认是submit-->
-				<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-				<button type="submit" id="save-btn" class="ui teal button">保存</button>
-			</dov>
-
-		</form>
+			</form>
+		</div>
 		<br>
 		<br>
 		<br>

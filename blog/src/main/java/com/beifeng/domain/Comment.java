@@ -13,24 +13,28 @@ import java.util.List;
 public class Comment {
 
     private String id;
+
     private String nickname; // 昵称
     private String email; // 邮箱
     private String content; // 评论内容
     private String avatar; // 头像
     private String createTime; // 评论时间
+    private String blogId; // 对应的博客id
 
-    private String blogId;
+    // 回复对应评论的id
+    private String replyCommentId;
+
+    // 对应超级父评论的id
     private String parentCommentId;
-    private String parentNickname;
 
-    private Blog blog; // 对应的博客
-
-    /*评论父类*/
+    // 所有在超级父类下的评论
     private List<Comment> replyComments = new ArrayList<>();
 
-    /*评论子类*/
-    private Comment parentComment;
+    // 对应的父评论对象
+    private Comment replyComment;
 
+    // 是否为管理员评论
+    private Boolean adminComment;
 
     public Comment() {
     }
@@ -91,28 +95,20 @@ public class Comment {
         this.blogId = blogId;
     }
 
+    public String getReplyCommentId() {
+        return replyCommentId;
+    }
+
+    public void setReplyCommentId(String replyCommentId) {
+        this.replyCommentId = replyCommentId;
+    }
+
     public String getParentCommentId() {
         return parentCommentId;
     }
 
     public void setParentCommentId(String parentCommentId) {
         this.parentCommentId = parentCommentId;
-    }
-
-    public String getParentNickname() {
-        return parentNickname;
-    }
-
-    public void setParentNickname(String parentNickname) {
-        this.parentNickname = parentNickname;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
     }
 
     public List<Comment> getReplyComments() {
@@ -123,12 +119,20 @@ public class Comment {
         this.replyComments = replyComments;
     }
 
-    public Comment getParentComment() {
-        return parentComment;
+    public Comment getReplyComment() {
+        return replyComment;
     }
 
-    public void setParentComment(Comment parentComment) {
-        this.parentComment = parentComment;
+    public void setReplyComment(Comment replyComment) {
+        this.replyComment = replyComment;
+    }
+
+    public Boolean getAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(Boolean adminComment) {
+        this.adminComment = adminComment;
     }
 
     @Override
@@ -141,11 +145,11 @@ public class Comment {
                 ", avatar='" + avatar + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", blogId='" + blogId + '\'' +
+                ", replyCommentId='" + replyCommentId + '\'' +
                 ", parentCommentId='" + parentCommentId + '\'' +
-                ", parentNickname='" + parentNickname + '\'' +
-                ", blog=" + blog +
                 ", replyComments=" + replyComments +
-                ", parentComment=" + parentComment +
+                ", replyComment=" + replyComment +
+                ", adminComment=" + adminComment +
                 '}';
     }
 }

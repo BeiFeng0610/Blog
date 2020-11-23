@@ -45,15 +45,18 @@
 							<img src="../static/images/wo.jpg" th:src="@{/images/wo.jpg}" alt="" class="ui image rounded">
 						</div>
 					</div>
-					<div class="five wide column">
+					<div class="five wide column center aligned">
+						<br>
 						<div class="ui top attached segment">
 							<div class="ui header">关于我</div>
 						</div>
 						<div class="ui attached segment">
-							<p class="m-text">北风，一个独立开发者，折腾在0和1世界的小青年；一个终身学习者，誓将学习无限循环。希望可以结实共同成长的小伙伴。</p>
-							<p class="m-text">热爱编程，喜欢折腾，正在探索高效学习编程技术的方法...</p>
+							<p class="m-text">“喂，等你很久了”</p>
+							<p class="m-text">北风</p>
+							<p class="m-text">00后，一个热血少年，emmm...太懒了，先这样吧。 (｡･∀･)ﾉﾞ</p>
+							<p class="m-text">热爱编程，喜欢折腾，喜欢数码产品，正在努力的学习...</p>
 						</div>
-						<div class="ui attached segment">
+<!--						<div class="ui attached segment">
 							<div class="ui orange basic left pointing label">编程</div>
 							<div class="ui orange basic left pointing label">写作</div>
 							<div class="ui orange basic left pointing label">思考</div>
@@ -64,14 +67,13 @@
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">Spring Boot</div>
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">MySql</div>
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">JQery</div>
+							<div class="ui teal basic left pointing label m-margin-tb-tiny">jQuery</div>
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">SpringCloud</div>
-						</div>
+						</div>-->
 						<div class="ui bottom attached segment">
-							<a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+							<a href="#" target="_blank" th:href="@{https://github.com/BeiFeng0610/}" class="ui github circular icon button" data-content="点击跳转GitHub" data-position="bottom center"><i class="github icon"></i></a>
 							<a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
 							<a href="#" class="ui qq circular icon button" data-content="1611606790" data-position="bottom center"><i class="qq icon"></i></a>
-							<a href="#" class="ui circular icon button"><i class="telegram icon"></i></a>
 						</div>
 						
 					</div>
@@ -83,8 +85,7 @@
 		<br>
 		<br>
 		<br>
-		<br>
-		
+
 		<!-- 底部footer -->
 		<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
 			<div class="ui center aligned container">
@@ -137,6 +138,7 @@
 			});
 			
 			$('.qq').popup();
+			$('.github').popup();
 			/* $('.wechat').popup(); */
 			$('.wechat').popup({
 				popup : $('.wechat-qr'),

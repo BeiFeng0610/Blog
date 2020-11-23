@@ -5,7 +5,9 @@ package com.beifeng.web.controller;
  * @version 1.0
  * @date 2020/10/26 16:09
  */
+import com.beifeng.domain.Comment;
 import com.beifeng.service.BlogService;
+import com.beifeng.service.CommentService;
 import com.beifeng.service.TagService;
 import com.beifeng.service.TypeService;
 import com.beifeng.vo.*;
@@ -29,6 +31,9 @@ public class IndexController {
 
     @Autowired
     BlogService blogService;
+
+    @Autowired
+    CommentService commentService;
 
     @GetMapping("/")
     public String index(Model model,
@@ -72,8 +77,11 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable String id,Model model){
         DetailedBlogVo detailedBlog = blogService.getDetailedBlog(id);
+        List<Comment> comments = commentService.listCommentByBlogId(id);
 
         model.addAttribute("blog", detailedBlog);
+        model.addAttribute("comments", comments);
+
         return "blog";
     }
 

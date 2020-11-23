@@ -216,11 +216,30 @@ public class BlogServiceImpl implements BlogService {
         String content = detailedBlog.getContent();
         detailedBlog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 
-        Integer views = detailedBlog.getViews() + 1;
+        Integer views = detailedBlog.getViews();
         blogMapper.updateViewAddOne(views,id);
+        views = views + 1;
         detailedBlog.setViews(views);
 
         return detailedBlog;
+    }
+
+    @Override
+    public List<IndexBlogsVo> getBlogsByTypeId(String typeId) {
+
+        List<IndexBlogsVo> blogVoList = blogMapper.getBlogVoByTypeIdList(typeId);
+        return setTags(blogVoList);
+    }
+
+    @Override
+    public List<IndexBlogsVo> getBlogsByTagId(String tagId) {
+        List<IndexBlogsVo> blogVoList = blogMapper.getBlogVoByTagIdList(tagId);
+        return setTags(blogVoList);
+    }
+
+    @Override
+    public Integer getBlogCount() {
+        return blogMapper.getBlogCount();
     }
 
     // 拆分ids
@@ -250,4 +269,5 @@ public class BlogServiceImpl implements BlogService {
 
         return blogList;
     }
+
 }

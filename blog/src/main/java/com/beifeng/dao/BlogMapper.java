@@ -35,4 +35,10 @@ public interface BlogMapper {
     DetailedBlogVo getDetailedBlog(String id);
 
     void updateViewAddOne(Integer views,String id);
+
+    List<IndexBlogsVo> getBlogVoByTypeIdList(String typeId);
+
+    List<IndexBlogsVo> getBlogVoByTagIdList(String tagId);
+
+    Integer getBlogCount();
 }

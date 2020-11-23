@@ -22,4 +22,6 @@ public interface TypeMapper {
     Integer getBlogCountByTypeId(String id);
 
     List<TypeVo> getTypeVoList();
+
+    List<TypeVo> getAllTypeVoList();
 }

@@ -22,10 +22,10 @@
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">BeiFeng</h2>
             <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
+            <a href="#" th:href="@{/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+            <a href="#" th:href="@{/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
+            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
 
                 <form name="search" th:action="@{/search}" method="get" target="_blank">
@@ -36,8 +36,36 @@
                 </form>
 
             </div>
+            <div class="right m-item m-mobile-hide menu" th:if="${session.user}==null">
+                <div class="ui dropdown  item">
+                    <div class="text">
+                        <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100" th:src="@{/images/noface.jpg}" >
+                        <span>游客</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/login}"class="m-item item m-mobile-hide">管理员登录</a>
+                    </div>
+                </div>
+            </div>
+            <div class="right m-item m-mobile-hide menu" th:if="${session.user}!=null">
+                <div class="ui dropdown  item">
+                    <div class="text">
+                        <img class="ui avatar image" th:src="${session.user.avatar}" src="https://picsum.photos/id/1005/100/100">
+                        <span th:text="${session.user.nickname}"></span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/admin/index}" class="item">管理博客</a>
+                        <a href="#" th:href="@{/admin/user/update}" class="item">编辑资料</a>
+                        <a href="#" th:href="@{/logout}" class="item">注销账号</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
     <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
         <i class="sidebar icon"></i>
     </a>
@@ -46,38 +74,41 @@
 
 
 <!-- 底部footer -->
-<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-huge">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
-            <div class="three wide column">
+            <div class="four wide column">
                 <div class="ui inverted link list">
                     <div class="item">
                         <img th:src="@{/images/wechat.jpg}" src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
                     </div>
                 </div>
             </div>
-            <div class="three wide column">
+            <!--<div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
                 <div class="ui inverted link list">
                     <a href="#" class="item">用户故事（User Story）</a>
                     <a href="#" class="item">用户故事（User Story）</a>
                     <a href="#" class="item">用户故事（User Story）</a>
                 </div>
-            </div>
-            <div class="three wide column">
+            </div>-->
+            <div class="four wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Email: 1611606790@qq.com</a>
-                    <a href="#" class="item">QQ: 1611606790</a>
+                    <br>
+                    <a href="" class="item">Email: 1611606790@qq.com</a>
+                    <a href="" class="item">QQ: 1611606790</a>
                 </div>
             </div>
-            <div class="seven wide column">
+            <div class="eight wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人小窝</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">会分享关于我想发的任何内容，希望可以给来到这儿的人有所帮助...</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini"> (゜-゜)つロ 干杯 ~</p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | BeiFeng Designed By BeiFeng | 北风徘徊</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | Designed By BeiFeng | 北风徘徊</p>
     </div>
 </footer>
 
@@ -86,11 +117,21 @@
     <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
     <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
-    <script src="../static/lib/scrollTo/jquery.scrollTo.min.js" th:src="@{/lib/scrollTo/jquery.scrollTo.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
     <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+
+    <script>
+        $(function () {
+            $('.ui.dropdown').dropdown({
+                on : 'hover'
+            });
+        })
+    </script>
+
 </th:block>
+
 
 
 

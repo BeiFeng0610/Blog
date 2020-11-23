@@ -101,4 +101,9 @@ public class TypeServiceImpl implements TypeService {
     public List<TypeVo> getTypesVo() {
         return typeMapper.getTypeVoList();
     }
+
+    @Override
+    public List<TypeVo> getAllTypesVo() {
+        return typeMapper.getAllTypeVoList();
+    }
 }

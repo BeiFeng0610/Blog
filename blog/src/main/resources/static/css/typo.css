@@ -28,6 +28,11 @@
 	text-align: justify;
 }
 
+.typo li{
+    font-weight: 300;
+    padding: 4px 0;
+}
+
 /* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
 .typo article, aside, details, figcaption, figure, footer, header, menu, nav, section {
   display: block;
@@ -198,7 +203,7 @@
 }
 
 /* 底部印刷体、版本等标记 */
-.typo small, .typo-small,
+.typo small, .typo .typo-small,
   /* 图片说明 */
 .typo figcaption {
   font-size: 0.9em;

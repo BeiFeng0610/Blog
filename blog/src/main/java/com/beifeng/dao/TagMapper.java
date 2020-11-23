@@ -24,4 +24,6 @@ public interface TagMapper {
     void deleteTagAndblogs(String id);
 
     List<TagVo> getTagList();
+
+    List<TagVo> getAllTagVoList();
 }

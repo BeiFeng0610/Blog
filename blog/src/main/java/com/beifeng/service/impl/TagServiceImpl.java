@@ -92,4 +92,9 @@ public class TagServiceImpl implements TagService {
     public List<TagVo> getTagsVo() {
         return tagMapper.getTagList();
     }
+
+    @Override
+    public List<TagVo> getAllTagVos() {
+        return tagMapper.getAllTagVoList();
+    }
 }

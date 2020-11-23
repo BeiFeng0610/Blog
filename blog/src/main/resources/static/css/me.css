@@ -1,10 +1,20 @@
 
 body {
-	background: url(../images/bg.png);
+	display: block !important;
+	background-image: url(../images/bg2.jpg);
+	background-attachment: fixed;
+
 	no-repeat: center top;
-	font: 14px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
-	height: 100%;
-	width: 100%
+	font: 14px/1.5 Tahoma,Helvetica,Arial,"Microsoft YaHei","黑体","宋体",sans-serif;
+/*	font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;*/
+	width: 100% !important;
+	height: 100% !important;
+}
+.m-bg{
+	display: block;
+	width: 100% !important;
+	height: 100% !important;
+	/*object-fit: cover;*/
 }
 
 .m-padded-mini{
@@ -82,7 +92,7 @@ body {
 }
 
 .m-text-thin{
-	font-weight: 300 !important;
+	font-weight: 400 !important;
 }
 
 .m-text-spaced{

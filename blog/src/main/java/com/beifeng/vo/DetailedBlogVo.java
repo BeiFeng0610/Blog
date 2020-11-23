@@ -25,6 +25,7 @@ public class DetailedBlogVo {
     private String nickName;
     private String avatar;
 
+    private String typeId;
     private String typeName;
     private List<Tag> tags;
 
@@ -127,6 +128,14 @@ public class DetailedBlogVo {
         this.avatar = avatar;
     }
 
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
     public String getTypeName() {
         return typeName;
     }
@@ -158,6 +167,7 @@ public class DetailedBlogVo {
                 ", shareStatement=" + shareStatement +
                 ", nickName='" + nickName + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", typeId='" + typeId + '\'' +
                 ", typeName='" + typeName + '\'' +
                 ", tags=" + tags +
                 '}';

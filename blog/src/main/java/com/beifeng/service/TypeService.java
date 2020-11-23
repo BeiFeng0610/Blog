@@ -26,4 +26,6 @@ public interface TypeService {
     Type getTypeByName(String name);
 
     List<TypeVo> getTypesVo();
+
+    List<TypeVo> getAllTypesVo();
 }

@@ -54,7 +54,9 @@
 					<p th:text="${session.user.nickname} + '，欢迎登录！'"></p>
 				</div>
 
-				<img th:src="${session.user.background}" src="https://picsum.photos/id/610/1000/400" alt="" class="ui rounded bordered fluid image">
+				<div class="ui segment rounded">
+					<img th:src="${session.user.background}" src="https://picsum.photos/id/610/1000/400" alt="" class="ui rounded bordered fluid image">
+				</div>
 			</div>
 		</div>
 		<br>

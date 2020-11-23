@@ -53,39 +53,41 @@
 <div class="m-padded-tb-big m-container-small">
 	<div class="ui container">
 
-		<form action="#" th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}" method="post" class="ui form">
-			<input type="hidden" name="id" th:value="*{id}">
-			<div class="field">
-				<div class="ui left labeled input">
-					<label class="ui teal basic label">名称</label>
-					<input type="text" name="name" placeholder="分类名称" th:value="*{name}">
+		<div class="ui segment rounded">
+			<form action="#" th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}" method="post" class="ui form">
+				<input type="hidden" name="id" th:value="*{id}">
+				<div class="field">
+					<div class="ui left labeled input">
+						<label class="ui teal basic label">名称</label>
+						<input type="text" name="name" placeholder="分类名称" th:value="*{name}">
+					</div>
 				</div>
-			</div>
 
-			<div class="ui error message"></div>
+				<div class="ui error message"></div>
 
-			<!--/*/
-            <div class="ui negetive red message" th:if="${#fields.hasErrors('name')}">
-                <i class="close icon"></i>
-                <div class="header">验证失败：</div>
-                <p th:errors="*{name}">对不起，操作失败！</p>
-            </div>
-            /*/-->
+				<!--/*/
+                <div class="ui negetive red message" th:if="${#fields.hasErrors('name')}">
+                    <i class="close icon"></i>
+                    <div class="header">验证失败：</div>
+                    <p th:errors="*{name}">对不起，操作失败！</p>
+                </div>
+                /*/-->
 
-			<div class="ui negetive red message" th:unless="${#strings.isEmpty(msg)}">
-				<i class="close icon"></i>
-				<div class="header">验证失败：</div>
-				<p th:text="${msg}">对不起，操作失败！</p>
-			</div>
-
+				<div class="ui negetive red message" th:unless="${#strings.isEmpty(msg)}">
+					<i class="close icon"></i>
+					<div class="header">验证失败：</div>
+					<p th:text="${msg}">对不起，操作失败！</p>
+				</div>
 
 
-			<div class="ui right aligned container">
-				<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-				<button type="button" class="ui teal submit button">提交</button>
-			</div>
 
-		</form>
+				<div class="ui right aligned container">
+					<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+					<button type="button" class="ui teal submit button">提交</button>
+				</div>
+
+			</form>
+		</div>
 
 	</div>
 </div>

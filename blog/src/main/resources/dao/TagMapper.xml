@@ -64,4 +64,15 @@
        limit 10) t
      where t.blogCount>0
   </select>
+
+  <select id="getAllTagVoList" resultMap="tagVo">
+    select t.*
+    from
+      (select t.id,t.name,count(bt.tag_id) as blogCount
+       from t_tag t
+       left join t_blog_tags bt
+       on t.id=bt.tag_id
+       group by t.id
+       order by blogCount desc) t
+  </select>
 </mapper>

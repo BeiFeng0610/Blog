@@ -25,4 +25,6 @@ public interface TagService {
     List<Tag> getAllTag();
 
     List<TagVo> getTagsVo();
+
+    List<TagVo> getAllTagVos();
 }
