@@ -6,73 +6,158 @@
     <title th:replace="${title}">博客详情</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/animate.min.css" th:href="@{/css/animate.min.css}"/>
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}"/>
-    <link rel="stylesheet" type="text/css" href="../static/css/me.css" th:href="@{/css/me.css}"/>
+    <link rel="icon" type="image/x-icon" href="../../static/images/favicon.ico" th:href="@{/images/favicon.ico}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/me.css" th:href="@{/css/me.css}"/>
 
+    <style>
+        .masthead.segment {
+            min-height: 0px;
+            padding: 1em 0em;
+        }
+
+        .pusher {
+            min-height: 65% !important;
+        }
+
+    </style>
 </head>
 <body>
 
+<!-- 手机工具栏和跟随导航-->
+<th:block th:fragment="hideMenu(n)">
 
-<!--------------------------------------后台管理---------------------------------->
-<!-- 导航 -->
-<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <a href="#" th:href="@{/admin/index}"><h2 class="ui teal header item">管理后台</h2></a>
-            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="home icon"></i>主页</a>
-            <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="book icon"></i>博客</a>
-            <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
-            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
-            <div class="right m-item m-mobile-hide menu">
-                <div class="ui dropdown  item">
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a href="#" th:href="@{/}" class="m-item item "><i class="teal home icon"></i>主页</a>
+            <a href="#" th:href="@{/admin/blogs}" class="m-item item " th:classappend="${n==1} ? 'active'"><i class="teal book icon"></i>博客</a>
+            <a href="#" th:href="@{/admin/types}" class="m-item item " th:classappend="${n==2} ? 'active'"><i class="teal idea icon"></i>分类</a>
+            <a href="#" th:href="@{/admin/tags}" class="m-item item " th:classappend="${n==3} ? 'active'"><i class="teal tags icon"></i>标签</a>
+
+            <div class="right menu" style="z-index: 1 !important;">
+                <div class="ui dropdown  item" th:if="${session.user}==null">
+                    <div class="text">
+                        <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100" th:src="@{/images/noface.jpg}" >
+                        <span>游客</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/login}"class="m-item item m-mobile-hide"><i class="user outline icon"></i>管理员登录</a>
+                    </div>
+                </div>
+                <div class="ui dropdown item"  th:if="${session.user}!=null">
                     <div class="text">
                         <img class="ui avatar image" th:src="${session.user.avatar}" src="https://picsum.photos/id/1005/100/100">
                         <span th:text="${session.user.nickname}"></span>
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/admin/user/update}" class="item">编辑资料</a>
-                        <a href="#" th:href="@{/admin/logout}" class="item">注销账号</a>
+                        <a href="#" th:href="@{/admin/index}" class="item"><i class="teal table icon"></i>管理博客</a>
+                        <a href="#" th:href="@{/admin/user/update}" class="item"><i class="teal sliders horizontal icon"></i>编辑资料</a>
+                        <a href="#" th:href="@{/logout}" class="item"><i class="red power off icon"></i>注销账号</a>
                     </div>
+                </div>
+                <div class="item">
                 </div>
             </div>
         </div>
     </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
 
-</nav>
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a href="#" th:href="@{/}" class="m-item item "><i class="home icon"></i>主页</a>
+        <a href="#" th:href="@{/admin/blogs}" class="m-item item " th:classappend="${n==1} ? 'active'"><i class="book icon"></i>博客</a>
+        <a href="#" th:href="@{/admin/types}" class="m-item item " th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+        <a href="#" th:href="@{/admin/tags}" class="m-item item " th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+    </div>
+
+</th:block>
+
+<!--导航-->
+<div class="pusher animate__animated animate__fadeInDown">
+
+    <div id="Menu" th:fragment="menu(n)" class="ui inverted vertical masthead center aligned segment">
+
+        <div class="ui container animate__animated animate__fadeInDown">
+            <div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+                <a class="toc item">
+                    <i class="sidebar icon"></i>
+                </a>
+                <a href="#" th:href="@{/admin/index}"><h2 style="color: #00B5AD">管理后台&emsp;</h2></a>
+                <a href="#" th:href="@{/}" class="m-item item "><i class="home icon"></i>主页</a>
+                <a href="#" th:href="@{/admin/blogs}" class="m-item item " th:classappend="${n==1} ? 'active'"><i class="book icon"></i>博客</a>
+                <a href="#" th:href="@{/admin/types}" class="m-item item " th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+                <a href="#" th:href="@{/admin/tags}" class="m-item item " th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+                <div class="right m-item menu" style="z-index: 1 !important;">
+
+                    <div class="ui dropdown  item" th:if="${session.user}==null">
+                        <div class="text">
+                            <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100" th:src="@{/images/noface.jpg}" >
+                            <span>游客</span>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/login}"class="m-item item m-mobile-hide"><i class="user secret icon"></i>管理员登录</a>
+                        </div>
+                    </div>
+
+                    <div class="ui dropdown item"  th:if="${session.user}!=null">
+                        <div class="text">
+                            <img class="ui avatar image" th:src="${session.user.avatar}" src="https://picsum.photos/id/1005/100/100">
+                            <span th:text="${session.user.nickname}"></span>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/admin/index}" class="item"><i class="teal table icon"></i>管理博客</a>
+                            <a href="#" th:href="@{/admin/user/update}" class="item"><i class="teal sliders horizontal icon"></i>编辑资料</a>
+                            <a href="#" th:href="@{/logout}" class="item"><i class="red power off icon"></i>注销账号</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
 
 <!-- 底部footer -->
 <footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
-            <div class="three wide column">
+            <div class="four wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img th:src="@{/images/wechat.jpg}" src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
+                        <img th:src="@{/images/wechat.jpg}" src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
                     </div>
                 </div>
             </div>
-            <div class="three wide column">
+            <!--<div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
                 <div class="ui inverted link list">
                     <a href="#" class="item">用户故事（User Story）</a>
                     <a href="#" class="item">用户故事（User Story）</a>
                     <a href="#" class="item">用户故事（User Story）</a>
                 </div>
-            </div>
-            <div class="three wide column">
+            </div>-->
+            <div class="four wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Email: <span th:text="${session.user.email}"></span></a>
-                    <a href="#" class="item">QQ: 1611606790</a>
+                    <br>
+                    <a href="" class="item">Email: <span th:text="#{index.email}">1611606790@qq.com</span></a>
+                    <a href="" class="item">QQ: <span th:text="#{index.QQ}">1611606790</span></a>
                 </div>
             </div>
-            <div class="seven wide column">
+            <div class="eight wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人小窝</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">会分享关于我想发的任何内容，希望可以给来到这儿的人有所帮助...</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini"> (゜-゜)つロ 干杯 ~</p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
@@ -81,9 +166,40 @@
 </footer>
 
 <th:block th:fragment="script">
-    <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script src="../../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+
+    <script>
+        $(function () {
+            $('.ui.dropdown').dropdown({
+                on : 'hover'
+            });
+        })
+    </script>
+
+    <script>
+        $(document)
+            .ready(function() {
+
+                // fix menu when passed
+                $('.masthead')
+                    .visibility({
+                        once: false,
+                        onBottomPassed: function() {
+                            $('.fixed.menu').transition('fade in');
+                        },
+                        onBottomPassedReverse: function() {
+                            $('.fixed.menu').transition('fade out');
+                        }
+                    });
+
+                // create sidebar and attach to menu open
+                $('.ui.sidebar')
+                    .sidebar('attach events', '.toc.item');
+            });
+    </script>
+
 </th:block>
 
 

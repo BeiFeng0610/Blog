@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -57,4 +59,26 @@ public class CommentController {
         return "redirect:/comments/" + comment.getBlogId();
     }
 
+    @PostMapping("/comment/edit")
+    public String updateComment(@RequestParam("editCommentId") String commentId,
+                                @RequestParam("editComment") String editComment,
+                                @RequestParam("editBlogId") String blogId,
+                                RedirectAttributes redirectAttributes){
+        /*System.out.println(editCommentId+"----------"+editComment+blogId);*/
+        String msg = commentService.editCommentById(commentId, editComment);
+
+        redirectAttributes.addFlashAttribute("msg", msg);
+        return "redirect:/blog/" + blogId;
+    }
+
+    @PostMapping("/comment/delete")
+    public String deleteComment(@RequestParam("removeCommentId") String commentId,
+                                @RequestParam("editBlogId") String blogId,
+                                RedirectAttributes redirectAttributes){
+        /*System.out.println(editCommentId+"----------"+editComment+blogId);*/
+        String msg = commentService.deleteCommentById(commentId);
+
+        redirectAttributes.addFlashAttribute("msg", msg);
+        return "redirect:/blog/" + blogId;
+    }
 }

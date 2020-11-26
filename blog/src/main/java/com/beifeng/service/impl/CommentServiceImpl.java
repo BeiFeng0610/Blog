@@ -60,7 +60,25 @@ public class CommentServiceImpl implements CommentService {
         return comments;
     }
 
+    @Override
+    public String editCommentById(String commentId, String content) {
+        String msg = "修改失败";
+        Integer count = commentMapper.editCommentById(commentId,content);
+        if (count==1){
+            msg = "修改成功";
+        }
+        return msg;
+    }
 
+    @Override
+    public String deleteCommentById(String commentId) {
+        String msg = "删除失败";
+        Integer count = commentMapper.deleteCommentById(commentId);
+        if (count>0){
+            msg = "删除成功";
+        }
+        return msg;
+    }
 
     /*判断子回复是否在超级父评论下回复过其他  子回复*/
     private void setReplyCommend(List<Comment> subComments,List<Comment> tempReplys){

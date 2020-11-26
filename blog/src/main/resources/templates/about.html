@@ -9,82 +9,98 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
 	</head>
+
 	<body>
-		
-		<!-- 导航 -->
-		<nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-			<div class="ui container">
-				<div class="ui inverted secondary stackable menu">
-					<h2 class="ui teal header item">Blog</h2>
-					<a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="calendar icon"></i>归档</a>
-					<a href="#" class="active m-item item m-mobile-hide"><i class="user secret icon"></i>关于我</a>
-					<div class="right m-item item m-mobile-hide">
-						<div class="ui icon inverted transparent input">
-							<input type="text" placeholder="Search...." name="" id="" value="" />
-							<i class="search link icon"></i>
+
+		<th:block th:replace="_fragments :: hideMenu(5)"></th:block>
+
+		<div id="pusher" class="pusher animate__animated animate__fadeIn">
+			<div th:replace="_fragments :: menu(5,~{::#h1},~{::#h2})" class="ui inverted vertical masthead center aligned segment">
+				<div class="ui container animate__animated animate__fadeInLeftBig">
+					<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+						<a class="toc item">
+							<i class="sidebar icon"></i>
+						</a>
+						<a class="item" ><i class="home icon"></i>首页</a>
+						<a class="item" ><i class="idea icon"></i>分类</a>
+						<a class="item" ><i class="tags icon"></i>标签</a>
+						<a class="item" ><i class="calendar icon"></i>归档</a>
+						<a class="item" ><i class="user secret icon"></i>关于我</a>
+						<div class="right m-item menu">
+							<div class="ui icon inverted transparent input">
+								<input class="" type="text" placeholder="Search...." name="" id="" value="" />
+								<i class="search link icon"></i>
+
+							</div>
+							&emsp;
+							<div class="ui dropdown item" th:if="${session.user}==null">
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="ui text container">
+					<h1 id="h1" class="ui inverted header m-margin-top animate__animated animate__bounce">
+						“喂，等你很久了!”
+					</h1>
+					<h2 id="h2" class="animate__animated animate__flipInX">Hi, it's been a long time waiting for you!</h2>
+				</div>
+			</div>
+
+			<!-- 中间内容 -->
+			<div class="m-padded-tb-massive m-container">
+
+				<div class="ui container">
+					<div class="ui stackable grid">
+						<div class="eleven wide column m-padded-tb-big animate__animated animate__zoomIn">
+							<div class="ui segment">
+								<img src="../static/images/wo.jpg" th:src="@{/images/wo.jpg}" alt="" class="ui image rounded">
+							</div>
+						</div>
+						<div class="five wide column center aligned animate__animated animate__slideInRight">
+							<br>
+							<div class="ui top attached segment">
+								<div class="ui header">关于我</div>
+							</div>
+							<div class="ui attached segment">
+								<p class="m-text">“喂，等你很久了!”</p>
+								<p class="m-text">北风</p>
+								<p class="m-text">00后，一个热血少年，emmm...太懒了，先这样吧。 (｡･∀･)ﾉﾞ</p>
+								<p class="m-text">热爱编程，喜欢折腾，喜欢数码产品，正在努力的学习...</p>
+							</div>
+							<!--<div class="ui attached segment">
+								<div class="ui orange basic left pointing label">编程</div>
+								<div class="ui orange basic left pointing label">写作</div>
+								<div class="ui orange basic left pointing label">思考</div>
+								<div class="ui orange basic left pointing label">独立</div>
+							</div>
+							<div class="ui attached segment">
+								<div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
+								<div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
+								<div class="ui teal basic left pointing label m-margin-tb-tiny">Spring Boot</div>
+								<div class="ui teal basic left pointing label m-margin-tb-tiny">MySql</div>
+								<div class="ui teal basic left pointing label m-margin-tb-tiny">jQuery</div>
+								<div class="ui teal basic left pointing label m-margin-tb-tiny">SpringCloud</div>
+							</div>-->
+							<div class="ui bottom attached segment">
+								<a href="#" target="_blank" th:href="@{https://github.com/BeiFeng0610/}" class="ui github circular icon button" data-content="点击跳转GitHub" data-position="bottom center"><i class="github icon"></i></a>
+								<a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
+								<a href="#" class="ui qq circular icon button" data-content="1611606790" data-position="bottom center"><i class="qq icon"></i></a>
+							</div>
+
 						</div>
 					</div>
 				</div>
+
 			</div>
-			<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-				<i class="sidebar icon"></i>
-			</a>
-			
-		</nav>
-		
-		<!-- 中间内容 -->
-		<div class="m-padded-tb-big m-container">
-			
-			<div class="ui container">
-				<div class="ui stackable grid">
-					<div class="eleven wide column m-padded-tb-big">
-						<div class="ui segment">
-							<img src="../static/images/wo.jpg" th:src="@{/images/wo.jpg}" alt="" class="ui image rounded">
-						</div>
-					</div>
-					<div class="five wide column center aligned">
-						<br>
-						<div class="ui top attached segment">
-							<div class="ui header">关于我</div>
-						</div>
-						<div class="ui attached segment">
-							<p class="m-text">“喂，等你很久了”</p>
-							<p class="m-text">北风</p>
-							<p class="m-text">00后，一个热血少年，emmm...太懒了，先这样吧。 (｡･∀･)ﾉﾞ</p>
-							<p class="m-text">热爱编程，喜欢折腾，喜欢数码产品，正在努力的学习...</p>
-						</div>
-<!--						<div class="ui attached segment">
-							<div class="ui orange basic left pointing label">编程</div>
-							<div class="ui orange basic left pointing label">写作</div>
-							<div class="ui orange basic left pointing label">思考</div>
-							<div class="ui orange basic left pointing label">独立</div>
-						</div>
-						<div class="ui attached segment">
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">Spring Boot</div>
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">MySql</div>
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">jQuery</div>
-							<div class="ui teal basic left pointing label m-margin-tb-tiny">SpringCloud</div>
-						</div>-->
-						<div class="ui bottom attached segment">
-							<a href="#" target="_blank" th:href="@{https://github.com/BeiFeng0610/}" class="ui github circular icon button" data-content="点击跳转GitHub" data-position="bottom center"><i class="github icon"></i></a>
-							<a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
-							<a href="#" class="ui qq circular icon button" data-content="1611606790" data-position="bottom center"><i class="qq icon"></i></a>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-			
+			<br>
+			<br>
+			<br>
+			<br>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
+
 
 		<!-- 底部footer -->
 		<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
@@ -93,7 +109,7 @@
 					<div class="three wide column">
 						<div class="ui inverted link list">
 							<div class="item">
-								<img src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
+								<img src="../static/images/wechat.jpg"  class="ui rounded image" alt="" style="width: 120px;">
 							</div>
 						</div>
 					</div>

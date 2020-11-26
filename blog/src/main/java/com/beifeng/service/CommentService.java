@@ -14,4 +14,8 @@ public interface CommentService {
     List<Comment> listCommentByBlogId(String blogId);
 
     String saveComment(Comment comment);
+
+    String editCommentById(String commentId, String editComment);
+
+    String deleteCommentById(String commentId);
 }

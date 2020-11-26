@@ -11,66 +11,130 @@
     <link rel="stylesheet" type="text/css" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}"/>
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}"/>
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}">
     <link rel="stylesheet" type="text/css" href="../static/css/me.css" th:href="@{/css/me.css}"/>
 
 </head>
 <body>
 
-<!-- 导航 -->
-<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">BeiFeng</h2>
-            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
-            <a href="#" th:href="@{/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
-            <a href="#" th:href="@{/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
-            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
-            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
-            <div class="right m-item item m-mobile-hide">
+<!-- 手机工具栏和跟随导航 -->
+<th:block th:fragment="hideMenu(n)">
 
-                <form name="search" th:action="@{/search}" method="get" target="_blank">
-                    <div class="ui icon inverted transparent input">
-                        <input  type="text" placeholder="Search...." name="query" value="" th:value="${query}" />
-                        <i onclick="document.forms['search'].submit()" class="grey search link icon"></i>
-                    </div>
-                </form>
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="item" th:href="@{/}" th:classappend="${n==1} ? 'active'"><i class="teal home icon"></i>首页</a>
+            <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="teal idea icon"></i>分类</a>
+            <a class="item" th:href="@{/tags}" th:classappend="${n==3} ? 'active'"><i class="teal tags icon"></i>标签</a>
+            <a class="item" th:href="@{/archives}" th:classappend="${n==4} ? 'active'"><i class="teal calendar icon"></i>归档</a>
+            <a class="item" th:href="@{/about}" th:classappend="${n==5} ? 'active'"><i class="teal user secret icon"></i>关于我</a>
 
-            </div>
-            <div class="right m-item m-mobile-hide menu" th:if="${session.user}==null">
-                <div class="ui dropdown  item">
+            <div class="right menu" style="z-index: 1 !important;">
+                <div class="ui dropdown  item" th:if="${session.user}==null">
                     <div class="text">
                         <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100" th:src="@{/images/noface.jpg}" >
                         <span>游客</span>
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/login}"class="m-item item m-mobile-hide">管理员登录</a>
+                        <a href="#" th:href="@{/login}"class="m-item item m-mobile-hide"><i class="user secret icon"></i>管理员登录</a>
                     </div>
                 </div>
-            </div>
-            <div class="right m-item m-mobile-hide menu" th:if="${session.user}!=null">
-                <div class="ui dropdown  item">
+                <div class="ui dropdown item"  th:if="${session.user}!=null">
                     <div class="text">
                         <img class="ui avatar image" th:src="${session.user.avatar}" src="https://picsum.photos/id/1005/100/100">
                         <span th:text="${session.user.nickname}"></span>
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/admin/index}" class="item">管理博客</a>
-                        <a href="#" th:href="@{/admin/user/update}" class="item">编辑资料</a>
-                        <a href="#" th:href="@{/logout}" class="item">注销账号</a>
+                        <a href="#" th:href="@{/admin/index}" class="item"><i class="teal table icon"></i>管理博客</a>
+                        <a href="#" th:href="@{/admin/user/update}" class="item"><i class="teal sliders horizontal icon"></i>编辑资料</a>
+                        <a href="#" th:href="@{/logout}" class="item"><i class="red power off icon"></i>注销账号</a>
                     </div>
                 </div>
+                <div class="item">
+                </div>
             </div>
-
         </div>
     </div>
 
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="item" th:href="@{/}" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+        <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+        <a class="item" th:href="@{/tags}" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+        <a class="item" th:href="@{/archives}" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
+        <a class="item" th:href="@{/about}" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
+    </div>
 
-</nav>
+</th:block>
+
+<!--导航-->
+<div class="pusher animate__animated animate__fadeIn">
+
+    <div id="Menu" th:fragment="menu(n,h1,h2)" class="ui inverted vertical masthead center aligned segment">
+
+        <div class="ui container animate__animated animate__fadeInLeftBig">
+            <div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+                <a class="toc item">
+                    <i class="sidebar icon"></i>
+                </a>
+                <a class="item" th:href="@{/}" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+                <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+                <a class="item" th:href="@{/tags}" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+                <a class="item" th:href="@{/archives}" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
+                <a class="item" th:href="@{/about}" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
+                <div class="right m-item menu" style="z-index: 1 !important;">
+                    <div class="right m-item item">
+
+                        <form name="search" th:action="@{/search}" method="get" target="_blank">
+                            <div class="ui icon inverted transparent input">
+                                <input  type="text" placeholder="Search...." name="query" value="" th:value="${query}" />
+                                <i onclick="document.forms['search'].submit()" class="grey search link icon"></i>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                    <div class="ui dropdown  item" th:if="${session.user}==null">
+                        <div class="text">
+                            <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100" th:src="@{/images/noface.jpg}" >
+                            <span>游客</span>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/login}"class="m-item item m-mobile-hide"><i class="user secret icon"></i>管理员登录</a>
+                        </div>
+                    </div>
+                    <div class="ui dropdown  item"  th:if="${session.user}!=null">
+                        <div class="text">
+                            <img class="ui avatar image" th:src="${session.user.avatar}" src="https://picsum.photos/id/1005/100/100">
+                            <span th:text="${session.user.nickname}"></span>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/admin/index}" class="item"><i class="teal table icon"></i>管理博客</a>
+                            <a href="#" th:href="@{/admin/user/update}" class="item"><i class="teal sliders horizontal icon"></i>编辑资料</a>
+                            <a href="#" th:href="@{/logout}" class="item"><i class="red power off icon"></i>注销账号</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui text container">
+            <h1 id="h1" class="ui inverted header m-margin-top animate__animated animate__bounce" th:replace="${h1}">
+                “嗨，等你好久了”
+            </h1>
+            <h2 id="h2" class="animate__animated animate__flipInX" th:replace="${h2}">Hi, it's been a long time waiting for you!</h2>
+        </div>
+    </div>
+
+
+</div>
 
 
 <!-- 底部footer -->
@@ -96,8 +160,8 @@
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
                     <br>
-                    <a href="" class="item">Email: 1611606790@qq.com</a>
-                    <a href="" class="item">QQ: 1611606790</a>
+                    <a href="" class="item">Email: <span th:text="#{index.email}">1611606790@qq.com</span></a>
+                    <a href="" class="item">QQ: <span th:text="#{index.QQ}">1611606790</span></a>
                 </div>
             </div>
             <div class="eight wide column">
@@ -128,6 +192,28 @@
                 on : 'hover'
             });
         })
+    </script>
+
+    <script>
+        $(document)
+            .ready(function() {
+
+                // fix menu when passed
+                $('.masthead')
+                    .visibility({
+                        once: false,
+                        onBottomPassed: function() {
+                            $('.fixed.menu').transition('fade in');
+                        },
+                        onBottomPassedReverse: function() {
+                            $('.fixed.menu').transition('fade out');
+                        }
+                    });
+
+                // create sidebar and attach to menu open
+                $('.ui.sidebar')
+                    .sidebar('attach events', '.toc.item');
+            });
     </script>
 
 </th:block>

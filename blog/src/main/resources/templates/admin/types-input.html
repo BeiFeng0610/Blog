@@ -14,46 +14,49 @@
 <body>
 
 <!-- 导航 -->
-<nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-	<div class="ui container">
-		<div class="ui inverted secondary stackable menu">
-			<h2 class="ui teal header item">管理后台</h2>
-			<a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
-			<a href="#" class="active m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-			<a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-			<div class="right m-item m-mobile-hide menu">
-				<div class="ui dropdown  item">
-					<div class="text">
-						<img class="ui avatar image" src="https://picsum.photos/id/1005/100/100">
-						北风
+<th:block th:replace="admin/_fragments :: hideMenu(2)"></th:block>
+
+<div id="pusher" class="pusher animate__animated animate__fadeIn">
+	<div th:replace="admin/_fragments :: menu(2)" class="ui inverted vertical masthead center aligned segment">
+		<div class="ui container animate__animated animate__fadeInLeftBig">
+			<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+				<a class="toc item">
+					<i class="sidebar icon"></i>
+				</a>
+				<a class="item" ><i class="home icon"></i>首页</a>
+				<a class="item" ><i class="idea icon"></i>分类</a>
+				<a class="item" ><i class="tags icon"></i>标签</a>
+				<a class="item" ><i class="calendar icon"></i>归档</a>
+				<a class="item" ><i class="user secret icon"></i>关于我</a>
+				<div class="right m-item menu">
+					<div class="ui icon inverted transparent input">
+						<input class="" type="text" placeholder="Search...." name="" id="" value="" />
+						<i class="search link icon"></i>
+
 					</div>
-					<i class="dropdown icon"></i>
-					<div class="menu">
-						<a href="#" class="item">注销</a>
+					&emsp;
+					<div class="ui dropdown item" th:if="${session.user}==null">
+
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
-	<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-		<i class="sidebar icon"></i>
-	</a>
-
-</nav>
-<div class="ui attached pointing menu">
-	<div class="ui container">
-		<div class="right menu">
-			<a href="#" th:href="@{/admin/types/input}"class="teal active item">新增</a>
-			<a href="#" th:href="@{/admin/types}" class="item">列表</a>
+	<div class="ui attached pointing menu">
+		<div class="ui container">
+			<div class="right menu">
+				<a href="#" th:href="@{/admin/types/input}"class="teal active item">新增</a>
+				<a href="#" th:href="@{/admin/types}" class="item">列表</a>
+			</div>
 		</div>
 	</div>
-</div>
 
-<!-- 中间内容 -->
-<div class="m-padded-tb-big m-container-small">
+	<!-- 中间内容 -->
+	<div class="m-padded-tb-massive m-container-small">
 	<div class="ui container">
 
-		<div class="ui segment rounded">
+		<div class="ui segment rounded animate__animated animate__zoomIn">
 			<form action="#" th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}" method="post" class="ui form">
 				<input type="hidden" name="id" th:value="*{id}">
 				<div class="field">
@@ -91,23 +94,7 @@
 
 	</div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</div>
 
 <!-- 底部footer -->
 <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">

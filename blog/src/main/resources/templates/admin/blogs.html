@@ -10,174 +10,188 @@
 		
 	</head>
 	<body>
-		
-		<!-- 导航 -->
-		<nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-			<div class="ui container">
-				<div class="ui inverted secondary stackable menu">
-					<h2 class="ui teal header item">管理后台</h2>
-					<a href="#" class="active m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-					<div class="right m-item m-mobile-hide menu">
-						<div class="ui dropdown  item">
-							<div class="text">
-								<img class="ui avatar image" src="https://picsum.photos/id/1005/100/100">
-								北风
+		<th:block th:replace="admin/_fragments :: hideMenu(1)"></th:block>
+
+		<div id="pusher" class="pusher animate__animated animate__fadeIn">
+			<div th:replace="admin/_fragments :: menu(1)" class="ui inverted vertical masthead center aligned segment">
+				<div class="ui container animate__animated animate__fadeInLeftBig">
+					<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+						<a class="toc item">
+							<i class="sidebar icon"></i>
+						</a>
+						<a class="item" ><i class="home icon"></i>首页</a>
+						<a class="item" ><i class="idea icon"></i>分类</a>
+						<a class="item" ><i class="tags icon"></i>标签</a>
+						<a class="item" ><i class="calendar icon"></i>归档</a>
+						<a class="item" ><i class="user secret icon"></i>关于我</a>
+						<div class="right m-item menu">
+							<div class="ui icon inverted transparent input">
+								<input class="" type="text" placeholder="Search...." name="" id="" value="" />
+								<i class="search link icon"></i>
+
 							</div>
-							<i class="dropdown icon"></i>
-							<div class="menu">
-								<a href="#" class="item">注销</a>
+							&emsp;
+							<div class="ui dropdown item" th:if="${session.user}==null">
+
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
-			<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-				<i class="sidebar icon"></i>
-			</a>
-
-		</nav>
-		<div class="ui attached pointing menu">
-			<div class="ui container">
-				<div class="right menu">
-					<a href="#" th:href="@{/admin/blogs/input}" class="item">发布</a>
-					<a href="#" th:href="@{/admin/blogs}" class="teal active item">列表</a>
-				</div>
-			</div>
-		</div>
-		
-		<!-- 中间内容 -->
-		<div class="m-padded-tb-big m-container-small">
-			<div class="ui container">
-
-				<div class="ui success message" th:unless="${#strings.isEmpty(msg)}">
-					<i class="close icon"></i>
-					<div class="header">提示</div>
-					<p th:text="${msg}">恭喜，操作成功！</p>
-				</div>
-
-				<div class="ui secondary segment form">
-
-					<input type="hidden" name="pageNum">
-
-					<div class="inline fields m-padded-t">
-						<div class="field m-padded-b-small">
-							<input id="title" type="text" name="title" placeholder="标题"/>
-						</div>
-
-						<div class="field m-padded-b-small">
-							<div class="ui labeled action input">
-								<div class="ui type selection dropdown">
-									<input type="hidden" name="typeId">
-									<i class="dropdown icon"></i>
-									<div class="default text">分类</div>
-									<div class="menu">
-										<div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">我的故事</div>
-									</div>
-								</div>
-
-							</div>
-
-						</div>
-						<div class="field m-padded-b-small">
-							<div class="ui checkbox">
-								<input type="checkbox" name="recommend" id="recommend" />
-								<label for="recommend">推荐</label>
-							</div>
-						</div>
-						<div class="field m-padded-b-small">
-							<button type="button" id="clear-btn" class="ui mini teal basic button">
-								<i class="sync alternate icon"></i>重置
-							</button>
-						</div>
-						<div class="field m-padded-b-small">
-							<buttom type="button" id="search-btn" class="ui mini teal basic button">
-								<i class="search icon"></i>搜索
-							</buttom>
-						</div>
+			<div class="ui attached pointing menu">
+				<div class="ui container">
+					<div class="right menu">
+						<a href="#" th:href="@{/admin/blogs/input}" class="item">发布</a>
+						<a href="#" th:href="@{/admin/blogs}" class="teal active item">列表</a>
 					</div>
 				</div>
-
-				<div id="table-container">
-					<table th:fragment="blogList" class="ui compact teal table">
-						<thead>
-						<tr align="center">
-							<th></th>
-							<th>标题</th>
-							<th>类型</th>
-							<th>推荐</th>
-							<th>状态</th>
-							<th>更新时间</th>
-							<th>操作</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr align="center" th:each="blog, iterStat : ${pageInfo.list}">
-							<td th:text="${iterStat.count}">1</td>
-							<td th:text="${blog.title}">可以练习清单</td>
-							<td th:text="${blog.getType().name}">认知升级</td>
-							<td th:text="${blog.recommend} ? '是':'否' ">是</td>
-							<td th:text="${blog.published} ? '发布':'草稿' ">草稿</td>
-							<td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-3-02</td>
-							<td>
-								<a href="#" th:href="@{/admin/blogs/update/{id}(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
-								<a href="#" th:href="@{/admin/blogs/delete/{id}(id=${blog.id})}" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-							</td>
-						</tr>
-						</tbody>
-						<tfoot>
-						<tr>
-							<th colspan="7">
-								<div class="ui inverted divided stackable grid">
-									<div class="three wide column" align="center">
-										<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
-											<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
-											<a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1" class="item" style="color: #0a001f">上一页</a>
-										</div>
-									</div>
-
-									<div class="ten wide column" align="center">
-										<div class="ui mini pagination menu">
-											<div class="item">
-												<p>第 <span th:text="${pageInfo.pageNum}"></span> 页
-											</div>
-											<div class="item">
-												共 <span th:text="${pageInfo.pages}"></span> 页
-											</div>
-											<div class="item">
-												有 <span th:text="${pageInfo.total}"></span> 篇文章</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="three wide column" align="center">
-										<div class="ui mini pagination menu" th:unless="${pageInfo.isLastPage}">
-											<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
-											<a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages}" class="item" style="color: #0a001f">下一页</a>
-										</div>
-									</div>
-								</div>
-								<!--<div class="ui mini pagination menu">
-                                    <a href="#" class=" item">上一页</a>
-                                    <a href="#" class=" item">下一页</a>
-                                </div>-->
-								<div align="center">
-									<a href="#" th:href="@{/admin/blogs/input}">
-										<button type="button" class="ui teal button m-mobile-wide m-margin-top"><i class="pencil icon"></i>新增</button>
-									</a>
-								</div>
-							</th>
-						</tr>
-						</tfoot>
-					</table>
-				</div>
-
 			</div>
+
+			<!-- 中间内容 -->
+			<div class="m-padded-tb-massive m-container-small">
+				<div class="ui container">
+
+					<div class="ui success message animate__animated animate__flipInX" th:unless="${#strings.isEmpty(msg)}">
+						<i class="close icon"></i>
+						<div class="header">提示</div>
+						<p th:text="${msg}">恭喜，操作成功！</p>
+					</div>
+
+					<div class="ui secondary segment form animate__animated animate__flipInX" style="z-index: 1 !important;">
+
+						<input type="hidden" name="pageNum">
+
+						<div class="inline fields m-padded-t" style="z-index: 1!important;">
+							<div class="field m-padded-b-small">
+								<input id="title" type="text" name="title" placeholder="标题"/>
+							</div>
+
+							<div class="field m-padded-b-small">
+								<div class="ui labeled action input">
+									<div class="ui type selection dropdown">
+										<input type="hidden" name="typeId">
+										<i class="dropdown icon"></i>
+										<div class="default text">分类</div>
+										<div class="menu">
+											<div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">我的故事</div>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<div class="field m-padded-b-small">
+								<div class="ui checkbox">
+									<input type="checkbox" name="recommend" id="recommend" />
+									<label for="recommend">推荐</label>
+								</div>
+							</div>
+							<div class="field m-padded-b-small">
+								<button type="button" id="clear-btn" class="ui mini teal basic button">
+									<i class="sync alternate icon"></i>重置
+								</button>
+							</div>
+							<div class="field m-padded-b-small">
+								<buttom type="button" id="search-btn" class="ui mini teal basic button">
+									<i class="search icon"></i>搜索
+								</buttom>
+							</div>
+						</div>
+					</div>
+
+					<div id="table-container">
+						<table th:fragment="blogList" class="ui compact teal table animate__animated animate__zoomIn">
+							<thead>
+							<tr align="center">
+								<th></th>
+								<th>标题</th>
+								<th>类型</th>
+								<th>推荐</th>
+								<th>状态</th>
+								<th>更新时间</th>
+								<th>操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr align="center" th:each="blog, iterStat : ${pageInfo.list}">
+								<td th:text="${iterStat.count}">1</td>
+								<td th:text="${blog.title}">可以练习清单</td>
+								<td th:text="${blog.getType().name}">认知升级</td>
+								<td th:text="${blog.recommend} ? '是':'否' ">是</td>
+								<td th:text="${blog.published} ? '发布':'草稿' ">草稿</td>
+								<td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-3-02</td>
+								<td>
+									<a href="#" th:href="@{/admin/blogs/update/{id}(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
+									<a href="#" th:href="@{/admin/blogs/delete/{id}(id=${blog.id})}" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+								</td>
+
+								<!--删除评论模态窗口-->
+								<div id="delete-modal" class="ui mini modal">
+									<div class="header">
+										<p>你确定删除评论吗？</p>
+									</div>
+
+									<div class="actions">
+										<div class="ui negative button">取消 </div>
+										<button class="ui positive right labeled icon button" type="submit">确认 <i class="checkmark icon"></i> </button>
+									</div>
+
+								</div>
+							</tr>
+							</tbody>
+							<tfoot>
+							<tr>
+								<th colspan="7">
+									<div class="ui inverted divided stackable grid">
+										<div class="three wide column" align="center">
+											<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
+												<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
+												<a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1" class="item" style="color: #0a001f">上一页</a>
+											</div>
+										</div>
+
+										<div class="ten wide column" align="center">
+											<div class="ui mini pagination menu">
+												<div class="item">
+													<p>第 <span th:text="${pageInfo.pageNum}"></span> 页
+												</div>
+												<div class="item">
+													共 <span th:text="${pageInfo.pages}"></span> 页
+												</div>
+												<div class="item">
+													有 <span th:text="${pageInfo.total}"></span> 篇文章</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="three wide column" align="center">
+											<div class="ui mini pagination menu" th:unless="${pageInfo.isLastPage}">
+												<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
+												<a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages}" class="item" style="color: #0a001f">下一页</a>
+											</div>
+										</div>
+									</div>
+									<!--<div class="ui mini pagination menu">
+										<a href="#" class=" item">上一页</a>
+										<a href="#" class=" item">下一页</a>
+									</div>-->
+									<div align="center">
+										<a href="#" th:href="@{/admin/blogs/input}">
+											<button type="button" class="ui teal button m-mobile-wide m-margin-top"><i class="pencil icon"></i>新增</button>
+										</a>
+									</div>
+								</th>
+							</tr>
+							</tfoot>
+						</table>
+					</div>
+
+				</div>
+			</div>
+
 		</div>
-		<br>
-		<br>
-		
+
 		<!-- 底部footer -->
 		<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
 			<div class="ui center aligned container">

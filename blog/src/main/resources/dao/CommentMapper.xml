@@ -95,4 +95,11 @@
         );
     </insert>
 
+    <update id="editCommentById">
+        update t_comment set content=#{content} where id=#{commentId};
+    </update>
+
+    <delete id="deleteCommentById">
+        delete from t_comment where id=#{commentId} or parent_comment_id=#{commentId} or reply_comment_id=#{commentId}
+    </delete>
 </mapper>

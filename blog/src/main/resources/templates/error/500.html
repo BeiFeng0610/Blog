@@ -9,85 +9,127 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/me.css">
 
 </head>
+<style>
+    .masthead.segment {
+        min-height: 700px;
+        padding: 1em 0em;
+    }
+
+    .pusher {
+        min-height: 100% !important;
+    }
+    @media only screen and (max-width: 1000px) {
+        .ui.fixed.menu {
+            display: none !important;
+        }
+
+        .secondary.pointing.menu .item,
+        .secondary.pointing.menu .menu {
+            display: none;
+        }
+
+        .secondary.pointing.menu .toc.item {
+            display: block;
+        }
+
+        .masthead.segment {
+            min-height: 350px;
+        }
+
+        .masthead h1.ui.header {
+            font-size: 2em;
+            margin-top: 2em !important;
+        }
+
+        .masthead h2 {
+            margin-top: 0.5em;
+            font-size: 1em;
+        }
+    }
+</style>
 <body>
 
-<!-- 导航 -->
-<nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">Blog</h2>
-            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="calendar icon"></i>归档</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="user secret icon"></i>关于我</a>
-            <div class="right m-item item m-mobile-hide">
-                <div class="ui icon inverted transparent input">
-                    <input type="text" placeholder="Search...." name="" id="" value="" />
-                    <i class="search link icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
+<th:block th:replace="_fragments :: hideMenu(3)"></th:block>
 
-</nav>
+<div id="pusher" class="pusher animate__animated animate__fadeIn">
+    <div th:replace="_fragments :: menu(3,~{::#h1},~{::#h2})" class="ui inverted vertical masthead center aligned segment">
+        <div class="ui container animate__animated animate__fadeInLeftBig">
+            <div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+                <a class="toc item">
+                    <i class="sidebar icon"></i>
+                </a>
+                <a class="item" ><i class="home icon"></i>首页</a>
+                <a class="item" ><i class="idea icon"></i>分类</a>
+                <a class="item" ><i class="tags icon"></i>标签</a>
+                <a class="item" ><i class="calendar icon"></i>归档</a>
+                <a class="item" ><i class="user secret icon"></i>关于我</a>
+                <div class="right m-item menu">
+                    <div class="ui icon inverted transparent input">
+                        <input class="" type="text" placeholder="Search...." name="" id="" value="" />
+                        <i class="search link icon"></i>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="m-container-small m-padded-tb-massive">
-    <div class="ui error message m-padded-tb-huge">
-        <div class="ui contianer">
-            <h2>505</h2>
-            <p>对不起，服务器异常，请联系管理员</p>
-        </div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
+                    </div>
+                    &emsp;
+                    <div class="ui dropdown item" th:if="${session.user}==null">
 
-<!-- 底部footer -->
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="three wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <img th:src="@{/images/wechat.jpg}" src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
                     </div>
                 </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">用户故事（User Story）</a>
-                    <a href="#" class="item">用户故事（User Story）</a>
-                    <a href="#" class="item">用户故事（User Story）</a>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">Email: 1611606790@qq.com</a>
-                    <a href="#" class="item">QQ: 1611606790</a>
-                </div>
-            </div>
-            <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+
             </div>
         </div>
-        <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | Lirenmi Designed By Lirenmi | 北风徘徊</p>
+
+        <div class="ui text container">
+            <h1 id="h1" class="ui inverted header m-margin-top-huge animate__animated animate__bounce">
+                “505!”
+            </h1>
+            <h2 id="h2" class="animate__animated animate__flipInX">对不起，服务器异常，请联系管理员。</h2>
+        </div>
     </div>
-</footer>
+
+    <!-- 底部footer -->
+    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                        <div class="item">
+                            <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">用户故事（User Story）</a>
+                        <a href="#" class="item">用户故事（User Story）</a>
+                        <a href="#" class="item">用户故事（User Story）</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Email: 1611606790@qq.com</a>
+                        <a href="#" class="item">QQ: 1611606790</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | Lirenmi Designed By Lirenmi | 北风徘徊</p>
+        </div>
+    </footer>
+</div>
+
+
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="../static/js/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
 </body>
 </html>
+
+

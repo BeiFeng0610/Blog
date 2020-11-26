@@ -1,7 +1,7 @@
 
 body {
 	display: block !important;
-	background-image: url(../images/bg2.jpg);
+	/*background-image: url(../images/bg5.png);*/
 	background-attachment: fixed;
 
 	no-repeat: center top;
@@ -10,6 +10,26 @@ body {
 	width: 100% !important;
 	height: 100% !important;
 }
+body.dimmed.dimmable {
+	overflow-y: scroll !important;
+}
+
+/*内容背景*/
+#pusher {
+	/*display: block !important;*/
+	background-image: url(../images/bg.png);
+	background-attachment: fixed;
+
+	/*no-repeat: center top;*/
+	/*font: 14px/1.5 Tahoma,Helvetica,Arial,"Microsoft YaHei","黑体","宋体",sans-serif;*/
+	/*	font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;*/
+	/*width: 100% !important;
+	height: 100% !important;*/
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+
 .m-bg{
 	display: block;
 	width: 100% !important;
@@ -127,6 +147,20 @@ body {
 .m-margin-top-large {
 	margin-top: 2em !important;
 }
+
+.m-margin-top-big {
+	margin-top: 3em !important;
+}
+
+.m-margin-top-huge {
+	margin-top: 4em !important;
+}
+
+.m-margin-top-massive {
+	margin-top: 5em !important;
+}
+
+
 
 .m-margin-tb-tiny{
 	margin-top: 0.3em !important;
@@ -246,3 +280,106 @@ body {
 }
 
 
+/* ----------------------------------原网页------------------------------------ */
+.hidden.menu {
+	display: none;
+}
+
+.masthead.segment {
+	min-height: 400px;
+	padding: 1em 0em;
+}
+
+.masthead .logo.item img {
+	margin-right: 1em;
+}
+
+.masthead .ui.menu .ui.button {
+	margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+	margin-top: 1em;
+	margin-bottom: 0em;
+	font-size: 4em;
+	font-weight: normal;
+}
+
+.masthead h2 {
+	font-size: 1.7em;
+	font-weight: normal;
+}
+
+.ui.vertical.stripe {
+	padding: 8em 0em;
+}
+
+.ui.vertical.stripe h3 {
+	font-size: 2em;
+}
+
+.ui.vertical.stripe .button+h3,
+.ui.vertical.stripe p+h3 {
+	margin-top: 3em;
+}
+
+.ui.vertical.stripe .floated.image {
+	clear: both;
+}
+
+.ui.vertical.stripe p {
+	font-size: 1.33em;
+}
+
+.ui.vertical.stripe .horizontal.divider {
+	margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+	padding: 0em;
+}
+
+.quote.stripe.segment .grid .column {
+	padding-top: 5em;
+	padding-bottom: 5em;
+}
+
+.footer.segment {
+	padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+	display: none;
+}
+
+@media only screen and (max-width: 768px) {
+	.ui.fixed.menu {
+		display: none !important;
+	}
+
+	.secondary.pointing.menu .item,
+	.secondary.pointing.menu .menu {
+		display: none;
+	}
+
+	.secondary.pointing.menu .toc.item {
+		display: block;
+	}
+
+	.masthead.segment {
+		min-height: 350px;
+	}
+
+	.masthead h1.ui.header {
+		font-size: 2em;
+		margin-top: 2.5em !important;
+	}
+
+	.masthead h2 {
+		margin-top: 0.5em;
+		font-size: 1em;
+	}
+}
+
+
+/* ---------------------------------------------------------------------- */

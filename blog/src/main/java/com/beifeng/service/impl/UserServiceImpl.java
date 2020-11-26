@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
             user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         }
 
+        /*更新账户信息时，修改管理员评论和头像*/
+        userMapper.updateAdminComment(user);
+
         Integer count = userMapper.updateUser(user);
         if (count==1){
             msg = "更新用户资料成功";

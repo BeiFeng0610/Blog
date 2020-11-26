@@ -22,4 +22,15 @@
         where
             id=#{id};
     </update>
+
+    <update id="updateAdminComment" parameterType="com.beifeng.domain.User">
+        update
+            t_comment
+        set
+            nickname=#{nickname},
+            email=#{email},
+            avatar=#{avatar}
+        where
+            admin_comment=true
+    </update>
 </mapper>

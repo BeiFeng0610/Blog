@@ -10,98 +10,110 @@
 		
 	</head>
 	<body>
-		
-		<!-- 导航 -->
-		<nav th:replace="_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-			<div class="ui container">
-				<div class="ui inverted secondary stackable menu">
-					<h2 class="ui teal header item">Blog</h2>
-					<a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-					<a href="#" class="active m-item item m-mobile-hide"><i class="calendar icon"></i>归档</a>
-					<a href="#" class="m-item item m-mobile-hide"><i class="user secret icon"></i>关于我</a>
-					<div class="right m-item item m-mobile-hide">
-						<div class="ui icon inverted transparent input">
-							<input type="text" placeholder="Search...." name="" id="" value="" />
-							<i class="search link icon"></i>
+		<th:block th:replace="_fragments :: hideMenu(4)"></th:block>
+
+		<div id="pusher" class="pusher animate__animated animate__fadeIn">
+			<div th:replace="_fragments :: menu(4,~{::#h1},~{::#h2})" class="ui inverted vertical masthead center aligned segment">
+				<div class="ui container animate__animated animate__fadeInLeftBig">
+					<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
+						<a class="toc item">
+							<i class="sidebar icon"></i>
+						</a>
+						<a class="item" ><i class="home icon"></i>首页</a>
+						<a class="item" ><i class="idea icon"></i>分类</a>
+						<a class="item" ><i class="tags icon"></i>标签</a>
+						<a class="item" ><i class="calendar icon"></i>归档</a>
+						<a class="item" ><i class="user secret icon"></i>关于我</a>
+						<div class="right m-item menu">
+							<div class="ui icon inverted transparent input">
+								<input class="" type="text" placeholder="Search...." name="" id="" value="" />
+								<i class="search link icon"></i>
+
+							</div>
+							&emsp;
+							<div class="ui dropdown item" th:if="${session.user}==null">
+
+							</div>
 						</div>
+
 					</div>
+				</div>
+
+				<div class="ui text container">
+					<h1 id="h1" class="ui inverted header m-margin-top animate__animated animate__bounce">
+						“吾，所有灵感!”
+					</h1>
+					<h2 id="h2" class="animate__animated animate__flipInX">My, All inspiration!</h2>
 				</div>
 			</div>
-			<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-				<i class="sidebar icon"></i>
-			</a>
-			
-		</nav>
-		
-		<!-- 中间内容 -->
-		<div class="m-padded-tb-big m-container-small">
-			<div class="ui container">
-				
-				<!-- header -->
-				<div class="ui top attached padded segment">
-					<div class="ui middle aligned two column grid">
-						<div class="column">
-							<h3 class="ui teal header">归档</h3>
-						</div>
-						<div class="right aligned column">
-							共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}"> 14 </h2> 个
+
+			<!-- 中间内容 -->
+			<div class="m-padded-tb-massive m-container-small">
+				<div class="ui container">
+
+					<!-- header -->
+					<div class="ui top attached padded segment animate__animated animate__flipInX">
+						<div class="ui middle aligned two column grid">
+							<div class="column">
+								<h3 class="ui teal header">归档</h3>
+							</div>
+							<div class="right aligned column">
+								共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}"> 14 </h2> 个
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="ui teal top segment rounded">
-					<th:block th:each="item : ${archivesMap}">
-						<h3 class="ui center aligned header" th:text="${item.key}">2020</h3>
-						<div class="ui fluid vertical menu">
-							<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
+
+					<div class="ui teal top segment rounded animate__animated animate__zoomIn">
+						<th:block th:each="item : ${archivesMap}">
+							<h3 class="ui center aligned header" th:text="${item.key}">2020</h3>
+							<div class="ui fluid vertical menu">
+								<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
+								<span>
+									<i class="mini teal circle icon"> </i>&nbsp;&nbsp; <span th:text="${blog.title}">关于刻意练习的清单</span>
+									<div class="ui teal basic left pointing label m-padded-tiny"><span th:text="${#strings.substring(blog.createTime,5,7)}">10</span>月<span th:text="${#strings.substring(blog.createTime,8,10)}">17</span>日</div>
+								</span>
+									<div class="ui orange basic left pointing label m-padded-tiny" th:text="${blog.flag}">原创</div>
+								</a>
+
+							</div>
+						</th:block>
+
+					</div>
+					<!--<h3 class="ui center aligned header">2019</h3>
+					<div class="ui fluid vertical menu">
+						<a href="#" target="_blank" class="item">
 							<span>
-								<i class="mini teal circle icon"> </i>&nbsp;&nbsp; <span th:text="${blog.title}">关于刻意练习的清单</span>
-								<div class="ui teal basic left pointing label m-padded-tiny"><span th:text="${#strings.substring(blog.createTime,5,7)}">10</span>月<span th:text="${#strings.substring(blog.createTime,8,10)}">17</span>日</div>
+								<i class="mini teal circle icon"> </i> 关于刻意练习的清单
+								<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
 							</span>
-								<div class="ui orange basic left pointing label m-padded-tiny" th:text="${blog.flag}">原创</div>
-							</a>
-
-						</div>
-					</th:block>
+							<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
+						</a>
+						<a href="#" target="_blank" class="item">
+							<span>
+								<i class="mini teal circle icon"> </i> 关于刻意练习的清单
+								<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
+							</span>
+							<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
+						</a>
+						<a href="#" target="_blank" class="item">
+							<span>
+								<i class="mini teal circle icon"> </i> 关于刻意练习的清单
+								<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
+							</span>
+							<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
+						</a>
+						<a href="#" target="_blank" class="item">
+							<span>
+								<i class="mini teal circle icon"> </i> 关于刻意练习的清单
+								<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
+							</span>
+							<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
+						</a>
+					</div>-->
 
 				</div>
-				<!--<h3 class="ui center aligned header">2019</h3>
-				<div class="ui fluid vertical menu">
-					<a href="#" target="_blank" class="item">
-						<span>
-							<i class="mini teal circle icon"> </i> 关于刻意练习的清单
-							<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
-						</span>
-						<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
-					</a>
-					<a href="#" target="_blank" class="item">
-						<span>
-							<i class="mini teal circle icon"> </i> 关于刻意练习的清单
-							<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
-						</span>
-						<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
-					</a>
-					<a href="#" target="_blank" class="item">
-						<span>
-							<i class="mini teal circle icon"> </i> 关于刻意练习的清单
-							<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
-						</span>
-						<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
-					</a>
-					<a href="#" target="_blank" class="item">
-						<span>
-							<i class="mini teal circle icon"> </i> 关于刻意练习的清单
-							<div class="ui teal basic left pointing label m-padded-tb-mini">9月03</div>
-						</span>
-						<div class="ui orange basic left pointing label m-padded-tb-mini">原创</div>
-					</a>
-				</div>-->
-				
 			</div>
 		</div>
-		<br>
-		<br>
 		
 		<!-- 底部footer -->
 		<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">

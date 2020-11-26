@@ -21,4 +21,8 @@ public interface CommentMapper {
     Comment getReplyCommendByReplyCommendId(String replyCommendId);
 
     Integer saveComment(Comment comment);
+
+    Integer editCommentById(String commentId, String content);
+
+    Integer deleteCommentById(String commentId);
 }
