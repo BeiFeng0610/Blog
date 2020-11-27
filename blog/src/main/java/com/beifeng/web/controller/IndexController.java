@@ -40,7 +40,7 @@ public class IndexController {
                         @RequestParam (defaultValue = "1",value = "pageNum") Integer pageNum){
         System.out.println("进入到博客首页操作");
 
-        PageHelper.startPage(pageNum, 6);
+        PageHelper.startPage(pageNum, 10);
         List<IndexBlogsVo> allFirstPageBlog = blogService.getIndexBlogs();
         PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(allFirstPageBlog);
 
@@ -63,7 +63,7 @@ public class IndexController {
         System.out.println("执行条件查询和分页操作");
 
 
-        PageHelper.startPage(pageNum, 6);
+        PageHelper.startPage(pageNum, 10);
         List<IndexBlogsVo> searchBlog = blogService.getBlogsByQuery(query.trim());
 
         PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(searchBlog);

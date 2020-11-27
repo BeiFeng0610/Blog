@@ -35,7 +35,7 @@ public class TagShowController {
                        @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
         System.out.println("进入标签页面操作");
 
-        PageHelper.startPage(pageNum, 6);
+        PageHelper.startPage(pageNum, 10);
         List<IndexBlogsVo> tagsPageBlog = blogService.getIndexBlogs();
         PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(tagsPageBlog);
 
@@ -52,7 +52,7 @@ public class TagShowController {
                                 @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
         System.out.println("执行根据标签获取博客");
 
-        PageHelper.startPage(pageNum, 6);
+        PageHelper.startPage(pageNum, 10);
         List<IndexBlogsVo> blogsByTagId = blogService.getBlogsByTagId(id);
         PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(blogsByTagId);
 

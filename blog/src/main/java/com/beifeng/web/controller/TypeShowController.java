@@ -34,7 +34,7 @@ public class TypeShowController {
                         @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
         System.out.println("进入分类页面操作");
 
-        PageHelper.startPage(pageNum, 6);
+        PageHelper.startPage(pageNum, 10);
         List<IndexBlogsVo> typesPageBlog = blogService.getIndexBlogs();
         PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(typesPageBlog);
 
@@ -51,7 +51,7 @@ public class TypeShowController {
                               @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
         System.out.println("执行根据分类获取博客");
 
-        PageHelper.startPage(pageNum, 6);
+        PageHelper.startPage(pageNum, 10);
         List<IndexBlogsVo> blogsByTypeId = blogService.getBlogsByTypeId(id);
         PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(blogsByTypeId);
 
