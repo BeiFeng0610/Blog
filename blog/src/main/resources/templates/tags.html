@@ -12,7 +12,7 @@
 	<body>
 		<th:block th:replace="_fragments :: hideMenu(3)"></th:block>
 
-		<div id="pusher" class="pusher animate__animated animate__fadeIn">
+		<div id="pusher" class="pusher">
 			<div th:replace="_fragments :: menu(3,~{::#h1},~{::#h2})" class="ui inverted vertical masthead center aligned segment">
 				<div class="ui container animate__animated animate__fadeInLeftBig">
 					<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
@@ -48,8 +48,8 @@
 			</div>
 
 			<!-- 中间内容 -->
-			<div class="m-padded-tb-massive m-container-small">
-			<div class="ui container">
+			<div class="m-padded-tb-massive m-container">
+				<div class="ui m-container">
 				
 				<!-- header -->
 				<div class="">
@@ -179,7 +179,7 @@
 				
 				
 			</div>
-		</div>
+			</div>
 		</div>
 		
 		<!-- 底部footer -->

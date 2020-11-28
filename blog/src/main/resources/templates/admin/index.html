@@ -14,7 +14,7 @@
 		<!-- 导航 -->
 		<th:block th:replace="admin/_fragments :: hideMenu(0)"></th:block>
 
-		<div id="pusher" class="pusher animate__animated animate__fadeIn">
+		<div id="pusher" class="pusher">
 			<div th:replace="admin/_fragments :: menu(0)" class="ui inverted vertical masthead center aligned segment">
 				<div class="ui container animate__animated animate__fadeInLeftBig">
 					<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
@@ -43,8 +43,8 @@
 			</div>
 		
 			<!-- 中间内容 -->
-			<div class="m-padded-tb-huge m-container-small">
-				<div class="ui container">
+			<div class="m-padded-tb-huge m-container">
+				<div class="ui m-container">
 
 					<div class="ui success message animate__animated animate__flipInX" th:unless="${#strings.isEmpty(msg)}">
 						<i class="close icon"></i>

@@ -229,7 +229,11 @@ body.dimmed.dimmable {
 	margin: auto !important;
 }
 .m-container-large{
-	max-width: 80em !important;
+	max-width: 84em !important;
+	margin: auto !important;
+}
+.m-container-big{
+	max-width: 96em !important;
 	margin: auto !important;
 }
 

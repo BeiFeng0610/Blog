@@ -53,12 +53,16 @@
 				font-size: 1em;
 			}
 		}*/
+
+		#pusher {
+			background: #1b1c1d;
+		}
 	</style>
 	<body>
 
 		<th:block th:replace="_fragments :: hideMenu(0)"></th:block>
 
-		<div id="pusher" class="pusher animate__animated animate__fadeIn">
+		<div id="pusher" class="pusher">
 			<div th:replace="_fragments :: menu(0,~{::#h1},~{::#h2})" class="ui inverted vertical masthead center aligned segment">
 				<div class="ui container animate__animated animate__fadeInLeftBig">
 					<div class="ui large secondary inverted pointing menu" style="border-width: 0px;">
@@ -98,10 +102,10 @@
 			<br>
 			<br>
 			<br>
-			<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
-				<div class="ui container">
+			<div class="m-padded-tb-massive " style="max-width: 100% !important;">
+				<div class="ui container" style="max-width: 30em !important;">
 					<div class="ui middle aligned center aligned grid ">
-						<div class="column animate__animated animate__zoomIn">
+						<div class="column animate__animated animate__bounce">
 							<h2 class="ui teal image header">
 								<!--<img src="assets/images/favicon.ico" class="image">-->
 								<div class="content">
