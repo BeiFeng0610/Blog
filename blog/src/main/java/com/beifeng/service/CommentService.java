@@ -1,6 +1,7 @@
 package com.beifeng.service;
 
 import com.beifeng.domain.Comment;
+import com.beifeng.vo.AdminCommentsVo;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface CommentService {
     String editCommentById(String commentId, String editComment);
 
     String deleteCommentById(String commentId);
+
+    List<AdminCommentsVo> getComments();
 }

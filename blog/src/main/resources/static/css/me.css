@@ -96,6 +96,15 @@ body.dimmed.dimmable {
 	padding-top: 1em !important;
 }
 
+.m-padded-t-large {
+	padding-top: 2em !important;
+}
+
+.m-padded-t-big {
+	padding-top: 3em !important;
+}
+
+
 .m-padded-b-small {
 	padding-bottom: 0.5em !important;
 }
@@ -103,6 +112,18 @@ body.dimmed.dimmable {
 .m-padded-b {
 	padding-bottom: 1em !important;
 }
+
+.m-padded-lr-large {
+	padding-left: 2em !important;
+	padding-right: 2em !important;
+}
+
+.m-padded-lr-responsive {
+	padding-left: 4em !important;
+	padding-right: 4em !important;
+}
+
+
 /* --------text------- */
 
 .m-text {
@@ -245,7 +266,7 @@ body.dimmed.dimmable {
 	color: #f2711c !important;
 }
 .m-teal{
-	color: teal !important;
+	color: #00b5ad !important;
 }
 
 .m-mobile-show {

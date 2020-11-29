@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beifeng.dao.FriendLinkMapper">
+
+    <resultMap id="friendLink" type="com.beifeng.domain.FriendLink">
+        <id property="id" column="id"/>
+        <result property="blogLink" column="blog_link"/>
+        <result property="avatarLink" column="avatar_link"/>
+        <result property="blogName" column="blog_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="getFriendList" resultMap="friendLink">
+        select * from t_friend order by create_time desc
+    </select>
+
+    <insert id="saveFriend" parameterType="com.beifeng.domain.FriendLink">
+        insert into t_friend (
+            id,
+            blog_link,
+            avatar_link,
+            blog_name,
+            create_time
+        ) values (
+            #{id},
+            #{blogLink},
+            #{avatarLink},
+            #{blogName},
+            #{createTime}
+        );
+    </insert>
+
+    <select id="getFriendById" resultMap="friendLink">
+        select * from t_friend where id=#{id};
+    </select>
+
+    <update id="updateFriendById" parameterType="com.beifeng.domain.FriendLink">
+        update
+            t_friend
+        set
+            blog_name=#{blogName},
+            blog_link=#{blogLink},
+            avatar_link=#{avatarLink}
+        where
+            id=#{id}
+    </update>
+
+    <delete id="deleteFriendById">
+        delete from t_friend where id=#{id};
+    </delete>
+
+    <select id="getFriendsByASC" resultMap="friendLink">
+        select * from t_friend order by create_time asc
+    </select>
+</mapper>

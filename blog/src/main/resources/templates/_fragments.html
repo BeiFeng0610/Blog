@@ -27,7 +27,8 @@
             <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="teal idea icon"></i>分类</a>
             <a class="item" th:href="@{/tags}" th:classappend="${n==3} ? 'active'"><i class="teal tags icon"></i>标签</a>
             <a class="item" th:href="@{/archives}" th:classappend="${n==4} ? 'active'"><i class="teal calendar icon"></i>归档</a>
-            <a class="item" th:href="@{/about}" th:classappend="${n==5} ? 'active'"><i class="teal user secret icon"></i>关于我</a>
+            <a class="item" th:href="@{/friendLink}" th:classappend="${n==5} ? 'active'"><i class="teal venus mars icon"></i>友链</a>
+            <a class="item" th:href="@{/about}" th:classappend="${n==6} ? 'active'"><i class="teal user secret icon"></i>关于我</a>
 
             <div class="right menu" style="z-index: 1 !important;">
                 <div class="ui dropdown  item" th:if="${session.user}==null">
@@ -64,7 +65,8 @@
         <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
         <a class="item" th:href="@{/tags}" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
         <a class="item" th:href="@{/archives}" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
-        <a class="item" th:href="@{/about}" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
+        <a class="item" th:href="@{/friendLink}" th:classappend="${n==5} ? 'active'"><i class="venus mars icon"></i>友链</a>
+        <a class="item" th:href="@{/about}" th:classappend="${n==6} ? 'active'"><i class="user secret icon"></i>关于我</a>
     </div>
 
 </th:block>
@@ -83,7 +85,8 @@
                 <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
                 <a class="item" th:href="@{/tags}" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
                 <a class="item" th:href="@{/archives}" th:classappend="${n==4} ? 'active'"><i class="calendar icon"></i>归档</a>
-                <a class="item" th:href="@{/about}" th:classappend="${n==5} ? 'active'"><i class="user secret icon"></i>关于我</a>
+                <a class="item" th:href="@{/friendLink}" th:classappend="${n==5} ? 'active'"><i class="venus mars icon"></i>友链</a>
+                <a class="item" th:href="@{/about}" th:classappend="${n==6} ? 'active'"><i class="user secret icon"></i>关于我</a>
                 <div class="right m-item menu" style="z-index: 1 !important;">
                     <div class="right m-item item">
 

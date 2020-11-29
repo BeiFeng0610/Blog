@@ -28,7 +28,8 @@ public class TypeController {
 
     /*分页展示类型*/
     @GetMapping("/types")
-    public String types(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum, Model model){
+    public String types(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum,
+                        Model model){
 
         System.out.println("进入分类展示操作");
         // 按照排序字段 倒序 排序

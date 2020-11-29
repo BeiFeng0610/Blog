@@ -20,6 +20,10 @@ logging:
   level:
     root: info
     com.beifeng: debug
+  file:
+    name: spring.log
+
+
 
 pagehelper:
   helper-dialect: mysql

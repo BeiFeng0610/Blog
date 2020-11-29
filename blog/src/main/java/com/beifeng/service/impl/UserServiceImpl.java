@@ -7,6 +7,7 @@ import com.beifeng.service.UserService;
 import com.beifeng.util.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 /**
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
     @Override
     public String updateUser(User user) {
         String msg = "更新用户资料失败";
@@ -38,6 +40,8 @@ public class UserServiceImpl implements UserService {
 
         /*更新账户信息时，修改管理员评论和头像*/
         userMapper.updateAdminComment(user);
+        /*更新账户信息时，修改管理员留言的头像*/
+        userMapper.updateAdminMessage(user);
 
         Integer count = userMapper.updateUser(user);
         if (count==1){

@@ -5,6 +5,7 @@ import com.beifeng.domain.Comment;
 import com.beifeng.service.CommentService;
 import com.beifeng.util.DateTimeUtil;
 import com.beifeng.util.UUIDUtil;
+import com.beifeng.vo.AdminCommentsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +80,16 @@ public class CommentServiceImpl implements CommentService {
         }
         return msg;
     }
+
+    @Override
+    public List<AdminCommentsVo> getComments() {
+
+        List<AdminCommentsVo> commentList = commentMapper.getCommentList();
+
+        return commentList;
+    }
+
+    
 
     /*判断子回复是否在超级父评论下回复过其他  子回复*/
     private void setReplyCommend(List<Comment> subComments,List<Comment> tempReplys){

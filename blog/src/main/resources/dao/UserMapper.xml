@@ -33,4 +33,15 @@
         where
             admin_comment=true
     </update>
+
+    <update id="updateAdminMessage" parameterType="com.beifeng.domain.User">
+        update
+            t_message
+        set
+            nickname=#{nickname},
+            email=#{email},
+            avatar=#{avatar}
+        where
+            admin_comment=true
+    </update>
 </mapper>

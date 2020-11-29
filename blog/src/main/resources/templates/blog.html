@@ -144,7 +144,43 @@
 							</div>
 						</div>
 
-						<div class="ui bottom attached segment" th:if="${blog.commentabled}">
+						<div id="comment-qy" class="ui bottom attached segment" th:if="${blog.commentabled}">
+
+							<div class="ui form m-padded-t-big">
+								<input type="hidden" name="blogId" th:value="${blog.id}">
+								<input type="hidden" name="parentCommentId">
+								<input type="hidden" name="replyCommentId">
+								<div class="field">
+									<textarea name="content" placeholder="请输入评论信息..."></textarea>
+								</div>
+								<div class="fields">
+
+									<div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.user}==null">
+										<div class="ui left icon input">
+											<i class="user icon"></i>
+											<input type="text" name="nickname" placeholder="姓名" />
+										</div>
+									</div>
+									<div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.user}==null">
+										<div class="ui left icon input">
+											<i class="mail icon"></i>
+											<input type="text" name="email" placeholder="邮箱" />
+										</div>
+									</div>
+									<div class="field m-mobile-wide m-margin-bottom-small">
+										<button id="reset-btn" class="ui teal button m-margin-bottom-small m-mobile-wide" type="button"><i class="sync alternate icon"></i>重置</button>
+										<button id="comment-post-btn" class="ui teal button m-mobile-wide" type="button"><i class="edit icon"></i>发布</button>
+									</div>
+
+								</div>
+								<div class="ui error message"></div>
+								<div id="submit-modal" class="ui mini modal">
+									<div class="header">
+										<div class="ui center aligned container"><span style="color: teal">评论成功</span></div>
+									</div>
+								</div>
+							</div>
+
 							<!-- 留言区域列表 -->
 							<div id="comment-container" class="ui teal segment">
 								<div th:fragment="commentList">
@@ -244,40 +280,6 @@
 										</div>
 
 
-									</div>
-								</div>
-							</div>
-							<div class="ui form">
-								<input type="hidden" name="blogId" th:value="${blog.id}">
-								<input type="hidden" name="parentCommentId">
-								<input type="hidden" name="replyCommentId">
-								<div class="field">
-									<textarea name="content" placeholder="请输入评论信息..."></textarea>
-								</div>
-								<div class="fields">
-
-									<div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.user}==null">
-										<div class="ui left icon input">
-											<i class="user icon"></i>
-											<input type="text" name="nickname" placeholder="姓名" />
-										</div>
-									</div>
-									<div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.user}==null">
-										<div class="ui left icon input">
-											<i class="mail icon"></i>
-											<input type="text" name="email" placeholder="邮箱" />
-										</div>
-									</div>
-									<div class="field m-mobile-wide m-margin-bottom-small">
-										<button id="reset-btn" class="ui teal button m-margin-bottom-small m-mobile-wide" type="button"><i class="sync alternate icon"></i>重置</button>
-										<button id="comment-post-btn" class="ui teal button m-mobile-wide" type="button"><i class="edit icon"></i>发布</button>
-									</div>
-
-								</div>
-								<div class="ui error message"></div>
-								<div id="submit-modal" class="ui mini modal">
-									<div class="header">
-										<div class="ui center aligned container"><span style="color: teal">评论成功</span></div>
 									</div>
 								</div>
 							</div>
@@ -424,7 +426,7 @@
 				$(window).scrollTo(0,500);
 			});
 			$('#comment-container-btn').click(function(){
-				$(window).scrollTo($('#comment-container'),500);
+				$(window).scrollTo($('#comment-qy'),500);
 			});
 			
 			/* 滚动监测 */
@@ -511,7 +513,7 @@
 					"content" : $("[name='content']").val(),
 					"replyCommentId" : $("[name='replyCommentId']").val()
 				},function (responseTxt, statusTxt, xhr) {
-					$(window).scrollTo($('#comment-container'),500);
+					/*$(window).scrollTo($('#comment-container'),500);*/
 					clearContent();
 /*					alert("评论成功");*/
 				});

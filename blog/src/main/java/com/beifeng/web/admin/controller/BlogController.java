@@ -50,7 +50,8 @@ public class BlogController {
     }
 
     @GetMapping("/blogs")
-    public String blogs(@RequestParam(required = false,defaultValue = "1",value = "pageNum") Integer pageNum, Model model){
+    public String blogs(@RequestParam(required = false,defaultValue = "1",value = "pageNum") Integer pageNum,
+                        Model model){
         System.out.println("进入博客页面操作");
         //按照排序字段 倒序 排序
         String orderBy = "update_time desc";

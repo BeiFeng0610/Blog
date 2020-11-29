@@ -1,6 +1,7 @@
 package com.beifeng.dao;
 
 import com.beifeng.domain.Comment;
+import com.beifeng.vo.AdminCommentsVo;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface CommentMapper {
     Integer editCommentById(String commentId, String content);
 
     Integer deleteCommentById(String commentId);
+
+    List<AdminCommentsVo> getCommentList();
 }

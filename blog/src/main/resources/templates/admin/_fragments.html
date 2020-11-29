@@ -17,10 +17,6 @@
             padding: 1em 0em;
         }
 
-        .pusher {
-            min-height: 65% !important;
-        }
-
     </style>
 </head>
 <body>
@@ -31,10 +27,12 @@
     <!-- Following Menu -->
     <div class="ui large top fixed hidden menu">
         <div class="ui container">
-            <a href="#" th:href="@{/}" class="m-item item "><i class="teal home icon"></i>主页</a>
-            <a href="#" th:href="@{/admin/blogs}" class="m-item item " th:classappend="${n==1} ? 'active'"><i class="teal book icon"></i>博客</a>
-            <a href="#" th:href="@{/admin/types}" class="m-item item " th:classappend="${n==2} ? 'active'"><i class="teal idea icon"></i>分类</a>
-            <a href="#" th:href="@{/admin/tags}" class="m-item item " th:classappend="${n==3} ? 'active'"><i class="teal tags icon"></i>标签</a>
+            <a href="#" th:href="@{/}" class=" item "><i class="teal home icon"></i>主页</a>
+            <a href="#" th:href="@{/admin/blogs}" class="item" th:classappend="${n==1} ? 'active'"><i class="teal book icon"></i>博客</a>
+            <a href="#" th:href="@{/admin/types}" class="item" th:classappend="${n==2} ? 'active'"><i class="teal idea icon"></i>分类</a>
+            <a href="#" th:href="@{/admin/tags}" class="item" th:classappend="${n==3} ? 'active'"><i class="teal tags icon"></i>标签</a>
+            <a href="#" th:href="@{/admin/comments}" class="item" th:classappend="${n==4} ? 'active'"><i class="teal comment icon"></i>评论</a>
+            <a href="#" th:href="@{/admin/friendLinks}" class="item" th:classappend="${n==5} ? 'active'"><i class="teal venus mars icon"></i>友链</a>
 
             <div class="right menu" style="z-index: 1 !important;">
                 <div class="ui dropdown  item" th:if="${session.user}==null">
@@ -71,6 +69,9 @@
         <a href="#" th:href="@{/admin/blogs}" class="m-item item " th:classappend="${n==1} ? 'active'"><i class="book icon"></i>博客</a>
         <a href="#" th:href="@{/admin/types}" class="m-item item " th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
         <a href="#" th:href="@{/admin/tags}" class="m-item item " th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+        <a href="#" th:href="@{/admin/comments}" class="m-item item " th:classappend="${n==4} ? 'active'"><i class="comment icon"></i>评论</a>
+        <a href="#" th:href="@{/admin/friendLinks}" class="m-item item " th:classappend="${n==5} ? 'active'"><i class="venus mars icon"></i>友链</a>
+
     </div>
 
 </th:block>
@@ -90,6 +91,8 @@
                 <a href="#" th:href="@{/admin/blogs}" class="m-item item " th:classappend="${n==1} ? 'active'"><i class="book icon"></i>博客</a>
                 <a href="#" th:href="@{/admin/types}" class="m-item item " th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
                 <a href="#" th:href="@{/admin/tags}" class="m-item item " th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+                <a href="#" th:href="@{/admin/comments}" class="m-item item " th:classappend="${n==4} ? 'active'"><i class="comment icon"></i>评论</a>
+                <a href="#" th:href="@{/admin/friendLinks}" class="m-item item " th:classappend="${n==5} ? 'active'"><i class="venus mars icon"></i>友链</a>
                 <div class="right m-item menu" style="z-index: 1 !important;">
 
                     <div class="ui dropdown  item" th:if="${session.user}==null">

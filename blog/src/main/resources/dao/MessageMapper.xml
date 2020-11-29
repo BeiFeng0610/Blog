@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beifeng.dao.CommentMapper">
-    
-    <select id="getParentCommentListByBlogId" resultType="com.beifeng.domain.Comment">
+<mapper namespace="com.beifeng.dao.MessageMapper">
+    <select id="getParentMessages" resultType="com.beifeng.domain.Message">
         select
             id,
             nickname,
@@ -12,18 +11,17 @@
             content,
             avatar,
             create_time as createTime,
-            blog_id as blogId,
             reply_comment_id as replyCommentId,
             admin_comment as adminComment
         from
-            t_comment
+            t_message
         where
-            blog_id=#{blogId} and (parent_comment_id is null or parent_comment_id='')
+            parent_comment_id is null or parent_comment_id=''
         order by
             createTime desc
     </select>
 
-    <select id="getSubCommentsByParentId" resultType="com.beifeng.domain.Comment">
+    <select id="getSubMessagesByParentId" resultType="com.beifeng.domain.Message">
         select
             id,
             nickname,
@@ -31,19 +29,18 @@
             content,
             avatar,
             create_time as createTime,
-            blog_id as blogId,
             parent_comment_id as parentCommentId,
             reply_comment_id as replyCommentId,
             admin_comment as adminComment
         from
-            t_comment
+            t_message
         where
             parent_comment_id=#{parentId}
         order by
             createTime asc
     </select>
 
-    <select id="getReplyCommendByReplyCommendId" resultType="com.beifeng.domain.Comment">
+    <select id="getReplyMessageByReplyMessageId" resultType="com.beifeng.domain.Message">
         select
             id,
             nickname,
@@ -51,67 +48,56 @@
             content,
             avatar,
             create_time as createTime,
-            blog_id as blogId,
             parent_comment_id as parentCommentId,
             reply_comment_id as replyCommentId,
             admin_comment as adminComment
         from
-            t_comment
+            t_message
         where
-            id=#{replyCommendId}
+            id=#{replyMessageId}
     </select>
 
-    <insert id="saveComment" parameterType="com.beifeng.domain.Comment">
-        insert into t_comment (
-            id,
-            nickname,
-            email,
-            content,
-            avatar,
-            create_time,
+    <insert id="saveMessage" parameterType="com.beifeng.domain.Message">
+        insert into t_message (
+        id,
+        nickname,
+        email,
+        content,
+        avatar,
+        create_time,
         <if test="parentCommentId!=null and parentCommentId!=''">
             parent_comment_id,
         </if>
         <if test="replyCommentId!=null and replyCommentId!=''">
             reply_comment_id,
         </if>
-            blog_id,
-            admin_comment
+        admin_comment
         ) values (
-            #{id},
-            #{nickname},
-            #{email},
-            #{content},
-            #{avatar},
-            #{createTime},
+        #{id},
+        #{nickname},
+        #{email},
+        #{content},
+        #{avatar},
+        #{createTime},
         <if test="parentCommentId!=null and parentCommentId!=''">
             #{parentCommentId},
         </if>
         <if test="replyCommentId!=null and replyCommentId!=''">
             #{replyCommentId},
         </if>
-            #{blogId},
-            #{adminComment}
+        #{adminComment}
         );
     </insert>
 
-    <update id="editCommentById">
-        update t_comment set content=#{content} where id=#{commentId};
-    </update>
-
-    <delete id="deleteCommentById">
-        delete from t_comment where id=#{commentId} or parent_comment_id=#{commentId} or reply_comment_id=#{commentId}
+    <delete id="deleteMessageById">
+        delete from t_message where id=#{messageId} or parent_comment_id=#{messageId} or reply_comment_id=#{messageId}
     </delete>
 
-    <select id="getCommentList" resultType="com.beifeng.vo.AdminCommentsVo">
+    <select id="getMessagesByDESC" resultType="com.beifeng.vo.AdminMessagesVo">
         SELECT
-        t.id,t.nickname,t.content,t.create_time as createTime,b.title as blogTitle,t.blog_id as blogId,IF(IFNULL(t.parent_comment_id,'')='',0,1)type
+        t.id,t.nickname,t.content,t.create_time as createTime,IF(IFNULL(t.parent_comment_id,'')='',0,1)type
         FROM
-        t_comment t
-        LEFT JOIN
-        t_blog b
-        ON
-        t.blog_id=b.id
+        t_message t
         order by createTime desc
     </select>
 </mapper>

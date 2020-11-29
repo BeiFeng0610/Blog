@@ -9,4 +9,6 @@ public interface UserMapper {
     Integer updateUser(User user);
 
     void updateAdminComment(User user);
+
+    void updateAdminMessage(User user);
 }
