@@ -38,7 +38,7 @@ public class FriendLinkController {
     public String friendLink(@RequestParam(required = false,defaultValue = "1",value = "pageNum")Integer pageNum,
                              Model model){
         System.out.println("进入友链页面操作");
-        PageHelper.startPage(pageNum, 10);
+        PageHelper.startPage(pageNum, 3);
 
         List<Message> messages = messageService.getMessages();
 

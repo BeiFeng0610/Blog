@@ -113,6 +113,15 @@ body.dimmed.dimmable {
 	padding-bottom: 1em !important;
 }
 
+
+.m-padded-l-small {
+	padding-left: 0.5em !important;
+}
+
+.m-padded-l {
+	padding-left: 1em !important;
+}
+
 .m-padded-lr-large {
 	padding-left: 2em !important;
 	padding-right: 2em !important;

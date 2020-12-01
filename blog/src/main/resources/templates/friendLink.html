@@ -61,22 +61,22 @@
         <div class="ui segments m-container">
             <div class="ui segment m-padded-lr-responsive" style="font-size: 16px;">
                 <h1 class="ui header center aligned">友链</h1><br>
-                <h3 class="ui header">&emsp;添加友情链接指南</h3>
-                <p>&emsp;可以先将本站添加到友链哦，申请格式在下方评论留言即可。（就算留言区了...）</p>
+                <h3 class="ui header m-padded-l-small">添加友情链接指南</h3>
+                <span class="m-span m-padded-l-small">可以先将本站添加到友链哦，申请格式在下方评论留言即可。（就算留言区了...）</span>
                 <div class="ui list m-padded-lr-large">
                     <div class="item">名称：</div>
                     <div class="item">网站链接：</div>
                     <div class="item">图片链接：</div>
                 </div>
                 <br>
-                <p>&emsp;注意以下要求哦。</p>
+                <p class="m-padded-l-small">注意以下要求哦。</p>
                 <div class="ui list bulleted m-padded-lr-large">
                     <div class="item">网站不能有违规内容。</div>
                     <div class="item">网站要保持活跃哦！</div>
                     <div class="item">可以长期稳定访问。</div>
                 </div>
                 <br>
-                <p>&emsp;这是我的链接哦。</p>
+                <p class="m-padded-l-small">这是我的链接哦。</p>
                 <div class="ui list bulleted m-padded-lr-large">
                     <div class="item">名称：北风小窝</div>
                     <div class="item">网站链接：<span th:text="#{friendLink}"></span></div>
@@ -149,7 +149,7 @@
                             <input type="hidden" name="pageNum">
                             <tr>
                                 <th colspan="6" >
-                                    <div class="ui inverted divided stackable grid">
+                                    <div class="ui inverted grid">
                                         <div class="three wide column" align="center">
                                             <div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
                                                 <a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1" class="item" style="color: #0a001f">上一页</a>
