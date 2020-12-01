@@ -280,7 +280,14 @@ body.dimmed.dimmable {
 	box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
 }
 
-
+/*---------------span------------------*/
+/*span换行*/
+.m-span {
+	display:inline-block;
+	width:100%;
+	word-wrap:break-word;
+	white-space:normal;
+}
 
 
 @media screen and (max-width: 768px) {
