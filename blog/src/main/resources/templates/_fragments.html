@@ -21,7 +21,7 @@
 <th:block th:fragment="hideMenu(n)">
 
     <!-- Following Menu -->
-    <div class="ui large top fixed hidden menu">
+    <div class="ui large top fixed hidden secondary menu">
         <div class="ui container">
             <a class="item" th:href="@{/}" th:classappend="${n==1} ? 'active'"><i class="teal home icon"></i>首页</a>
             <a class="item" th:href="@{/types}" th:classappend="${n==2} ? 'active'"><i class="teal idea icon"></i>分类</a>
