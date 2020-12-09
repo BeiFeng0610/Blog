@@ -53,26 +53,41 @@
   </resultMap>
 
   <select id="getTagList" resultMap="tagVo">
-    select t.*
+    select
+        t.id,t.name,count(bt.blog_id) as blogCount
     from
-      (select t.id,t.name,count(bt.tag_id) as blogCount
-       from t_tag t
-       left join t_blog_tags bt
-       on t.id=bt.tag_id
-       group by t.id
-       order by blogCount desc
-       limit 10) t
-     where t.blogCount>0
+        t_tag t
+    left join
+        t_blog_tags bt
+    on
+        t.id=bt.tag_id
+    left join
+        t_blog b
+    on
+        bt.blog_id=b.id
+    where
+        b.published=true
+    group by t.id
+    order by blogCount desc
+    limit 10
   </select>
 
   <select id="getAllTagVoList" resultMap="tagVo">
-    select t.*
+    select
+        t.id,t.name,count(bt.blog_id) as blogCount
     from
-      (select t.id,t.name,count(bt.tag_id) as blogCount
-       from t_tag t
-       left join t_blog_tags bt
-       on t.id=bt.tag_id
-       group by t.id
-       order by blogCount desc) t
+        t_tag t
+    left join
+        t_blog_tags bt
+    on
+        t.id=bt.tag_id
+    left join
+        t_blog b
+    on
+        bt.blog_id=b.id
+    where
+        b.published=true
+    group by t.id
+    order by blogCount desc
   </select>
 </mapper>
