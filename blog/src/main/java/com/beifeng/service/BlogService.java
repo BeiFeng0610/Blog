@@ -2,10 +2,7 @@ package com.beifeng.service;
 
 import com.beifeng.domain.Blog;
 import com.beifeng.util.DateTimeUtil;
-import com.beifeng.vo.BlogVo;
-import com.beifeng.vo.DetailedBlogVo;
-import com.beifeng.vo.IndexBlogsVo;
-import com.beifeng.vo.SearchBlogVo;
+import com.beifeng.vo.*;
 
 import java.util.List;
 
@@ -43,4 +40,6 @@ public interface BlogService {
     List<IndexBlogsVo> getBlogsByTagId(String id);
 
     Integer getBlogCount();
+
+    BlogInfoVo getBlogInfo();
 }

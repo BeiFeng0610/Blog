@@ -85,4 +85,13 @@ public class IndexController {
         return "blog";
     }
 
+    @GetMapping("/footer/blogInfo")
+    public String blogInfo(Model model){
+        System.out.println("获取博客信息统计");
+        BlogInfoVo blogInfoVo = blogService.getBlogInfo();
+        model.addAttribute("blogInfo", blogInfoVo);
+
+        return "_fragments :: blogInfo";
+    }
+
 }

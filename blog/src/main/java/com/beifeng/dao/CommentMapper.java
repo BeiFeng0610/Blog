@@ -28,4 +28,6 @@ public interface CommentMapper {
     Integer deleteCommentById(String commentId);
 
     List<AdminCommentsVo> getCommentList();
+
+    Integer getCommentCount();
 }

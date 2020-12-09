@@ -23,4 +23,6 @@ public interface MessageMapper {
     Integer deleteMessageById(String messageId);
 
     List<AdminMessagesVo> getMessagesByDESC();
+
+    Integer getMessageCount();
 }

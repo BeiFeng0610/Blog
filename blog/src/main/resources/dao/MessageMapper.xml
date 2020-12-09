@@ -100,4 +100,8 @@
         t_message t
         order by createTime desc
     </select>
+
+    <select id="getMessageCount" resultType="java.lang.Integer">
+        select count(id) from t_message;
+    </select>
 </mapper>

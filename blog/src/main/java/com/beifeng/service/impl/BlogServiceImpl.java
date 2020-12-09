@@ -1,11 +1,14 @@
 package com.beifeng.service.impl;
 
 import com.beifeng.dao.BlogMapper;
+import com.beifeng.dao.CommentMapper;
+import com.beifeng.dao.MessageMapper;
 import com.beifeng.dao.TagMapper;
 import com.beifeng.domain.Blog;
 import com.beifeng.domain.Tag;
 import com.beifeng.execption.NotFoundException;
 import com.beifeng.service.BlogService;
+import com.beifeng.service.MessageService;
 import com.beifeng.util.DateTimeUtil;
 import com.beifeng.util.MarkdownUtils;
 import com.beifeng.util.UUIDUtil;
@@ -31,6 +34,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private TagMapper tagMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Override
     public List<BlogVo> getAllBlog() {
@@ -240,6 +249,20 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Integer getBlogCount() {
         return blogMapper.getBlogCount();
+    }
+
+    /*统计博客信息*/
+    @Override
+    public BlogInfoVo getBlogInfo() {
+        Integer views = blogMapper.getViews();
+        Integer commentCount = commentMapper.getCommentCount();
+        Integer messageCount = messageMapper.getMessageCount();
+        BlogInfoVo blogInfoVo = new BlogInfoVo();
+        blogInfoVo.setViews(views);
+        blogInfoVo.setCommentCount(commentCount);
+        blogInfoVo.setMessageCount(messageCount);
+
+        return blogInfoVo;
     }
 
     // 拆分ids

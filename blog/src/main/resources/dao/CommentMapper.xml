@@ -114,4 +114,8 @@
         t.blog_id=b.id
         order by createTime desc
     </select>
+
+    <select id="getCommentCount" resultType="java.lang.Integer">
+        select count(id) from t_comment
+    </select>
 </mapper>

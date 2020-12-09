@@ -41,4 +41,6 @@ public interface BlogMapper {
     List<IndexBlogsVo> getBlogVoByTagIdList(String tagId);
 
     Integer getBlogCount();
+
+    Integer getViews();
 }

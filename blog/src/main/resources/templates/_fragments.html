@@ -144,30 +144,31 @@
 <footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-huge ">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
-            <div class="four wide column">
+            <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
                         <img th:src="@{/images/wechat.jpg}" src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 120px;">
                     </div>
                 </div>
             </div>
-            <!--<div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">用户故事（User Story）</a>
-                    <a href="#" class="item">用户故事（User Story）</a>
-                    <a href="#" class="item">用户故事（User Story）</a>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">博客信息统计</h4>
+                <div id="get_blogInfo">
+                    <div class="ui inverted link list" th:fragment="blogInfo" th:if="${blogInfo}">
+                        <div class="item">访问总数: <span class="m-teal" th:text="${blogInfo.views}">2020</span> 次</div>
+                        <div class="item">评论总数: <span class="m-teal" th:text="${blogInfo.commentCount}">2020</span> 条</div>
+                        <div class="item">留言总数: <span class="m-teal" th:text="${blogInfo.messageCount}">2020</span> 条</div>
+                    </div>
                 </div>
-            </div>-->
-            <div class="four wide column">
+            </div>
+            <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
-                    <br>
                     <a href="" class="item">Email: <span th:text="#{index.email}">1611606790@qq.com</span></a>
                     <a href="" class="item">QQ: <span th:text="#{index.QQ}">1611606790</span></a>
                 </div>
             </div>
-            <div class="eight wide column">
+            <div class="seven wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
                 <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人小窝</p>
                 <p class="m-text-thin m-text-spaced m-opacity-mini">会分享关于我想发的任何内容，希望可以给来到这儿的人有所帮助...</p>
@@ -192,6 +193,9 @@
     <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
 
     <script>
+        /*统计博客数据*/
+        $("#get_blogInfo").load("/footer/blogInfo");
+
         $(function () {
             $('.ui.dropdown').dropdown({
                 on : 'hover'

@@ -351,4 +351,8 @@
     <select id="getBlogCount" resultType="java.lang.Integer">
         select count(id) as blogCount from t_blog
     </select>
+
+    <select id="getViews" resultType="java.lang.Integer">
+        SELECT SUM(views) FROM t_blog
+    </select>
 </mapper>
