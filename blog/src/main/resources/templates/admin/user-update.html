@@ -51,7 +51,7 @@
 		<div class="ui container">
 
 			<!--用户资料更新表单-->
-			<div class="ui segment rounded animate__animated animate__zoomIn">
+			<div class="ui raised segment rounded animate__animated animate__zoomIn">
 				<form id="blog-form" th:action="@{/admin/user/update}" method="post" class="ui form m-padded-tb-huge">
 
 					<input type="hidden" name="id" th:value="${session.user.id}">

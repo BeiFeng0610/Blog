@@ -68,7 +68,7 @@
 						<p th:text="${msg}">恭喜，操作成功！</p>
 					</div>
 
-					<div class="ui segments">
+					<div class="ui raised segments">
 
 						<div class="ui top attached segment">
 							<div class="ui horizontal link list">
@@ -144,7 +144,7 @@
 							</div>
 						</div>
 
-						<div id="comment-qy" class="ui bottom attached segment" th:if="${blog.commentabled}">
+						<div id="comment-qy" class="ui segment" th:if="${blog.commentabled}">
 
 							<div class="ui form m-padded-t-big">
 								<input type="hidden" name="blogId" th:value="${blog.id}">

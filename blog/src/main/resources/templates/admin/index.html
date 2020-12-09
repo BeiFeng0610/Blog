@@ -52,12 +52,12 @@
 						<p th:text="${msg}">恭喜，操作成功！</p>
 					</div>
 
-					<div class="ui success large message animate__animated animate__bounceIn" th:unless="${!#strings.isEmpty(msg)}">
+					<div class="ui raised segment success large message animate__animated animate__bounceIn" th:unless="${!#strings.isEmpty(msg)}">
 						<h3>Hi,</h3>
 						<p th:text="${session.user.nickname} + '，欢迎登录！'"></p>
 					</div>
 
-					<div class="ui segment rounded animate__animated animate__zoomIn">
+					<div class="ui raised segment rounded animate__animated animate__zoomIn">
 						<img th:src="${session.user.background}" src="https://picsum.photos/id/610/1000/400" alt="" class="ui rounded bordered fluid image">
 					</div>
 				</div>

@@ -56,7 +56,7 @@
 			<div class="m-padded-tb-massive m-container-small animate__animated animate__zoomIn">
 			<div class="ui container">
 
-				<div class="ui segment rounded">
+				<div class="ui raised segment rounded">
 					<form action="#" th:object="${tag}" th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})}" method="post" class="ui form">
 						<input type="hidden" name="id" th:value="*{id}">
 						<div class="field">

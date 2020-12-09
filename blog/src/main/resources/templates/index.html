@@ -114,115 +114,118 @@
 
 						<div id="table-container" th:fragment="firstBlogList">
 
-							<!-- header -->
-							<div class="ui top attached segment">
-								<div class="ui middle aligned two column grid">
-									<div class="column">
-										<h3 class="ui teal header">博客</h3>
-									</div>
-									<div class="right aligned column">
-										共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${pageInfo.total}"> 14 </h2> 篇
+							<div class="ui raised segments">
+								<!-- header -->
+								<div class="ui segment">
+									<div class="ui middle aligned two column grid">
+										<div class="column">
+											<h3 class="ui teal header">博客</h3>
+										</div>
+										<div class="right aligned column">
+											共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${pageInfo.total}"> 14 </h2> 篇
+										</div>
 									</div>
 								</div>
-							</div>
 
 
-							<!-- content -->
-							<div class="ui attached segment">
-								<div class="ui padded vertical segment m-padded-tb-large" th:each="blog, iterStat : ${pageInfo.list}">
-									<div class="ui middle aligned mobile reversed stackable grid">
+								<!-- content -->
+								<div class="ui segment">
+									<div class="ui padded vertical segment m-padded-tb-large" th:each="blog, iterStat : ${pageInfo.list}">
+										<div class="ui middle aligned mobile reversed stackable grid">
 
-										<div class="eleven wide column">
-											<a href="#" th:href="@{/types/{id}(id=${blog.typeId})}" target="_blank" class="ui teal ribbon label"  th:text="${blog.typeName}">Overview</a>
-											<h3 class="ui header m-text-align"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"  class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗？</a></h3>
-											<p class="m-text m-text-indent" th:text="|${blog.description}......|" >testtesttesttesttesttesttesttesttest</p>
-											<div class="ui stackable grid">
-												<div class="row">
-													<div class="column">
-														<div class="ui mini horizontal link list">
-															<div class="item">
-																<img th:src="${blog.avatar}" src="https://picsum.photos/id/1005/100/100" alt="" class="ui avatar image">
-																<div class="content">
-																	<p class="header m-teal" th:text="${blog.nickName}">beifeng</p>
+											<div class="eleven wide column">
+												<a href="#" th:href="@{/types/{id}(id=${blog.typeId})}" target="_blank" class="ui teal ribbon label"  th:text="${blog.typeName}">Overview</a>
+												<h3 class="ui header m-text-align"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"  class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗？</a></h3>
+												<p class="m-text m-text-indent" th:text="|${blog.description}......|" >testtesttesttesttesttesttesttesttest</p>
+												<div class="ui stackable grid">
+													<div class="row">
+														<div class="column">
+															<div class="ui mini horizontal link list">
+																<div class="item">
+																	<img th:src="${blog.avatar}" src="https://picsum.photos/id/1005/100/100" alt="" class="ui avatar image">
+																	<div class="content">
+																		<p class="header m-teal" th:text="${blog.nickName}">beifeng</p>
+																	</div>
 																</div>
-															</div>
-															<div class="item">
-																<i class="calendar icon"></i> <span th:text="${#strings.substring(blog.createTime,0,10)}">2020-10-01</span>
-															</div>
-															<div class="item">
-																<i class="eye icon"></i> <span th:text="${blog.views}">2020</span>
+																<div class="item">
+																	<i class="calendar icon"></i> <span th:text="${#strings.substring(blog.createTime,0,10)}">2020-10-01</span>
+																</div>
+																<div class="item">
+																	<i class="eye icon"></i> <span th:text="${blog.views}">2020</span>
+																</div>
 															</div>
 														</div>
 													</div>
-												</div>
 
-												<div class="row">
-													<div class="right aligned column">
-														<a href="" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui basic teal left pointing label m-margin-bottom-tiny m-padded-tiny" th:each="tag, iterStat : ${blog.tags}" th:text="${tag.name}">方法论</a>
+													<div class="row">
+														<div class="right aligned column">
+															<a href="" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui basic teal left pointing label m-margin-bottom-tiny m-padded-tiny" th:each="tag, iterStat : ${blog.tags}" th:text="${tag.name}">方法论</a>
+														</div>
 													</div>
+
 												</div>
-
 											</div>
-										</div>
 
-										<div class="five wide column">
-											<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
-												<img src="http://pic.netbian.com/uploads/allimg/190824/212516-15666531161ade.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
-											</a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-
-							<!-- footer -->
-
-							<div class="ui bottom attached segment">
-								<!--<div class="ui middle aligned two column grid">
-                                    <div class="column">
-                                        <a href="#" th:unless="${pageInfo.isFirstPage}" class="ui mini teal basic button">上一页</a>
-                                    </div>
-
-                                    <div class="right aligned column">
-                                        <a href="#" th:unless="${pageInfo.isLastPage}" class="ui mini teal basic button">下一页</a>
-                                    </div>
-                                </div>-->
-
-								<div class="ui inverted grid">
-									<div class="three wide column" align="center">
-										<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
-											<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
-											<a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="item" style="color: #0a001f">上一页</a>
-										</div>
-									</div>
-
-									<div class="ten wide column" align="center">
-										<div class="ui mini pagination menu">
-											<div class="item">
-												<p>第 <span th:text="${pageInfo.pageNum}"></span> 页
+											<div class="five wide column">
+												<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+													<img src="http://pic.netbian.com/uploads/allimg/190824/212516-15666531161ade.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+												</a>
 											</div>
-											<div class="item">
-												共 <span th:text="${pageInfo.pages}"></span> 页
-											</div>
-											<div class="item">
-												有 <span th:text="${pageInfo.total}"></span> 篇文章</p>
-											</div>
-										</div>
-									</div>
 
-									<div class="three wide column" align="center">
-										<div class="ui mini pagination menu" th:unless="${pageInfo.isLastPage}">
-											<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
-											<a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class="item" style="color: #0a001f">下一页</a>
 										</div>
 									</div>
 								</div>
-								<!--<div class="ui mini pagination menu">
-                                    <a href="#" class=" item">上一页</a>
-                                    <a href="#" class=" item">下一页</a>
-                                </div>-->
 
+								<!-- footer -->
+
+								<div class="ui segment">
+									<!--<div class="ui middle aligned two column grid">
+                                        <div class="column">
+                                            <a href="#" th:unless="${pageInfo.isFirstPage}" class="ui mini teal basic button">上一页</a>
+                                        </div>
+
+                                        <div class="right aligned column">
+                                            <a href="#" th:unless="${pageInfo.isLastPage}" class="ui mini teal basic button">下一页</a>
+                                        </div>
+                                    </div>-->
+
+									<div class="ui inverted grid">
+										<div class="three wide column" align="center">
+											<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
+												<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
+												<a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="item" style="color: #0a001f">上一页</a>
+											</div>
+										</div>
+
+										<div class="ten wide column" align="center">
+											<div class="ui mini pagination menu">
+												<div class="item">
+													<p>第 <span th:text="${pageInfo.pageNum}"></span> 页
+												</div>
+												<div class="item">
+													共 <span th:text="${pageInfo.pages}"></span> 页
+												</div>
+												<div class="item">
+													有 <span th:text="${pageInfo.total}"></span> 篇文章</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="three wide column" align="center">
+											<div class="ui mini pagination menu" th:unless="${pageInfo.isLastPage}">
+												<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
+												<a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class="item" style="color: #0a001f">下一页</a>
+											</div>
+										</div>
+									</div>
+									<!--<div class="ui mini pagination menu">
+                                        <a href="#" class=" item">上一页</a>
+                                        <a href="#" class=" item">下一页</a>
+                                    </div>-->
+
+								</div>
 							</div>
+
 						</div>
 
 					</div>
@@ -230,7 +233,7 @@
 					<!-- 右边的top -->
 					<div class="five wide column">
 						<!-- 分类 -->
-						<div class="ui segments animate__animated animate__slideInRight">
+						<div class="ui raised segments animate__animated animate__slideInRight">
 
 							<div class="ui secondary segment">
 								<div class="ui two column grid">
@@ -256,7 +259,7 @@
 						</div>
 
 						<!-- 标签 -->
-						<div class="ui segments m-margin-top-large animate__animated animate__slideInRight">
+						<div class="ui raised segments m-margin-top-large animate__animated animate__slideInRight">
 
 							<div class="ui secondary segment">
 								<div class="ui two column grid">
@@ -279,7 +282,7 @@
 						</div>
 
 						<!-- 最新推荐 -->
-						<div class="ui segments m-margin-top-large animate__animated animate__slideInRight">
+						<div class="ui raised segments m-margin-top-large animate__animated animate__slideInRight">
 
 							<div class="ui secondary segment">
 								<i class="teal bookmark icon"></i><span class="m-text-weight">最新推荐</span>
@@ -294,7 +297,7 @@
 
 						<!-- 二维码 -->
 						<h4 class="ui horizontal divider m-margin-top-large animate__animated animate__slideInUp">扫码关注我</h4>
-						<div class="ui centered card animate__animated animate__slideInUp" style="width: 11em;">
+						<div class="ui raised centered card animate__animated animate__slideInUp" style="width: 11em;">
 							<img  src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded image" >
 						</div>
 

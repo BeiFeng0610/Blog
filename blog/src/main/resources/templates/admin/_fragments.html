@@ -130,7 +130,7 @@
 </div>
 
 <!-- 底部footer -->
-<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive mydiv">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="four wide column">
@@ -165,6 +165,7 @@
         </div>
         <div class="ui inverted section divider"></div>
         <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 北风 | BeiFeng Designed By BeiFeng | 北风徘徊</p>
+        <div class="ui inverted m-text-thin m-text-spaced m-padded-tb m-teal">博客已漂流：<span id="htmer_time" class="item m-text-thin"></span> (゜-゜)つロ</div>
         <a target="_blank" href="http://beian.miit.gov.cn/" style="color: whitesmoke">豫ICP备2020034799号</a>
     </div>
 </footer>
@@ -180,6 +181,47 @@
                 on : 'hover'
             });
         })
+
+        // 运行时间统计
+        function secondToDate(second) {
+            if (!second) {
+                return 0;
+            }
+            var time = new Array(0, 0, 0, 0, 0);
+            if (second >= 365 * 24 * 3600) {
+                time[0] = parseInt(second / (365 * 24 * 3600));
+                second %= 365 * 24 * 3600;
+            }
+            if (second >= 24 * 3600) {
+                time[1] = parseInt(second / (24 * 3600));
+                second %= 24 * 3600;
+            }
+            if (second >= 3600) {
+                time[2] = parseInt(second / 3600);
+                second %= 3600;
+            }
+            if (second >= 60) {
+                time[3] = parseInt(second / 60);
+                second %= 60;
+            }
+            if (second > 0) {
+                time[4] = second;
+            }
+            return time;
+        }
+        function setTime() {
+            /*此处为网站的创建时间*/
+            // 博客创建时间秒数，时间格式中，月比较特殊，是从0开始的，所以想要显示12月，得写11才行，如下
+            var create_time = Math.round(new Date(Date.UTC(2020, 11, 09, 00, 00, 00)).getTime() / 1000);
+            var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+            currentTime = secondToDate((timestamp - create_time));
+            currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+                + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+                + '秒';
+            document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+        }
+        setInterval(setTime, 1000);
+
     </script>
 
     <script>
