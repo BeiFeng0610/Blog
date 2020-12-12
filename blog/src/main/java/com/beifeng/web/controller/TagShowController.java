@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -61,6 +62,24 @@ public class TagShowController {
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("selectId", id);
 
-        return "tags";
+        return "tags :: tagList";
+    }
+
+    @PostMapping("/tags/page")
+    public String blogsByTypeIdPage(@RequestParam String selectId,
+                                Model model,
+                                @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
+        System.out.println("执行根据标签获取博客分页");
+
+        PageHelper.startPage(pageNum, 10);
+        List<IndexBlogsVo> blogsByTagId = blogService.getBlogsByTagId(selectId);
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(blogsByTagId);
+
+        List<TagVo> tags = tagService.getAllTagVos();
+        model.addAttribute("tags", tags);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("selectId", selectId);
+
+        return "tags :: tagBlogList";
     }
 }

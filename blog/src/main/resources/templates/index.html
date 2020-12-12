@@ -4,7 +4,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="white=devic-width,initial-scale=1.0" />
 		<title>北风小窝</title>
-		
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 		<link rel="stylesheet" type="text/css" href="../static/css/me.css"/>
 
@@ -16,7 +15,7 @@
 				linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
 				图片变暗
 			*/
-			background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(http://tva1.sinaimg.cn/large/00828lbuly1gki5amsy4zj31hc0u0x6p.jpg) no-repeat center center !important;
+			background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(http://images.beif.top/img/00828lbuly1gki5amsy4zj31hc0u0x6p.jpg) no-repeat center center !important;
 			-webkit-background-size: cover !important;
 			-moz-background-size: cover !important;
 			background-size: cover !important;
@@ -110,11 +109,13 @@
 
 					<!-- 左边博客列表 -->
 					<div class="eleven wide column animate__animated animate__zoomIn">
+
 						<input type="hidden" name="pageNum">
 
-						<div id="table-container" th:fragment="firstBlogList">
+						<div id="index-container">
 
-							<div class="ui raised segments">
+							<div class="ui raised segments" th:fragment="indexBlogList">
+
 								<!-- header -->
 								<div class="ui segment">
 									<div class="ui middle aligned two column grid">
@@ -193,7 +194,7 @@
 										<div class="three wide column" align="center">
 											<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
 												<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
-												<a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="item" style="color: #0a001f">上一页</a>
+												<a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1" class="item" style="color: #0a001f">上一页</a>
 											</div>
 										</div>
 
@@ -214,7 +215,7 @@
 										<div class="three wide column" align="center">
 											<div class="ui mini pagination menu" th:unless="${pageInfo.isLastPage}">
 												<!--th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
-												<a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class="item" style="color: #0a001f">下一页</a>
+												<a onclick="pageNum(this)" th:attr="data-pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages}" class="item" style="color: #0a001f">下一页</a>
 											</div>
 										</div>
 									</div>
@@ -360,6 +361,17 @@
 
 			})
 
+			function pageNum(obj){
+				$("[name='pageNum']").val($(obj).attr('data-pageNum'));
+				loaddata();
+				$(window).scrollTo($('#index-container'),500);
+			}
+
+			function loaddata() {
+				$("#index-container").load(/*[[@{/}]]*/"/",{
+					pageNum : $("[name='pageNum']").val()
+				});
+			}
 
 
 		</script>

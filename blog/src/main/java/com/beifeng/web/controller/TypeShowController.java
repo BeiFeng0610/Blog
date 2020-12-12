@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -60,6 +61,23 @@ public class TypeShowController {
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("selectId", id);
 
-        return "types";
+        return "types :: typeList";
+    }
+
+    @PostMapping("/types/page")
+    public String blogsByTypeIdPage(@RequestParam String selectId,
+                                    @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,
+                                    Model model){
+        System.out.println("执行根据分类获取博客");
+
+        PageHelper.startPage(pageNum, 10);
+        List<IndexBlogsVo> blogsByTypeId = blogService.getBlogsByTypeId(selectId);
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(blogsByTypeId);
+
+        List<TypeVo> types = typeService.getAllTypesVo();
+        model.addAttribute("types", types);
+        model.addAttribute("pageInfo", pageInfo);
+
+        return "types :: typeBlogList";
     }
 }

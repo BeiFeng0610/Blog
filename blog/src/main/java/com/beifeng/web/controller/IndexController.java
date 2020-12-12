@@ -56,11 +56,27 @@ public class IndexController {
         return "index";
     }
 
+
+    @PostMapping("/")
+    public String indexPage(Model model,
+                        @RequestParam (defaultValue = "1",value = "pageNum") Integer pageNum){
+        System.out.println("执行博客首页分页操作");
+
+        PageHelper.startPage(pageNum, 10);
+        List<IndexBlogsVo> allFirstPageBlog = blogService.getIndexBlogs();
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(allFirstPageBlog);
+
+        model.addAttribute("pageInfo", pageInfo);
+
+        return "index :: indexBlogList";
+    }
+
+
     @GetMapping("/search")
     public String search(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,
                          @RequestParam String query,
                          Model model){
-        System.out.println("执行条件查询和分页操作");
+        System.out.println("执行博客查询");
 
 
         PageHelper.startPage(pageNum, 10);
@@ -73,6 +89,24 @@ public class IndexController {
         return "search";
 
     }
+
+    @PostMapping("/search")
+    public String searchPage(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,
+                         @RequestParam String query,
+                         Model model){
+        System.out.println("执行博客查询分页操作");
+
+        PageHelper.startPage(pageNum, 10);
+        List<IndexBlogsVo> searchBlog = blogService.getBlogsByQuery(query.trim());
+
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(searchBlog);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("query", query);
+
+        return "search :: searchBlogList";
+
+    }
+
 
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable String id,Model model){
