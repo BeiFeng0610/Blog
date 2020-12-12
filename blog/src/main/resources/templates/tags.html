@@ -237,9 +237,15 @@
 			});
 
 			function tagId(obj){
-				/*$("[name='tagId']").val($(obj).attr('data-tagId'));*/
+				$("[name='selectId']").val($(obj).attr('data-tagId'));
 				/*alert("tags/"+$("[name='tagId']").val());*/
-				$("#tag-container").load("/tags/"+$(obj).attr('data-tagId'));
+				load_BlogsByTagId();
+			}
+
+			function load_BlogsByTagId() {
+				$("#tag-container").load(/*[[@{/tags/id}]]*/"/tags/id",{
+					id : $("[name='selectId']").val(),
+				});
 			}
 
 			/*------------------------------------------------------------------------*/

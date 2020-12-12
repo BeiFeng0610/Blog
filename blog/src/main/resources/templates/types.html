@@ -238,8 +238,14 @@
 
 			/*-------------------------------------------------------------------------*/
 			function typeId(obj){
-				/*$("[name='typeId']").val($(obj).attr('data-typeId'));*/
-				$("#type-container").load('/types/'+$(obj).attr('data-typeId'));
+				$("[name='selectId']").val($(obj).attr('data-typeId'));
+				load_BlogsByTypeId();
+			}
+
+			function load_BlogsByTypeId() {
+				$("#type-container").load(/*[[@{/types/id}]]*/"/types/id",{
+					id : $("[name='selectId']").val(),
+				});
 			}
 
 

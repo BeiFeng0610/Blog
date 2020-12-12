@@ -62,6 +62,25 @@ public class TagShowController {
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("selectId", id);
 
+        return "tags";
+    }
+
+    /*标签页局部刷新，增加用户体验*/
+    @PostMapping("/tags/id")
+    public String blogsByTypeIdPost(@RequestParam String id,
+                                Model model,
+                                @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
+        System.out.println("执行根据标签获取博客局部刷新");
+
+        PageHelper.startPage(pageNum, 10);
+        List<IndexBlogsVo> blogsByTagId = blogService.getBlogsByTagId(id);
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(blogsByTagId);
+
+        List<TagVo> tags = tagService.getAllTagVos();
+        model.addAttribute("tags", tags);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("selectId", id);
+
         return "tags :: tagList";
     }
 

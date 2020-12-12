@@ -60,7 +60,23 @@ public class TypeShowController {
         model.addAttribute("types", types);
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("selectId", id);
+        return "types";
+    }
 
+    @PostMapping("/types/id")
+    public String blogsByTypeIdPost(@RequestParam String id,
+                                Model model,
+                                @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
+        System.out.println("执行根据分类获取博客局部刷新");
+
+        PageHelper.startPage(pageNum, 10);
+        List<IndexBlogsVo> blogsByTypeId = blogService.getBlogsByTypeId(id);
+        PageInfo<IndexBlogsVo> pageInfo = new PageInfo<>(blogsByTypeId);
+
+        List<TypeVo> types = typeService.getAllTypesVo();
+        model.addAttribute("types", types);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("selectId", id);
         return "types :: typeList";
     }
 
