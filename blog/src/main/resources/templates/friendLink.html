@@ -90,10 +90,10 @@
                 <h1 class="ui header center aligned m-padded-tb">我的朋友</h1>
                 <div class="ui grid container">
                     <div align="center" class="four wide column m-padded-tb-large" th:each="friend : ${friends}">
-                        <a href="#" th:href="'https://'+${friend.blogLink}" target="_blank">
+                        <a href="#" th:href="'http://'+${friend.blogLink}" target="_blank">
                             <img class="ui circular small image" src="https://picsum.photos/id/1005/100/100" th:src="${friend.avatarLink}">
                             <div class="m-padded-tb-tiny">
-                                <a class="ui teal label" target="_blank" th:href="'https://'+${friend.blogLink}" th:text="${friend.blogName}">北风徘徊</a>
+                                <a class="ui teal label" target="_blank" th:href="'http://'+${friend.blogLink}" th:text="${friend.blogName}">北风徘徊</a>
                             </div>
                         </a>
                     </div>
