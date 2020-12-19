@@ -27,8 +27,4 @@ class BlogApplicationTests {
 
     }
 
-    @Test
-    public void test(String[] args) {
-
-    }
 }
