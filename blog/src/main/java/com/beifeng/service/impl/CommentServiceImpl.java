@@ -18,14 +18,13 @@ import java.util.List;
  * @version 1.0
  * @date 2020/11/17 22:40
  */
-@Transactional
 @Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentMapper commentMapper;
 
-
+    @Transactional
     @Override
     public String saveComment(Comment comment) {
         comment.setId(UUIDUtil.getUUID());
@@ -61,6 +60,7 @@ public class CommentServiceImpl implements CommentService {
         return comments;
     }
 
+    @Transactional
     @Override
     public String editCommentById(String commentId, String content) {
         String msg = "修改失败";
@@ -71,6 +71,7 @@ public class CommentServiceImpl implements CommentService {
         return msg;
     }
 
+    @Transactional
     @Override
     public String deleteCommentById(String commentId) {
         String msg = "删除失败";
@@ -85,11 +86,13 @@ public class CommentServiceImpl implements CommentService {
     public List<AdminCommentsVo> getComments() {
 
         List<AdminCommentsVo> commentList = commentMapper.getCommentList();
-
         return commentList;
     }
 
-    
+    @Override
+    public Comment getCommentById(String replyCommentId) {
+        return commentMapper.getReplyCommendByReplyCommendId(replyCommentId);
+    }
 
     /*判断子回复是否在超级父评论下回复过其他  子回复*/
     private void setReplyCommend(List<Comment> subComments,List<Comment> tempReplys){

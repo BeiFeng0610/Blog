@@ -21,4 +21,6 @@ public interface CommentService {
     String deleteCommentById(String commentId);
 
     List<AdminCommentsVo> getComments();
+
+    Comment getCommentById(String replyCommentId);
 }

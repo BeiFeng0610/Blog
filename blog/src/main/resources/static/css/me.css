@@ -298,6 +298,10 @@ body.dimmed.dimmable {
 	white-space:normal;
 }
 
+.m-white-space-pre-wrap{
+	white-space: pre-wrap !important;
+}
+
 
 @media screen and (max-width: 768px) {
 	.m-mobile-hide {
