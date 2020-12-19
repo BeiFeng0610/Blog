@@ -5,6 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SpringBootTest
 class BlogApplicationTests {
@@ -15,19 +17,18 @@ class BlogApplicationTests {
 
     @Test
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-
-        String ids = "00204dee3bf542f7ab2139848fde6224,0f3cd79b9bdc4c349a220d6ce04f07e5,37c7505bb021433eb338a4f11efee5e3";
-        if (!"".equals(ids) && ids != null) {
-            String[] idArray = ids.split(",");
-            for (int i=0; i < idArray.length;i++) {
-                list.add(String.valueOf(idArray[i]));
-            }
+        String email = "www.1611606790@qq.COM";
+        if (email.trim().toLowerCase().contains("@qq.com")){
+            String regEx = "[^0-9]";
+            Pattern p = Pattern.compile(regEx);
+            Matcher m = p.matcher(email);
+            System.out.println(m.replaceAll("").trim());
         }
 
-        for (String id:list
-             ) {
-            System.out.println(id);
-        }
+    }
+
+    @Test
+    public void test(String[] args) {
+
     }
 }

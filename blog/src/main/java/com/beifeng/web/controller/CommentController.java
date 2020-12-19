@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author BeiFeng
@@ -51,7 +53,16 @@ public class CommentController {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
         }else {
-            comment.setAvatar(avatar);
+            // 判断邮箱是否为qq邮箱
+            if (comment.getEmail().trim().toLowerCase().contains("@qq.com")){
+                String regEx = "[^0-9]";
+                Pattern p = Pattern.compile(regEx);
+                Matcher m = p.matcher(comment.getEmail());
+                comment.setAvatar("http://q1.qlogo.cn/g?b=qq&nk="+m.replaceAll("").trim()+"&s=100");
+            }else {
+                // 如果不是正确的qq邮箱，使用默认头像
+                comment.setAvatar(avatar);
+            }
         }
 
         commentService.saveComment(comment);
