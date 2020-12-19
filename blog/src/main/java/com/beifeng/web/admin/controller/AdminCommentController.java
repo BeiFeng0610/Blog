@@ -26,10 +26,10 @@ import java.util.List;
 public class AdminCommentController {
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
     @GetMapping("/comments")
     public String comment(@RequestParam(required = false,defaultValue = "1",value = "pageNum") Integer pageNum,

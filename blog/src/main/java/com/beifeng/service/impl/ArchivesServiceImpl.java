@@ -18,7 +18,7 @@ import java.util.*;
 public class ArchivesServiceImpl implements ArchivesService {
 
     @Autowired
-    ArchivesMapper archivesMapper;
+    private ArchivesMapper archivesMapper;
 
     @Transactional
     @Override

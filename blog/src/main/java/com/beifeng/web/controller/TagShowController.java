@@ -26,10 +26,10 @@ import java.util.List;
 public class TagShowController {
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
     @GetMapping("/tags")
     public String tags(Model model,

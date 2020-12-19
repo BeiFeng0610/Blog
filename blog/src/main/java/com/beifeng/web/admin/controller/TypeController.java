@@ -24,7 +24,7 @@ import java.util.List;
 public class TypeController {
 
     @Autowired
-    TypeService typeService;
+    private TypeService typeService;
 
     /*分页展示类型*/
     @GetMapping("/types")

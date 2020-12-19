@@ -24,7 +24,7 @@ import java.util.UUID;
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
-    MessageMapper messageMapper;
+    private MessageMapper messageMapper;
 
     @Override
     public List<Message> getMessages() {

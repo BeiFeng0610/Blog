@@ -22,7 +22,7 @@ import java.util.List;
 public class AdminFriendLinksController {
 
     @Autowired
-    FriendLinkService friendLinkService;
+    private FriendLinkService friendLinkService;
 
     @GetMapping("/friendLinks")
     public String friendLinks(@RequestParam(required = false,defaultValue = "1",value = "pageNum") Integer pageNum,

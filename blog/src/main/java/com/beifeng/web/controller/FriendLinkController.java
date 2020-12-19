@@ -28,10 +28,10 @@ import java.util.regex.Pattern;
 public class FriendLinkController {
 
     @Autowired
-    FriendLinkService friendLinkService;
+    private FriendLinkService friendLinkService;
 
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
     @Value("${Comment.avatar}")
     private String avatar;

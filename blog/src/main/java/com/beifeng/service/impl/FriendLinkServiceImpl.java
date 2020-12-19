@@ -20,7 +20,7 @@ import java.util.List;
 public class FriendLinkServiceImpl implements FriendLinkService {
 
     @Autowired
-    FriendLinkMapper friendLinkMapper;
+    private FriendLinkMapper friendLinkMapper;
 
     @Override
     public List<FriendLink> getFriends() {

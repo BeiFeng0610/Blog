@@ -25,10 +25,10 @@ import java.util.List;
 public class TypeShowController {
 
     @Autowired
-    TypeService typeService;
+    private TypeService typeService;
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
     @GetMapping("/types")
     public String types(Model model,

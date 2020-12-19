@@ -24,16 +24,16 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    TypeService typeService;
+    private TypeService typeService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @GetMapping("/")
     public String index(Model model,

@@ -20,10 +20,10 @@ import java.util.Map;
 public class ArchivesController {
 
     @Autowired
-    ArchivesService archivesService;
+    private ArchivesService archivesService;
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
     @GetMapping("/archives")
     public String archives(Model model){
