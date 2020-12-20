@@ -2,6 +2,7 @@ package com.beifeng.web.controller;
 
 import com.beifeng.domain.*;
 import com.beifeng.service.FriendLinkService;
+import com.beifeng.service.MailService;
 import com.beifeng.service.MessageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,6 +33,9 @@ public class FriendLinkController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MailService mailService;
 
     @Value("${Comment.avatar}")
     private String avatar;
@@ -93,6 +97,7 @@ public class FriendLinkController {
         }
 
         messageService.saveMessage(message);
+        mailService.sendTemplateMail(message);
 
         return "redirect:/friendLink/messages";
     }

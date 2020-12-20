@@ -8,6 +8,8 @@ spring:
   #设置thymeleaf模板引擎缓存，默认开启
   thymeleaf:
     cache: false
+    prefix:
+      classpath: /templates
 
 mybatis:
   mapper-locations: classpath:dao/*.xml

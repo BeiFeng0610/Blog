@@ -2,8 +2,10 @@ package com.beifeng.service.impl;
 
 import com.beifeng.dao.BlogMapper;
 import com.beifeng.dao.CommentMapper;
+import com.beifeng.dao.MessageMapper;
 import com.beifeng.domain.Blog;
 import com.beifeng.domain.Comment;
+import com.beifeng.domain.Message;
 import com.beifeng.service.MailService;
 import com.beifeng.vo.SendEmailVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class MailServiceImpl implements MailService {
 
     @Autowired
     private BlogMapper blogMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Value("${spring.mail.username}")
     private String from;
@@ -107,7 +112,7 @@ public class MailServiceImpl implements MailService {
             //创建邮件正文
             Context context = new Context();
             context.setVariable("sendEmailVo",sendEmailVo);
-            String emailContent = templateEngine.process("emailTemplate", context);
+            String emailContent = templateEngine.process("/email/emailTemplate-comment", context);
             sendHtmlMail(replyComment.getEmail(),title,emailContent);
         }else {
             if (""!=comment.getParentCommentId()&&null!=comment.getParentCommentId()){
@@ -118,7 +123,7 @@ public class MailServiceImpl implements MailService {
                 //创建邮件正文
                 Context context = new Context();
                 context.setVariable("sendEmailVo",sendEmailVo);
-                String emailContent = templateEngine.process("emailTemplate", context);
+                String emailContent = templateEngine.process("/email/emailTemplate-comment", context);
                 sendHtmlMail(replyComment.getEmail(),title,emailContent);
             }else {
                 if (!comment.getAdminComment()){
@@ -126,7 +131,64 @@ public class MailServiceImpl implements MailService {
                     //创建邮件正文
                     Context context = new Context();
                     context.setVariable("sendEmailVo",sendEmailVo);
-                    String emailContent = templateEngine.process("emailTemplate", context);
+                    String emailContent = templateEngine.process("/email/emailTemplate-comment", context);
+                    sendHtmlMail(from,title,emailContent);
+                }
+            }
+        }
+    }
+
+    /*发送模板邮件*/
+    @Transactional
+    @Async
+    @Override
+    public void sendTemplateMail(Message message) {
+        SendEmailVo sendEmailVo = new SendEmailVo();
+        String title = "北风小窝留言回复";
+
+        sendEmailVo.setNickname(message.getNickname());
+        sendEmailVo.setContent(message.getContent());
+        sendEmailVo.setBlogName("友情链接");
+        /*sendEmailVo.setBlogId("");*/
+        sendEmailVo.setReplyFlag(true);
+
+        /*
+            判断评论是否回复其他评论
+                如果有，直接给被回复的评论发送邮件
+                如果没有，判断是否为主评论
+                    如果不是主评论，给主评论发送邮件
+                    如果是主评论，判断是否为管理员评论
+                        不是管理员评论，发送邮件给管理员
+                        是管理员评论，不用发送邮件
+        */
+        if (""!=message.getReplyCommentId()&&null!=message.getReplyCommentId()){
+            Message replyMessage = messageMapper.getReplyMessageByReplyMessageId(message.getReplyCommentId());
+            sendEmailVo.setReplyNickname(replyMessage.getNickname());
+            sendEmailVo.setReplyContent(replyMessage.getContent());
+            sendEmailVo.setReplyEmail(replyMessage.getEmail());
+            //创建邮件正文
+            Context context = new Context();
+            context.setVariable("sendEmailVo",sendEmailVo);
+            String emailContent = templateEngine.process("/email/emailTemplate-message", context);
+            sendHtmlMail(replyMessage.getEmail(),title,emailContent);
+        }else {
+            if (""!=message.getParentCommentId()&&null!=message.getParentCommentId()){
+                Message replyMessage = messageMapper.getReplyMessageByReplyMessageId(message.getParentCommentId());
+                sendEmailVo.setReplyNickname(replyMessage.getNickname());
+                sendEmailVo.setReplyContent(replyMessage.getContent());
+                sendEmailVo.setReplyEmail(replyMessage.getEmail());
+                //创建邮件正文
+                Context context = new Context();
+                context.setVariable("sendEmailVo",sendEmailVo);
+                String emailContent = templateEngine.process("/email/emailTemplate-message", context);
+                sendHtmlMail(replyMessage.getEmail(),title,emailContent);
+            }else {
+                if (!message.getAdminComment()){
+                    sendEmailVo.setReplyFlag(false);
+                    //创建邮件正文
+                    Context context = new Context();
+                    context.setVariable("sendEmailVo",sendEmailVo);
+                    String emailContent = templateEngine.process("/email/emailTemplate-message", context);
                     sendHtmlMail(from,title,emailContent);
                 }
             }
