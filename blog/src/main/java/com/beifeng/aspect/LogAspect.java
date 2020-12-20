@@ -1,5 +1,6 @@
 package com.beifeng.aspect;
 
+import com.beifeng.util.IpUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -34,8 +35,11 @@ public class LogAspect {
         String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
         RequestLog requestLog = new RequestLog(url, ip, classMethod, args);
+        String ipAddress = IpUtil.getIpAddr(request);
 
         logger.info("Request : {}", requestLog);
+        logger.info("ip : {}", ipAddress);
+
     }
 
     @After("log()")

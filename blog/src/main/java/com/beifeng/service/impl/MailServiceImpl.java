@@ -112,7 +112,7 @@ public class MailServiceImpl implements MailService {
             //创建邮件正文
             Context context = new Context();
             context.setVariable("sendEmailVo",sendEmailVo);
-            String emailContent = templateEngine.process("/email/emailTemplate-comment", context);
+            String emailContent = templateEngine.process("email/emailTemplate-comment", context);
             sendHtmlMail(replyComment.getEmail(),title,emailContent);
         }else {
             if (""!=comment.getParentCommentId()&&null!=comment.getParentCommentId()){
@@ -123,7 +123,7 @@ public class MailServiceImpl implements MailService {
                 //创建邮件正文
                 Context context = new Context();
                 context.setVariable("sendEmailVo",sendEmailVo);
-                String emailContent = templateEngine.process("/email/emailTemplate-comment", context);
+                String emailContent = templateEngine.process("email/emailTemplate-comment", context);
                 sendHtmlMail(replyComment.getEmail(),title,emailContent);
             }else {
                 if (!comment.getAdminComment()){
@@ -131,7 +131,7 @@ public class MailServiceImpl implements MailService {
                     //创建邮件正文
                     Context context = new Context();
                     context.setVariable("sendEmailVo",sendEmailVo);
-                    String emailContent = templateEngine.process("/email/emailTemplate-comment", context);
+                    String emailContent = templateEngine.process("email/emailTemplate-comment", context);
                     sendHtmlMail(from,title,emailContent);
                 }
             }
@@ -169,7 +169,7 @@ public class MailServiceImpl implements MailService {
             //创建邮件正文
             Context context = new Context();
             context.setVariable("sendEmailVo",sendEmailVo);
-            String emailContent = templateEngine.process("/email/emailTemplate-message", context);
+            String emailContent = templateEngine.process("email/emailTemplate-message", context);
             sendHtmlMail(replyMessage.getEmail(),title,emailContent);
         }else {
             if (""!=message.getParentCommentId()&&null!=message.getParentCommentId()){
@@ -180,7 +180,7 @@ public class MailServiceImpl implements MailService {
                 //创建邮件正文
                 Context context = new Context();
                 context.setVariable("sendEmailVo",sendEmailVo);
-                String emailContent = templateEngine.process("/email/emailTemplate-message", context);
+                String emailContent = templateEngine.process("email/emailTemplate-message", context);
                 sendHtmlMail(replyMessage.getEmail(),title,emailContent);
             }else {
                 if (!message.getAdminComment()){
@@ -188,7 +188,7 @@ public class MailServiceImpl implements MailService {
                     //创建邮件正文
                     Context context = new Context();
                     context.setVariable("sendEmailVo",sendEmailVo);
-                    String emailContent = templateEngine.process("/email/emailTemplate-message", context);
+                    String emailContent = templateEngine.process("email/emailTemplate-message", context);
                     sendHtmlMail(from,title,emailContent);
                 }
             }
