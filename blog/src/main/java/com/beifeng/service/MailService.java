@@ -1,5 +1,7 @@
 package com.beifeng.service;
 
+import com.beifeng.domain.Comment;
+
 /**
  * @author BeiFeng
  * @version 1.0
@@ -11,5 +13,7 @@ public interface MailService {
     /*void sendSimpleMail(String to,String subject,String content);*/
     //发送Html邮件
     void sendHtmlMail(String to,String subject,String content);
+
+    void sendTemplateMail(Comment comment);
 
 }

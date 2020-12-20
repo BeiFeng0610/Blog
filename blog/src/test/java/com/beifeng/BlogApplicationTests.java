@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @SpringBootTest
 class BlogApplicationTests {
 
-    @Test
+    /*@Test
     public static void main(String[] args) {
         String email = "www.1611606790@qq.COM";
         if (email.trim().toLowerCase().contains("@qq.com")){
@@ -31,20 +31,20 @@ class BlogApplicationTests {
     @Autowired
     private TemplateEngine templateEngine;
 
-    /**
+    *//**
      * @Description:发送简单邮件(收件人，主题，内容都暂时写死)
      * 访问地址：http://localhost:8080/mail/sendSimpleMail
      * @return
      * @author:zoey
      * @date:2018年3月16日
-     */
-    /*@Test
+     *//*
+    *//*@Test
     void sendSimpleMail(){
         String to = "1611606790@qq.com";
         String subject = "test simple mail";
         String content = "hello, this is simple mail";
         mailService.sendSimpleMail(to, subject, content);
-    }*/
+    }*//*
 
     @Test
     void sendHtmlMail() {
@@ -64,6 +64,6 @@ class BlogApplicationTests {
         context.setVariable("product","梦想产品");
         String emailContent = templateEngine.process("emailTemplate", context);
         mailService.sendHtmlMail("1611606790@qq.com","主题：这是模板邮件",emailContent);
-    }
+    }*/
 
 }
