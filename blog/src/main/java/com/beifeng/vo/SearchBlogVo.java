@@ -12,6 +12,7 @@ public class SearchBlogVo {
     private String title;
     private String typeId;
     private Boolean recommend;
+    private Boolean sticky;
 
     public SearchBlogVo() {
     }
@@ -40,12 +41,21 @@ public class SearchBlogVo {
         this.recommend = recommend;
     }
 
+    public Boolean getSticky() {
+        return sticky;
+    }
+
+    public void setSticky(Boolean sticky) {
+        this.sticky = sticky;
+    }
+
     @Override
     public String toString() {
         return "SearchBlogVo{" +
                 "title='" + title + '\'' +
                 ", typeId='" + typeId + '\'' +
                 ", recommend=" + recommend +
+                ", sticky=" + sticky +
                 '}';
     }
 }

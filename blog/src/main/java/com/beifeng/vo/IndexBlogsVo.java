@@ -18,6 +18,7 @@ public class IndexBlogsVo {
     private Integer views;
     private String createTime;
     private String description;
+    private Boolean sticky;
 
     // Type
     private String typeId;
@@ -81,6 +82,14 @@ public class IndexBlogsVo {
         this.description = description;
     }
 
+    public Boolean getSticky() {
+        return sticky;
+    }
+
+    public void setSticky(Boolean sticky) {
+        this.sticky = sticky;
+    }
+
     public String getTypeId() {
         return typeId;
     }
@@ -130,6 +139,7 @@ public class IndexBlogsVo {
                 ", views=" + views +
                 ", createTime='" + createTime + '\'' +
                 ", description='" + description + '\'' +
+                ", sticky=" + sticky +
                 ", typeId='" + typeId + '\'' +
                 ", typeName='" + typeName + '\'' +
                 ", nickName='" + nickName + '\'' +

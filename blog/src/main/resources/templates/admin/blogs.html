@@ -83,6 +83,12 @@
 							</div>
 							<div class="field m-padded-b-small">
 								<div class="ui checkbox">
+									<input type="checkbox" name="sticky" id="sticky" />
+									<label for="sticky">置顶</label>
+								</div>
+							</div>
+							<div class="field m-padded-b-small">
+								<div class="ui checkbox">
 									<input type="checkbox" name="recommend" id="recommend" />
 									<label for="recommend">推荐</label>
 								</div>
@@ -107,6 +113,7 @@
 								<th></th>
 								<th>标题</th>
 								<th>类型</th>
+								<th>置顶</th>
 								<th>推荐</th>
 								<th>状态</th>
 								<th>更新时间</th>
@@ -118,6 +125,7 @@
 								<td th:text="${iterStat.count}">1</td>
 								<td th:text="${blog.title}">可以练习清单</td>
 								<td th:text="${blog.getType().name}">认知升级</td>
+								<td th:text="${blog.sticky} ? '是':'否' ">是</td>
 								<td th:text="${blog.recommend} ? '是':'否' ">是</td>
 								<td th:text="${blog.published} ? '发布':'草稿' ">草稿</td>
 								<td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-3-02</td>
@@ -142,7 +150,7 @@
 							</tbody>
 							<tfoot>
 							<tr>
-								<th colspan="7">
+								<th colspan="8">
 									<div class="ui inverted divided stackable grid">
 										<div class="three wide column" align="center">
 											<div class="ui mini pagination menu" th:unless="${pageInfo.isFirstPage}">
@@ -277,6 +285,7 @@
 					title : $("[name='title']").val(),
 					typeId : $("[name='typeId']").val(),
 					recommend : $("#recommend").prop("checked"),
+					sticky : $("#sticky").prop("checked"),
 					pageNum : $("[name='pageNum']").val()
 				});
 			}

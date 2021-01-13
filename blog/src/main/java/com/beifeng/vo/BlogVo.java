@@ -19,6 +19,7 @@ public class BlogVo {
     private Date updateTime;
     private Boolean recommend;
     private Boolean published;
+    private Boolean sticky;
     private String typeId;
 
     private Type type;
@@ -66,6 +67,14 @@ public class BlogVo {
         this.published = published;
     }
 
+    public Boolean getSticky() {
+        return sticky;
+    }
+
+    public void setSticky(Boolean sticky) {
+        this.sticky = sticky;
+    }
+
     public String getTypeId() {
         return typeId;
     }
@@ -73,7 +82,6 @@ public class BlogVo {
     public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
-
 
     public Type getType() {
         return type;
@@ -86,12 +94,13 @@ public class BlogVo {
     @Override
     public String toString() {
         return "BlogVo{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", updateTime=" + updateTime +
                 ", recommend=" + recommend +
                 ", published=" + published +
-                ", typeId=" + typeId +
+                ", sticky=" + sticky +
+                ", typeId='" + typeId + '\'' +
                 ", type=" + type +
                 '}';
     }

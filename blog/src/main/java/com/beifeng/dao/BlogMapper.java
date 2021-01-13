@@ -10,7 +10,7 @@ public interface BlogMapper {
 
     List<BlogVo> getAllBlogVo();
 
-    List<BlogVo> searchByTitleOrTypeOrRecommend(SearchBlogVo searchBlogVo);
+    List<BlogVo> getBlogBySearch(SearchBlogVo searchBlogVo);
 
     Integer saveBlogAndTags(BlogAndTagVo blogAndTag);
 

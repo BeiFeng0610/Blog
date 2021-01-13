@@ -68,6 +68,9 @@ public class BlogServiceImpl implements BlogService {
         if (blog.getRecommend()==null){
             blog.setRecommend(false);
         }
+        if (blog.getSticky()==null){
+            blog.setSticky(false);
+        }
 
         //将标签的数据存到t_blogs_tag表中
         BlogAndTagVo blogAndTag = null;
@@ -99,7 +102,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogVo> getBlogBySearch(SearchBlogVo searchBlogVo) {
 
-        List<BlogVo> blogVoList = blogMapper.searchByTitleOrTypeOrRecommend(searchBlogVo);
+        List<BlogVo> blogVoList = blogMapper.getBlogBySearch(searchBlogVo);
         return blogVoList;
     }
 
@@ -134,6 +137,9 @@ public class BlogServiceImpl implements BlogService {
         }
         if (blog.getRecommend()==null){
             blog.setRecommend(false);
+        }
+        if (blog.getSticky()==null){
+            blog.setSticky(false);
         }
 
         blogMapper.deleteBlogAndTags(blog.getId());

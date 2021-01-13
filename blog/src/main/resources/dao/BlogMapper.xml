@@ -14,6 +14,7 @@
         <result property="commentabled" column="commentabled"/>
         <result property="published" column="published"/>
         <result property="recommend" column="recommend"/>
+        <result property="sticky" column="sticky"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="typeId" column="type_id"/>
@@ -27,6 +28,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="recommend" column="recommend"/>
         <result property="published" column="published"/>
+        <result property="sticky" column="sticky"/>
         <result property="typeId" column="type_id"/>
         <association property="type" javaType="com.beifeng.domain.Type">
             <id property="id" column="id"/>
@@ -44,7 +46,7 @@
 
     <select id="getAllBlogVo" resultMap="blogVo">
         select
-            b.id,b.title,b.update_time,b.recommend,b.published,b.type_id,t.id,t.name
+            b.id,b.title,b.update_time,b.recommend,b.published,b.sticky,b.type_id,t.id,t.name
         from
             t_blog b
         left outer join
@@ -56,10 +58,10 @@
         desc
     </select>
 
-    <select id="searchByTitleOrTypeOrRecommend" parameterType="com.beifeng.vo.SearchBlogVo" resultMap="blogVo">
+    <select id="getBlogBySearch" parameterType="com.beifeng.vo.SearchBlogVo" resultMap="blogVo">
         <bind name="pattern" value="'%' + title + '%'" />
         select
-            b.id,b.title,b.update_time,b.recommend,b.published,b.type_id,t.id,t.name
+            b.id,b.title,b.update_time,b.sticky,b.recommend,b.published,b.type_id,t.id,t.name
         from
             t_blog b
         left join
@@ -73,6 +75,9 @@
             </if>
             <if test="recommend == true">
                 and b.recommend=#{recommend}
+            </if>
+            <if test="sticky == true">
+                and b.sticky=#{sticky}
             </if>
             <if test="title != null">
                 and b.title like #{pattern}
@@ -99,6 +104,7 @@
             commentabled,
             published,
             recommend,
+            sticky,
             create_time,
             update_time,
             type_id,
@@ -117,6 +123,7 @@
             #{commentabled},
             #{published},
             #{recommend},
+            #{sticky},
             #{createTime},
             #{updateTime},
             #{typeId},
@@ -150,6 +157,7 @@
             commentabled=#{commentabled},
             published=#{published},
             recommend=#{recommend},
+            sticky=#{sticky},
             update_time=#{updateTime},
             type_id=#{typeId}
         where
@@ -167,6 +175,7 @@
         <result property="views" column="views"/>
         <result property="createTime" column="create_time"/>
         <result property="description" column="description"/>
+        <result property="sticky" column="sticky"/>
 
         <result property="typeName" column="name"/>
         <result property="typeId" column="typeId"/>
@@ -183,6 +192,7 @@
             b.views,
             b.create_time,
             b.description,
+            b.sticky,
             t.name,
             t.id as typeId,
             u.nickname,
@@ -200,15 +210,16 @@
         where
             b.published=1
         order by
-            b.create_time desc
+            b.sticky=1 desc,b.create_time desc
     </select>
+
 
     <select id="getLatestRecommendedBlogList" resultMap="blogVo">
         select id,title
         from t_blog
         where recommend=1 and published=1
         order by update_time desc
-        limit 3
+        limit 5
     </select>
 
     <select id="getBlogByQueryList" resultMap="indexBlogsVo">

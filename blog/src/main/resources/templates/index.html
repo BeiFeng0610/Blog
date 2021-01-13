@@ -136,8 +136,11 @@
 
 											<div class="eleven wide column">
 												<a href="#" th:href="@{/types/{id}(id=${blog.typeId})}" target="_blank" class="ui teal ribbon label"  th:text="${blog.typeName}">Overview</a>
+												<br>
+												<br>
+												<div th:if="${blog.sticky}" class="ui red ribbon label">置顶</div>
 												<h3 class="ui header m-text-align"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"  class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗？</a></h3>
-												<p class="m-text m-text-indent" th:text="|${blog.description}......|" >testtesttesttesttesttesttesttesttest</p>
+												<p class="m-text m-text-indent" th:text="|${blog.description}......|" > testtesttesttesttesttesttesttesttest</p>
 												<div class="ui stackable grid">
 													<div class="row">
 														<div class="column">

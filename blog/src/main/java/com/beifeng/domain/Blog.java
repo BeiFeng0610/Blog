@@ -21,6 +21,7 @@ public class Blog {
     private Boolean commentabled;       //是否开启评论
     private Boolean published;          //是否发布文章
     private Boolean recommend;          //是否推荐
+    private Boolean sticky;             //是否置顶
 
     private String createTime;            //文章创建时间
     private String updateTime;            //文章更新时间
@@ -117,6 +118,14 @@ public class Blog {
         this.recommend = recommend;
     }
 
+    public Boolean getSticky() {
+        return sticky;
+    }
+
+    public void setSticky(Boolean sticky) {
+        this.sticky = sticky;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -170,6 +179,7 @@ public class Blog {
                 ", commentabled=" + commentabled +
                 ", published=" + published +
                 ", recommend=" + recommend +
+                ", sticky=" + sticky +
                 ", createTime='" + createTime + '\'' +
                 ", updateTime='" + updateTime + '\'' +
                 ", typeId='" + typeId + '\'' +
