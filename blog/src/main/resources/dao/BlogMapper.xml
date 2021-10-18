@@ -312,7 +312,10 @@
         on
             b.user_id=u.id
         where
-            b.published=1 and t.id=#{typeId}
+            b.published=1
+        <if test="typeId!=null and typeId!=''">
+            and t.id=#{typeId}
+        </if>
         order by
             b.create_time desc
     </select>
@@ -353,8 +356,11 @@
                     blog_id
                 from
                     t_blog_tags
+                <if test="typeId!=null and typeId!=''">
                 where
                     tag_id=#{tagId}
+                </if>
+
             ) g
         where b.id in(g.blog_id)
     </select>
